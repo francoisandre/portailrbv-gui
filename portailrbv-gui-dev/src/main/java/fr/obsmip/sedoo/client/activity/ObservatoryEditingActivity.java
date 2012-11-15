@@ -1,12 +1,16 @@
 package fr.obsmip.sedoo.client.activity;
 
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.thirdparty.javascript.jscomp.MessageBundle;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
+import fr.obsmip.sedoo.client.domain.ValidationAlert;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
@@ -19,12 +23,10 @@ import fr.obsmip.sedoo.client.ui.ObservatoryEditingView;
 import fr.obsmip.sedoo.client.ui.ObservatoryEditingView.Presenter;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 
-public class ObservatoryEditingActivity extends RBVAbstractActivity implements Presenter {
+public class ObservatoryEditingActivity extends AbstractDTOEditingActivity implements Presenter {
 
 	private Long observatoryId;
 	
-	private String previousHash;
-
 	public ObservatoryEditingActivity(ObservatoryEditingPlace place, ClientFactory clientFactory) {
 		super(clientFactory);
 		if (place.getObservatoryId() != null)
@@ -35,12 +37,13 @@ public class ObservatoryEditingActivity extends RBVAbstractActivity implements P
 
 
 	private final ObservatoryServiceAsync observatoryService = GWT.create(ObservatoryService.class);
-	ObservatoryEditingView observatoryEditingView;
+//	ObservatoryEditingView observatoryEditingView;
 
 
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-		observatoryEditingView = clientFactory.getObservatoryEditingView();
+		ObservatoryEditingView observatoryEditingView = clientFactory.getObservatoryEditingView();
+		view = observatoryEditingView;
 		observatoryEditingView.setPresenter(this);
 		containerWidget.setWidget(observatoryEditingView.asWidget());
 		broadcastActivityTitle(getMessage().observatoryEditingViewModificationHeader());
@@ -52,7 +55,7 @@ public class ObservatoryEditingActivity extends RBVAbstractActivity implements P
 				public void onSuccess(ObservatoryDTO result) {
 					broadcastActivityTitle(getMessage().observatoryEditingViewModificationHeader()+" ("+result.getShortLabel()+")");
 					previousHash = result.getHash();
-					observatoryEditingView.edit(result);
+					view.edit(result);
 
 				}
 
@@ -93,21 +96,16 @@ public class ObservatoryEditingActivity extends RBVAbstractActivity implements P
 		clientFactory.getPlaceController().goTo(place);		
 	}
 	
-	public String mayStop() {
-	    ObservatoryDTO current = observatoryEditingView.flush();
-	    if (previousHash.compareTo(current.getHash()) != 0)
-	    {
-	    	return Message.INSTANCE.unsavedModificationsConfirmation();
-	    }
-	    else
-	    {
-	    	return null;
-	    }
-	}
-
 	@Override
 	public void save(final ObservatoryDTO observatoryDTO) 
 	{
+		List<ValidationAlert> validate = observatoryDTO.validate();
+		if (validate.isEmpty() == false)
+		{
+			DialogBoxTools.popUp(Message.INSTANCE.error(), "Erreurs...");
+			return;
+		}
+		
 		if (observatoryId != null)
 		{
 			observatoryDTO.setId(observatoryId);
@@ -138,20 +136,20 @@ public class ObservatoryEditingActivity extends RBVAbstractActivity implements P
 	}
 
 	@Override
-	public void deleteDrainageBasin(Long id) 
+	public void deleteDrainageBasin(final Long id) 
 	{
 		observatoryService.deleteDrainageBasin(id, new AsyncCallback<Void>() {
 			
 			@Override
 			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
-				
+				ObservatoryEditingView aux = (ObservatoryEditingView) view;
+				aux.broadcastDrainageBasinDeletion(id, true);
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
+				ObservatoryEditingView aux = (ObservatoryEditingView) view;
+				aux.broadcastDrainageBasinDeletion(id, false);				
 			}
 		});
 			

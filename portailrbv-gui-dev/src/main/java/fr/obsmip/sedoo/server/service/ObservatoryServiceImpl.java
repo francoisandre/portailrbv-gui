@@ -10,10 +10,10 @@ import fr.obsmip.sedoo.client.service.ObservatoryService;
 import fr.obsmip.sedoo.core.RBVApplication;
 import fr.obsmip.sedoo.core.dao.DrainageBasinDAO;
 import fr.obsmip.sedoo.core.dao.ObservatoryDAO;
+import fr.obsmip.sedoo.core.domain.DrainageBasin;
 import fr.obsmip.sedoo.core.domain.Observatory;
 import fr.obsmip.sedoo.server.service.dtotool.DrainageBasinDTOTools;
 import fr.obsmip.sedoo.server.service.dtotool.ObservatoryDTOTools;
-import fr.obsmip.sedoo.server.service.dtotool.UserDTOTools;
 
 public class ObservatoryServiceImpl extends RemoteServiceServlet implements
 ObservatoryService {
@@ -71,6 +71,18 @@ ObservatoryService {
 		
 		observatoryDAO.save(observatory);
 		
+	}
+	
+	@Override
+	public void saveDrainageBasin(DrainageBasinDTO dto) throws Exception 
+	{
+		DrainageBasinDAO dao = RBVApplication.getInstance().getDrainageBasinDAO();
+		Long id = dto.getId();
+		
+		DrainageBasin drainageBasin = null;
+		drainageBasin = dao.getDrainageBasinById(id, true);
+		drainageBasin = DrainageBasinDTOTools.fromDrainageBasinDTO(drainageBasin, dto);
+		dao.save(drainageBasin);
 	}
 
 	@Override

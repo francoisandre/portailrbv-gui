@@ -2,6 +2,7 @@ package fr.obsmip.sedoo.client.service;
 
 import java.util.List;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -17,6 +18,7 @@ public interface ObservatoryService extends RemoteService {
 	void saveObservatory(ObservatoryDTO observatoryDTO) throws Exception;
 	ObservatoryDTO getObservatoryById(Long id);
 	DrainageBasinDTO getDrainageBasinById(Long id);
+	void saveDrainageBasin(DrainageBasinDTO drainageBasinDTO) throws Exception;
 	
 }
 

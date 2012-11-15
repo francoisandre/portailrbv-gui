@@ -40,4 +40,14 @@ public class DrainageBasinDTOTools {
 		return dto;
 	}
 
+	public static DrainageBasin fromDrainageBasinDTO(DrainageBasin drainageBasin, DrainageBasinDTO dto) 
+	{
+		drainageBasin.setName(dto.getLabel());
+		drainageBasin.setNorthBoundLatitude(new Double(dto.getGeographicBoundingBoxDTO().getNorthBoundLatitude()));
+		drainageBasin.setSouthBoundLatitude(new Double(dto.getGeographicBoundingBoxDTO().getSouthBoundLatitude()));
+		drainageBasin.setEastBoundLongitude(new Double(dto.getGeographicBoundingBoxDTO().getEastBoundLongitude()));
+		drainageBasin.setWestBoundLongitude(new Double(dto.getGeographicBoundingBoxDTO().getWestBoundLongitude()));
+		return drainageBasin;
+	}
+
 }

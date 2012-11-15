@@ -29,7 +29,7 @@
      	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.climateListText}" /></td><td><g:ListBox ui:field="climateList" /></td></tr>
     	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.lithologyListText}" /></td><td><g:ListBox ui:field="lithologyList" /></td></tr>
     	<tr align='center'><td class='leftColumn' colspan="2" ><g:Label text="{messageBundle.localization}" /></td></tr>
-    	<tr class='row'><td class='leftColumn' colspan="2"><l:MapSelector /> </td></tr>
+    	<tr class='row'><td class='leftColumn' colspan="2"><l:MapSelector ui:field="mapSelector" /> </td></tr>
     </tbody>
     </table>
     
@@ -43,7 +43,9 @@
     </table>
     
     </div>
-	
+	 <g:HorizontalPanel styleName="toolbar">
+	<g:Button ui:field="saveButton" text="{messageBundle.save}" />
+	</g:HorizontalPanel>
 	
 	
 	</g:HTMLPanel>

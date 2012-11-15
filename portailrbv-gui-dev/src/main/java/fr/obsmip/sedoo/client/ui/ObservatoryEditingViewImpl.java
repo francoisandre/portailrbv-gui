@@ -1,5 +1,8 @@
 package fr.obsmip.sedoo.client.ui;
 
+import java.util.List;
+import java.util.ListIterator;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -11,10 +14,9 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.CellTableResources;
-import fr.obsmip.sedoo.client.PortailRBV;
+import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
-import fr.obsmip.sedoo.client.domain.UserDTO;
-import fr.obsmip.sedoo.client.event.UserLoginEvent;
+import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.table.DrainageBasinTable;
 
 public class ObservatoryEditingViewImpl extends AbstractSection implements ObservatoryEditingView {
@@ -27,7 +29,6 @@ public class ObservatoryEditingViewImpl extends AbstractSection implements Obser
 	interface ObservatoryEditingViewImplUiBinder extends UiBinder<Widget, ObservatoryEditingViewImpl> {
 	}
 
-	ObservatoryDTO observatory;
 	private Presenter presenter;
 
 
@@ -56,15 +57,15 @@ public class ObservatoryEditingViewImpl extends AbstractSection implements Obser
 
 
 	@Override
-	public void edit(ObservatoryDTO observatory) {
-		this.observatory = observatory;
+	public void edit(AbstractDTO dto) {
 		reset();
-		longLabel.setText(observatory.getLongLabel());
-		shortLabel.setText(observatory.getShortLabel());
-		description.setText(observatory.getDescription());
+		ObservatoryDTO observatoryDTO = (ObservatoryDTO) dto;
+		longLabel.setText(observatoryDTO.getLongLabel());
+		shortLabel.setText(observatoryDTO.getShortLabel());
+		description.setText(observatoryDTO.getDescription());
 		drainageBasinTable.setPresenter(presenter);
-		drainageBasinTable.setObservatoryDTO(observatory);
-		drainageBasinTable.init(observatory.getDrainageBasinDTOs());
+		drainageBasinTable.setObservatoryDTO(observatoryDTO);
+		drainageBasinTable.init(observatoryDTO.getDrainageBasinDTOs());
 	}
 
 	private void init()
@@ -100,6 +101,20 @@ public class ObservatoryEditingViewImpl extends AbstractSection implements Obser
 	 {
 		presenter.save(flush());
 	 }
+
+
+	@Override
+	public void broadcastDrainageBasinDeletion(Long id, boolean success) {
+		if (success)
+		{
+			drainageBasinTable.removeRow(id);
+		}
+		else
+		{
+			DialogBoxTools.modalAlert("A problem has appeared while deleting the drainage basin",
+	                "A problem has appeared while deleting the drainage basin.").center();
+		}		
+	}
 	
 
 

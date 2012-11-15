@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
+import fr.obsmip.sedoo.client.domain.GeographicBoundingBoxDTO;
+import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.domain.SiteDTO;
 import fr.obsmip.sedoo.client.message.Message;
+import fr.obsmip.sedoo.client.ui.misc.MapSelector;
 import fr.obsmip.sedoo.client.ui.table.SiteTable;
 
 public class DrainageBasinEditingViewImpl extends AbstractSection implements DrainageBasinEditingView {
@@ -36,7 +43,11 @@ public class DrainageBasinEditingViewImpl extends AbstractSection implements Dra
 	@UiField
 	SiteTable siteTable;
 	
-	private DrainageBasinDTO drainageBasinDTO;
+	@UiField
+	Button saveButton;
+	
+	@UiField
+	MapSelector mapSelector;
 	
 	private Presenter presenter;
 	
@@ -67,18 +78,20 @@ public class DrainageBasinEditingViewImpl extends AbstractSection implements Dra
 	}
 	
 	@Override
-	public void edit(DrainageBasinDTO drainageBasinDTO) {
-		this.drainageBasinDTO = drainageBasinDTO;
+	public void edit(AbstractDTO dto) {
 		reset();
 //		siteTable.setPresenter(null);
 //		siteTable.setObservatoryDTO(observatory);
+		DrainageBasinDTO drainageBasinDTO = (DrainageBasinDTO) dto;
 		siteTable.init(drainageBasinDTO.getSiteDTOs());
 		label.setText(drainageBasinDTO.getLabel());
+		mapSelector.setGeographicBoundingBoxDTO(drainageBasinDTO.getGeographicBoundingBoxDTO());
 	}
 	
 	public void reset()
 	{
 		label.setText("");
+		mapSelector.reset();
 	}
 
 	@Override
@@ -86,5 +99,20 @@ public class DrainageBasinEditingViewImpl extends AbstractSection implements Dra
 	{
 		this.presenter = presenter;
 	}
+	
+	 @UiHandler("saveButton")
+	 void onSaveButtonClicked(ClickEvent event) 
+	 {
+		presenter.save(flush());
+	 }
+	 
+	 @Override
+	 public DrainageBasinDTO flush() 
+	 {
+		 DrainageBasinDTO drainageBasinDTO = new DrainageBasinDTO(); 
+		 drainageBasinDTO.setLabel(label.getText().trim());
+		 drainageBasinDTO.setGeographicBoundingBoxDTO(mapSelector.getGeographicBoundingBoxDTO());
+		 return drainageBasinDTO;
+	 }
 
 }

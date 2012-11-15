@@ -1,8 +1,11 @@
 package fr.obsmip.sedoo.client.domain;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GeographicBoundingBoxDTO implements Serializable {
+import fr.obsmip.sedoo.client.message.Message;
+
+public class GeographicBoundingBoxDTO extends AbstractDTO {
 	
 	private String  northBoundLatitude;
 	private String  southBoundLatitude;
@@ -32,6 +35,55 @@ public class GeographicBoundingBoxDTO implements Serializable {
 	}
 	public void setWestBoundLongitude(String westBoundLongitude) {
 		this.westBoundLongitude = westBoundLongitude;
+	}
+	public String getHash() {
+		return "@"+protectNullString(getNorthBoundLatitude())+"|"+protectNullString(getSouthBoundLatitude())+"|"+protectNullString(getEastBoundLongitude())+"|"+protectNullString(getWestBoundLongitude());
+	}
+	@Override
+	public List<ValidationAlert> validate() {
+		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
+		
+		if (checkDouble(getNorthBoundLatitude()))
+		{
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorNorthLatitude() +" should be a numeric value"));
+		}
+		
+		if (checkDouble(getSouthBoundLatitude()))
+		{
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorSouthLatitude() +" should be a numeric value"));
+		}
+		
+		if (checkDouble(getEastBoundLongitude()))
+		{
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorEastLongitude() +" should be a numeric value"));
+		}
+		
+		if (checkDouble(getWestBoundLongitude()))
+		{
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorWestLongitude() +" should be a numeric value"));
+		}
+		return result;
+		
+	}
+	
+	private boolean checkDouble(String aux) 
+	{
+		if (aux == null)
+		{
+			return true;
+		}
+		else
+		{
+			try
+			{
+				Double tmp = new Double(aux);
+				return true;
+			}
+			catch (NumberFormatException e)
+			{
+				return false;
+			}
+		}
 	}
 
 }

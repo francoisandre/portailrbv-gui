@@ -23,6 +23,7 @@ import com.google.gwt.view.client.ListDataProvider;
 import fr.obsmip.sedoo.client.CellTableResources;
 import fr.obsmip.sedoo.client.GlobalBundle;
 import fr.obsmip.sedoo.client.domain.HasId;
+import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.ui.misc.ConfirmCallBack;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
@@ -221,5 +222,19 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 
 
 	};
+	
+	public void removeRow(Long id) {
+		
+		ListIterator<? extends HasId> listIterator = model.listIterator();
+		while (listIterator.hasNext()) {
+			HasId hasId = listIterator.next();
+			if (hasId.getId().compareTo(id)==0)
+			{
+				listIterator.remove();
+				break;
+			}
+		}
+		init(model);
+	}
 
 }

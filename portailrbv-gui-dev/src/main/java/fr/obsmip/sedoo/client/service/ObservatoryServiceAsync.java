@@ -22,6 +22,8 @@ public interface ObservatoryServiceAsync {
 
 	void deleteDrainageBasin(Long id, AsyncCallback<Void> callback);
 
+	void saveDrainageBasin(DrainageBasinDTO drainageBasinDTO,
+			AsyncCallback<Void> callback);
 
 
 }

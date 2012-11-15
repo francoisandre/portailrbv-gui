@@ -65,5 +65,7 @@ public class DrainageBasinTable extends AbstractTable {
 	public void setObservatoryDTO(ObservatoryDTO observatoryDTO) {
 		this.observatoryDTO = observatoryDTO;
 	}
+
+	
 	
 }

@@ -1,9 +1,9 @@
 package fr.obsmip.sedoo.client.domain;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ObservatoryDTO implements Serializable, HasId
+public class ObservatoryDTO extends AbstractDTO implements HasId
 {
 	/**
 	 * 
@@ -52,18 +52,15 @@ public class ObservatoryDTO implements Serializable, HasId
 	{
 		return "@"+protectNullString(getLongLabel())+"|"+protectNullString(getShortLabel())+"|"+protectNullString(getDescription());
 	}
-	
-	protected String protectNullString(String value)
-	{
-		if (value == null)
+	@Override
+	public List<ValidationAlert> validate() {
+		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
+		if ((getShortLabel() == null) || (getShortLabel().trim().length() ==0))
 		{
-			return "";
+			result.add(new ValidationAlert("Short label is mandatory"));
 		}
-		else
-		{
-			return value;
-		}
+		return result;
 	}
-
+	
 	
 }

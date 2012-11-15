@@ -1,10 +1,8 @@
 package fr.obsmip.sedoo.client.ui;
 
-import com.google.gwt.user.client.ui.IsWidget;
-
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 
-public interface ObservatoryEditingView extends IsWidget {
+public interface ObservatoryEditingView extends DTOEditingView {
 	
 	
 	public interface Presenter 
@@ -16,7 +14,6 @@ public interface ObservatoryEditingView extends IsWidget {
 	 }
 
 	void setPresenter(Presenter presenter);
-	void edit(ObservatoryDTO observatory);
-	ObservatoryDTO flush();
+	public void broadcastDrainageBasinDeletion(Long id, boolean result);
 	
 }

@@ -1,9 +1,9 @@
 package fr.obsmip.sedoo.client.domain;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class DrainageBasinDTO implements Serializable, HasId
+public class DrainageBasinDTO extends AbstractDTO implements HasId
 {
 	private Long id;
 	private String label;
@@ -34,5 +34,18 @@ public class DrainageBasinDTO implements Serializable, HasId
 	}
 	public void setGeographicBoundingBoxDTO(GeographicBoundingBoxDTO geographicBoundingBoxDTO) {
 		this.geographicBoundingBoxDTO = geographicBoundingBoxDTO;
+	}
+	public String getHash() {
+		return "@"+protectNullString(getLabel())+"|"+getGeographicBoundingBoxDTO().getHash();
+	}
+	@Override
+	public List<ValidationAlert> validate() {
+		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
+		if ((getLabel() == null) || (getLabel().trim().length() ==0))
+		{
+			result.add(new ValidationAlert("Label is mandatory"));
+		}
+		result.addAll(geographicBoundingBoxDTO.validate());
+		return result;
 	}
 }

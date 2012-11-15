@@ -213,9 +213,27 @@ public class MapSelector extends Composite  {
 			currentFeature = null;
 		}
 		
+		northBoundLatitude.setText(box.getNorthBoundLatitude());
+		southBoundLatitude.setText(box.getSouthBoundLatitude());
+		eastBoundLongitude.setText(box.getEastBoundLongitude());
+		westBoundLongitude.setText(box.getWestBoundLongitude());
+		
+		
 //		Point[] points = new Point[4]; 
 //		VectorFeature rect = new VectorFeature(geometry);
 //		vectorLayer.addFeature(rect);
+	}
+
+	public void reset() {
+		northBoundLatitude.setText("");
+		southBoundLatitude.setText("");
+		eastBoundLongitude.setText("");
+		westBoundLongitude.setText("");
+		
+		if (currentFeature != null)
+		{
+			currentFeature.destroy();
+		}
 	}
 
 }
