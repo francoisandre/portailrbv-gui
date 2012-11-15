@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+
+<!-- spring context localisation -->
+<context-param> 
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/BeanLocations.xml classpath:/META-INF/spring/contextProvider.xml classpath:/META-INF/spring/contacts.xml</param-value>
+</context-param>
+
+<context-param>
+		<param-name>version</param-name>
+		<param-value>${version}</param-value>
+	</context-param>
+	
+<context-param> 
+    <param-name>mode</param-name>
+    <param-value>debug</param-value>
+</context-param>
+
+
+<!-- spring context load-->
+<listener> 
+    <listener-class>
+        org.springframework.web.context.ContextLoaderListener
+    </listener-class>
+</listener>
+
+<!--  Servlet Context Provider -->
+<listener>
+		<listener-class>fr.obsmip.sedoo.core.servlet.ServletContextProvider</listener-class>
+</listener>
+
+
+  <!-- Servlets -->
+  
+  <servlet>
+		<servlet-name>versionServiceServlet</servlet-name>
+		<servlet-class>fr.obsmip.sedoo.server.service.VersionServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>metadataServiceServlet</servlet-name>
+		<servlet-class>fr.obsmip.sedoo.server.service.MetadataServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>parameterServlet</servlet-name>
+		<servlet-class>fr.obsmip.sedoo.server.service.ParameterServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>userServlet</servlet-name>
+		<servlet-class>fr.obsmip.sedoo.server.service.UserServiceImpl</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>observatoryServlet</servlet-name>
+		<servlet-class>fr.obsmip.sedoo.server.service.ObservatoryServiceImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	
+ 
+  <!-- Servlet Mapping -->
+  
+  <servlet-mapping>
+		<servlet-name>versionServiceServlet</servlet-name>
+		<url-pattern>/portailrbv/version</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>metadataServiceServlet</servlet-name>
+		<url-pattern>/portailrbv/metadata</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>parameterServlet</servlet-name>
+		<url-pattern>/portailrbv/parameter</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>userServlet</servlet-name>
+		<url-pattern>/portailrbv/user</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>observatoryServlet</servlet-name>
+		<url-pattern>/portailrbv/observatory</url-pattern>
+	</servlet-mapping>
+
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>portailrbv.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

@@ -1,0 +1,147 @@
+body, table {
+  font-size: small;
+}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  
+background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(-45deg,  rgba(255,255,255,1) 0%, rgba(162,162,162,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(162,162,162,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(162,162,162,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(162,162,162,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(-45deg,  rgba(255,255,255,1) 0%,rgba(162,162,162,1) 100%); /* IE10+ */
+background: linear-gradient(135deg,  rgba(255,255,255,1) 0%,rgba(162,162,162,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#a2a2a2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+
+}
+
+
+.centerBackgroundColor { background-color: #FFFFFF; }
+
+/* Splitters */
+.gwt-SplitLayoutPanel-HDragger, .gwt-SplitLayoutPanel-VDragger {
+  background-color: white;
+}
+
+.gwt-SplitLayoutPanel-HDragger {
+  cursor: col-resize;
+}
+
+.gwt-SplitLayoutPanel-VDragger {
+  cursor: row-resize;
+}
+
+.small-button {
+				background-color: #F1930B;
+	    	    -moz-border-radius: 5px;
+	    	    -webkit-border-radius: 5px;
+	    	    border-radius: 4px;
+	    	    border: 1px solid;
+	    	    cursor: pointer;
+	    	    font-size: 1em;
+   				font-weight: bold;
+   				font-variant: small-caps;
+    			color: #FFF;
+    			padding: 2px;
+}
+
+.h2class {
+	font-size:17px;
+	color: #4A99C6;
+
+	}
+
+@External .gwt-StackLayoutPanelHeader
+.local1 .gwt-StackLayoutPanelHeader
+{
+}
+
+@External .gwt-Button  
+.myButtonStyle .gwt-Button{  
+    color: #424242;  
+    font-size: 13px;  
+    cursor: pointer;  
+}
+
+
+		.paragraph {
+			padding-left:10px;
+			padding-top :10px;
+		}
+		
+		.leftColumn {
+			
+			padding-top :10px;
+			padding-left:10px;
+			font-weight: bold;
+			background-color: #E8E8E8 ;
+		}
+
+@sprite .menuLink
+{
+	color:#545454;
+	padding: 0 0 0 15px;
+	text-decoration: none;
+	gwt-image:'menuDot';
+	background-position: center left;
+	/*background: url(http://www.obs-mip.fr/design/ezomp/images/puce_fleche_bleu.png) center left no-repeat white;*/
+}
+
+	
+  .clickableImage
+  {
+   cursor: pointer;
+  }
+  
+  .scrollable 
+  {
+	overflow: scroll;
+  }
+  
+  .leftColumn {
+			
+			padding-left:5px;
+			/*font-weight: bold;*/
+			background-color: #E8E8E8 ;
+			text-align: right;
+			white-space: nowrap;
+		}
+		
+		.table
+		{
+	 		width:95%; 
+	 		margin:10px; 
+	 		background:white; 
+	 		border-collapse:collapse; 
+	 		font-size:0.8em;
+	 		background-color: #E8E8E8 ;
+		}
+		
+		.row
+		{
+			border-bottom: 2px solid white;
+		}
+		
+		
+		.statusBar
+		{
+		background-color:black;
+		color:white; 
+		height: 35px;
+		margin:0px;
+		vertical-align:middle;
+		}
+		
+		.libelle {
+			font-weight: bold;
+		}
+		
+		.toolbar {
+			padding: 2px;
+		}
+		
+		.scrollableHTMLPanel {
+			overflow: auto;
+		}

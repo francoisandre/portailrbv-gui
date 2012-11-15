@@ -1,0 +1,35 @@
+<!DOCTYPE ui:UiBinder 
+  SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent"
+>
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+
+  <ui:style>
+
+  .sectionTitle {
+    font-size: 30px;
+    height: 35px;
+    color: #4A99C6;
+    padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 10px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 10px;
+padding-bottom: 10px;
+	
+  }
+  
+  .background {
+	background-color :  #FFFFFF;
+
+	}
+
+  </ui:style>
+  
+  <g:HTMLPanel styleName="{style.background}">
+  	<g:Label ui:field="sectionTitle" styleName="{style.sectionTitle}"></g:Label>
+  </g:HTMLPanel>
+</ui:UiBinder>

@@ -1,0 +1,109 @@
+<!DOCTYPE ui:UiBinder 
+  SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent"
+>
+<ui:UiBinder
+  xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+
+  <ui:style>
+
+  .statusDiv {
+    text-align: right;
+    
+    
+    display: inline;
+  }
+
+  .linksDiv {
+    text-align: right;
+  }
+  
+  .carnavelloDiv {
+    text-align: left;
+    font-size: 14px;
+    font-weight : bold;
+  }
+  
+   .nopadding {
+	text-align: right;
+   padding: 0px;
+   vertical-align:bottom;
+  }
+  
+   .padding10 {
+   padding-right: 10px;
+  }
+  
+  .link
+  { cursor: pointer;
+  	font-weight:bold;
+  	color:white;
+  }
+  
+
+  
+  .languageIcon { width: 16px; height: 16px; }
+  
+  
+
+@sprite .logo {
+      gwt-image: 'logo';
+      width: 274px;
+    }
+    
+ @sprite .bandeau {
+      gwt-image: 'bandeau';
+    }   
+ 
+  </ui:style>
+  
+    <ui:image field='logo' src='logo.png' />
+    <ui:image field='bandeau' src='bandeau.png' />
+  
+  <ui:with field='bundle'
+    type='fr.obsmip.sedoo.client.GlobalBundle' /> 
+    
+    <ui:with field='messageBundle'
+    type='fr.obsmip.sedoo.client.message.Message' /> 
+
+  <g:HTMLPanel >
+  
+  	<table width="100%" style="border-spacing:0px;border-collapse:collapse">
+  	<col width="274px" />
+  	<tr>
+  	<td class="{style.nopadding} {style.logo}" width="274px">
+  	
+  	<!-- 
+  	 <div class="{style.carnavelloDiv}"><g:Anchor href='javascript:;' ui:field='welcomeLink'>Réseau des Bassins Versants</g:Anchor></div>
+  	 -->
+  	</td>
+  	<td class="{style.nopadding} {style.bandeau} {style.padding10}">
+  	<!-- 
+  	 <div class="{style.statusDiv}">
+  	 -->
+    <g:Image ui:field='englishLanguageImage' resource='{bundle.english}'  styleName='{style.languageIcon}'></g:Image>
+    <g:Image ui:field='frenchLanguageImage' resource='{bundle.french}'  styleName='{style.languageIcon}'></g:Image>
+      <div>
+        <b> <g:Label text="{messageBundle.headerViewNotConnectedMessage}" ui:field="notConnectedMessage"/><span ui:field="userName"></span></b>
+      </div>
+
+      <div class='{style.linksDiv}'>
+        <g:Anchor ui:field='signOutLink' visible="false" styleName="{style.link}">Sign Out</g:Anchor>
+        <g:Anchor ui:field='signInLink' visible="true" styleName="{style.link}">Sign In</g:Anchor>
+        &nbsp;
+        <g:Anchor href='javascript:;' ui:field='aboutLink'>About</g:Anchor>
+      </div>
+    <!-- 
+    </div>
+     -->  
+  	</td>
+  	</tr>
+  	<tr style="height:35px; background-color:#000000;"><td colspan="2">&nbsp;</td></tr>
+  	</table>
+  
+    
+
+    
+  </g:HTMLPanel>
+</ui:UiBinder>

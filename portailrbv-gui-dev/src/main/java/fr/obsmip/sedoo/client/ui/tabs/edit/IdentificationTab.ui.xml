@@ -1,0 +1,85 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:l="urn:import:fr.obsmip.sedoo.client.ui.misc">
+	<ui:style>
+		.paragraph {
+			padding-left:10px;
+			padding-top :10px;
+		}
+		
+		.leftColumn {
+			
+			padding-top :10px;
+			padding-left:10px;
+			font-weight: bold;
+			background-color: #E8E8E8 ;
+		}
+		
+		.table
+		{
+	 		width:95%; 
+	 		margin:10px; 
+	 		background:white; 
+	 		border-collapse:collapse; 
+	 		font-size:0.8em;
+	 		background-color: #E8E8E8 ;
+		}
+		
+		.row
+		{
+			border-bottom: 2px solid white;
+		}
+		
+		.libelle {
+		}
+		
+		.scrollable {
+			overflow: scroll;
+		}
+		
+		@external .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent;
+		@external .cellTableKeyboardSelectedRow;
+		@external .cellTableKeyboardSelectedRowCell;
+		
+ 
+ .cellTableKeyboardSelectedRow {
+	background: #fff;
+}
+
+.cellTableKeyboardSelectedRowCell {
+}
+ 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent
+{
+overflow: auto;     
+}
+		
+	</ui:style>
+	
+	<ui:with field='messageBundle'
+    type='fr.obsmip.sedoo.client.message.Message' /> 
+    
+    <ui:with field='bundle'
+    type='fr.obsmip.sedoo.client.GlobalBundle' /> 
+	<g:HTMLPanel styleName="{style.scrollable}">
+	<div styleName="{style.scrollable}">
+    <table class='{style.table}'>
+    <col width="10%" />
+  <col width="80%" />
+    <tbody class="tableBody">
+    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingResourceTitle}" /></span></td><td><g:TextBox ui:field='resourceTitle' visibleLength="80"/><l:Tooltip>Ceci est un <b> test de tooltip ! </b></l:Tooltip></td></tr>
+    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingResourceAbstract}" /></span></td><td><g:TextArea ui:field="resourceAbstract" width="80%"  visibleLines="5" /></td></tr>
+    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingResourceURL}" /><l:Tooltip>Ceci est un autre<b> test de tooltip ! </b></l:Tooltip></span></td><td>
+    		<g:VerticalPanel width="100%">
+    		<g:VerticalPanel ui:field="resourceURLPanel"  > </g:VerticalPanel>
+    		<g:HorizontalPanel spacing="5">
+    		<g:Image ui:field='addResourceURLImage' resource='{bundle.add}' styleName="clickableImage" ></g:Image><g:Label>Ajouter une URL</g:Label>  
+    		</g:HorizontalPanel>
+    		</g:VerticalPanel> 
+    		</td></tr>
+    </tbody>
+    </table>
+    </div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

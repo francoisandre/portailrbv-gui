@@ -1,0 +1,79 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:l="urn:import:fr.obsmip.sedoo.client.ui.misc">
+	<ui:style>
+		.paragraph {
+			padding-left:10px;
+			padding-top :10px;
+		}
+		
+		.leftColumn {
+			
+			padding-top :10px;
+			padding-left:10px;
+			font-weight: bold;
+			background-color: #E8E8E8 ;
+		}
+		
+		.table
+		{
+	 		width:95%; 
+	 		margin:10px; 
+	 		background:white; 
+	 		border-collapse:collapse; 
+	 		font-size:0.8em;
+	 		background-color: #E8E8E8 ;
+		}
+		
+		.row
+		{
+			border-bottom: 2px solid white;
+		}
+		
+		.libelle {
+		}
+		
+		.scrollable {
+			overflow: scroll;
+
+		}
+		
+		@external .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent;
+		@external .cellTableKeyboardSelectedRow;
+		@external .cellTableKeyboardSelectedRowCell;
+		
+ 
+ .cellTableKeyboardSelectedRow {
+	background: #fff;
+}
+
+.cellTableKeyboardSelectedRowCell {
+}
+ 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent
+{
+overflow: auto;     
+}
+		
+	</ui:style>
+	
+	<ui:with field='messageBundle'
+    type='fr.obsmip.sedoo.client.message.Message' /> 
+    
+    <ui:with field='bundle'
+    type='fr.obsmip.sedoo.client.GlobalBundle' /> 
+	<g:HTMLPanel styleName="{style.scrollable}">
+	<div styleName="{style.scrollable}">
+    <table class='{style.table}'>
+    <col width="10%" />
+  <col width="80%" />
+    <tbody class="tableBody">
+    	<tr class='{style.row}'><td colspan="3" align="center"><g:TextBox ui:field='northBoundLatitude' visibleLength="10"/></td></tr>
+    	<tr class='{style.row}'><td><g:TextBox ui:field='westBoundLongitude' visibleLength="10"/></td><td><g:VerticalPanel ui:field="mapPanel"> </g:VerticalPanel></td><td><g:TextBox ui:field='eastBoundLongitude' visibleLength="10"/></td></tr>
+        <tr class='{style.row}'><td colspan="3"><g:TextBox ui:field='southBoundLatitude' visibleLength="10"/></td></tr>
+    </tbody>
+    </table>
+    </div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

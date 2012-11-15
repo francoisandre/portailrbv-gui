@@ -1,0 +1,31 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.important {
+			font-weight: bold;
+	  span.tooltip_container{cursor: help; text-decoration: none;
+			position: relative;}
+
+span.tooltip_container a{text-decoration:none;color:black;cursor:default;font-weight:normal;}
+
+span.tooltip_container a span{visibility:hidden;position:absolute;background: #B2D1FF; border: 1px solid #85ADFF;width:175px;font-size:92%;padding:3px;cursor:default;line-height:140%;}
+
+span.tooltip_container a:hover span{visibility:visible;border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+			font-family: Calibri, Tahoma, Geneva, sans-serif;
+			position: relative; left: 1em; top: 2em; z-index: 99;
+			margin-left: 0; width: 250px;}
+
+span.tooltip_container img{border:0px}
+  
+	</ui:style>
+	
+    <ui:with field='bundle'
+    type='fr.obsmip.sedoo.client.GlobalBundle' /> 
+	<g:HTMLPanel tag="span">
+	<span class="{style.tooltip_container}">
+	<a><g:Image resource='{bundle.help}' /><span ui:field="tooltipContent"></span></a>
+	</span>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,0 +1,59 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.paragraph {
+			padding-left:10px;
+			padding-top :10px;
+		}
+		
+		.leftColumn {
+			
+			padding-top :10px;
+			padding-left:10px;
+			font-weight: bold;
+			background-color: #E8E8E8 ;
+		}
+		
+		.table
+		{
+	 		width:95%; 
+	 		margin:10px; 
+	 		background:white; 
+	 		border-collapse:collapse; 
+	 		font-size:0.8em;
+	 		background-color: #E8E8E8 ;
+		}
+		
+		.row
+		{
+			border-bottom: 2px solid white;
+		}
+		
+		.libelle {
+		}
+		
+	</ui:style>
+	
+	
+	<ui:with field='messageBundle'
+    type='fr.obsmip.sedoo.client.message.Message' /> 
+	 <g:DockLayoutPanel unit='EM' >
+	 
+	 <g:center>
+	 <g:HTMLPanel styleName="scrollableHTMLPanel" >
+	<div >
+    <table class='{style.table}'>
+    <col width="10%" />
+  <col width="80%" />
+    <tbody class="tableBody">
+    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.versionViewLabel}" /></span></td><td class='{style.paragraph}' ><span ui:field='version'/></td></tr>
+    </tbody>
+    </table>
+    </div>
+	</g:HTMLPanel>
+    </g:center>
+  </g:DockLayoutPanel>
+</ui:UiBinder> 
+
+

@@ -1,0 +1,62 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:l="urn:import:fr.obsmip.sedoo.client.ui.misc"
+	xmlns:admin="urn:import:fr.obsmip.sedoo.client.ui.menu">
+	
+	    <ui:image field='menuPlus' src='plus.png' />
+	
+	<ui:style>
+		.important {
+			font-weight: bold;
+		}
+		
+	 .stackHeader {
+			font-weight: bold;
+			font-size: 13 px;
+			color:white;
+			height: 21px;
+			text-transform:uppercase;
+			cursor: pointer;
+			/*padding-bottom: 4px;*/
+			padding-left: 10px;
+			padding-top: 5px;
+			width:194px;
+		}
+		
+		.publicHeader
+		{
+		background-color: #4A99c6;
+	}
+	
+	.privateHeader
+		{
+		background-color: #6d6d6d;
+	}
+		
+		.shortcuts {
+	}
+		
+		
+		
+ 
+	</ui:style>
+	
+	
+	<l:RBVStackLayoutPanel  unit='PX' styleName='{style.shortcuts}'>
+	
+	<l:stack>
+      <l:header size='31'><div class='{style.stackHeader} {style.publicHeader}'><span style="font-weight:bold;padding-right:8px;visibility:hidden" id="stackHeader-0">+</span>Data Users</div></l:header>
+      <admin:MetadataUserMenu ui:field='metadataUserMenu'/>
+    </l:stack>
+    <l:stack>
+      <l:header size='31'><div class='{style.stackHeader} {style.publicHeader}' ><span style="font-weight:bold;padding-right:8px;" id="stackHeader-1">+</span>Data Providers</div></l:header>
+      <admin:MetadataProviderMenu ui:field='metadataProviderMenu'/>
+    </l:stack>
+    <l:stack>
+      <l:header size='31'><div class='{style.stackHeader} {style.privateHeader}'><span style="font-weight:bold;padding-right:8px;" id="stackHeader-2">+</span>Administration</div></l:header>
+      <admin:AdministrationMenu ui:field='administrationMenu'/>
+    </l:stack>
+    
+    </l:RBVStackLayoutPanel>
+</ui:UiBinder> 
