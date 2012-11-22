@@ -13,16 +13,19 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
+import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
 import fr.obsmip.sedoo.client.domain.GeographicBoundingBoxDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.domain.SiteDTO;
 import fr.obsmip.sedoo.client.message.Message;
+import fr.obsmip.sedoo.client.ui.misc.ConfirmCallBack;
+import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.misc.MapSelector;
 import fr.obsmip.sedoo.client.ui.table.SiteTable;
 
-public class DrainageBasinEditingViewImpl extends AbstractSection implements DrainageBasinEditingView {
+public class DrainageBasinEditingViewImpl extends AbstractDTOEditingView implements DrainageBasinEditingView {
 
 	
 	private static  DrainageBasinEditingViewImplUiBinder uiBinder = GWT
@@ -103,7 +106,9 @@ public class DrainageBasinEditingViewImpl extends AbstractSection implements Dra
 	 @UiHandler("saveButton")
 	 void onSaveButtonClicked(ClickEvent event) 
 	 {
-		presenter.save(flush());
+		 mapSelector.forcedHide();
+		 DialogBoxTools.modalAlert("coucou", "tutu");
+		 mapSelector.forcedShow();
 	 }
 	 
 	 @Override
@@ -115,4 +120,28 @@ public class DrainageBasinEditingViewImpl extends AbstractSection implements Dra
 		 return drainageBasinDTO;
 	 }
 
+	 public void setMode(String mode) {
+			super.setMode(mode);
+			if (mode.compareTo(Constants.CREATE)==0)
+			{
+				siteTable.setAddButtonEnabled(false);
+			}
+			else
+			{
+				siteTable.setAddButtonEnabled(true);
+			}
+		} 
+	 
+	 @Override
+		public void broadcastSiteDeletion(Long id, boolean success) {
+			if (success)
+			{
+				siteTable.removeRow(id);
+			}
+			else
+			{
+				DialogBoxTools.modalAlert("A problem has appeared while deleting the drainage basin",
+		                "A problem has appeared while deleting the drainage basin.");
+			}	
+	 }
 }

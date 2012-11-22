@@ -31,10 +31,20 @@
     	<tr class="row"><td colspan="2"><t:DrainageBasinTable ui:field="drainageBasinTable"/></td></tr>
     </tbody>
     </table>
+    <span class='h2class'><g:Label text="{messageBundle.observatoryEditingContactList}" /></span>
+    <table class='table'>
+    <col width="10%" />
+  <col width="80%" />
+    <tbody >
+    	<tr class="row"><td colspan="2"><t:ObservatoryContactTable ui:field="contactTable"/></td></tr>
+    </tbody>
+    </table>
     </div>
-    <g:HorizontalPanel styleName="toolbar">
-	<g:Button ui:field="saveButton" text="{messageBundle.save}" />
-	</g:HorizontalPanel>
+     <table width="90%">
+    <tr><td align="left"><g:Button ui:field="saveButton" text="{messageBundle.save}" /></td>
+    <td align="right"><g:Button ui:field="backButton" text="{messageBundle.back}" /></td></tr>
+    </table>
+    <br />
 	</g:HTMLPanel>
 	
 	</g:center>

@@ -8,6 +8,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
@@ -19,7 +20,7 @@ import fr.obsmip.sedoo.client.event.UserLogoutEvent;
 import fr.obsmip.sedoo.client.mvp.Presenter;
 import fr.obsmip.sedoo.client.place.LoginPlace;
 import fr.obsmip.sedoo.client.place.SwitchLanguagePlace;
-import fr.obsmip.sedoo.client.place.WelcomePlace;
+import fr.obsmip.sedoo.client.ui.misc.BreadCrumb;
 
 public class HeaderViewImpl extends Composite implements HeaderView {
 
@@ -39,7 +40,7 @@ public class HeaderViewImpl extends Composite implements HeaderView {
 	 @UiField Image frenchLanguageImage;
 	 @UiField Element userName;
 	 @UiField Label notConnectedMessage;
-
+	 
 	  public HeaderViewImpl() {
 	    initWidget(uiBinder.createAndBindUi(this));
 	    if (PortailRBV.getUser()!= null)

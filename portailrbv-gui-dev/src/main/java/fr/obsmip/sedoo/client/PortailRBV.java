@@ -12,12 +12,18 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimpleLayoutPanel;
 import com.google.gwt.user.client.ui.SplitLayoutPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.domain.UserDTO;
+import fr.obsmip.sedoo.client.event.MaximizeEvent;
+import fr.obsmip.sedoo.client.event.MaximizeEventHandler;
+import fr.obsmip.sedoo.client.event.MinimizeEvent;
+import fr.obsmip.sedoo.client.event.MinimizeEventHandler;
 import fr.obsmip.sedoo.client.event.UserLogoutEvent;
 import fr.obsmip.sedoo.client.mvp.AppActivityMapper;
 import fr.obsmip.sedoo.client.mvp.AppPlaceHistoryMapper;
@@ -26,11 +32,13 @@ import fr.obsmip.sedoo.client.mvp.Presenter;
 import fr.obsmip.sedoo.client.place.FilteringHistorian;
 import fr.obsmip.sedoo.client.place.SwitchLanguagePlace;
 import fr.obsmip.sedoo.client.place.WelcomePlace;
+import fr.obsmip.sedoo.client.ui.HeaderView;
+import fr.obsmip.sedoo.client.ui.SectionHeaderView;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class PortailRBV implements EntryPoint {
+public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEventHandler {
   /**
    * The message displayed to the user when the server cannot be reached or
    * returns an error.
@@ -49,6 +57,14 @@ public class PortailRBV implements EntryPoint {
 	private DockLayoutPanel mainPanel;
 	private static ClientFactory clientFactory;
 	private static Presenter presenter;
+	private Widget west;
+	private Widget south;
+	private SplitLayoutPanel splitPanel;
+	
+	private DockLayoutPanel largeHeader;
+	private HeaderView headerView;
+	private SectionHeaderView sectionHeaderView;
+	private DockLayoutPanel headerFirstPart;
 	
 	private static UserDTO user;
 
@@ -104,16 +120,39 @@ public class PortailRBV implements EntryPoint {
 		mainPanel.setWidth("1039px");
 		mainPanel.getElement().getStyle().setProperty("margin", "auto");
 		
-		DockLayoutPanel topPanel = new DockLayoutPanel(Unit.PX);
-		topPanel.addNorth(clientFactory.getHeaderView(), 145);
-		topPanel.addSouth(clientFactory.getSectionHeaderView(), 50);
-		mainPanel.addNorth(topPanel,195);
-		SplitLayoutPanel auxPanel = new SplitLayoutPanel();
-		auxPanel.addWest(clientFactory.getMenuView(), 194);
+//		DockLayoutPanel header = new DockLayoutPanel(Unit.PX);
+//		header.addNorth(clientFactory.getHeaderView(), 147);
+//		header.addSouth(clientFactory.getBreadCrumb(), 25);
+//		DockLayoutPanel topPanel = new DockLayoutPanel(Unit.PX);
+		
+		
+		headerFirstPart = new DockLayoutPanel(Unit.PX);
+		headerView = clientFactory.getHeaderView();
+		headerFirstPart.addNorth(headerView, 147);
+		headerFirstPart.addSouth(clientFactory.getBreadCrumb(), 25);
+		
+		
+		largeHeader = new DockLayoutPanel(Unit.PX);
+		largeHeader.addNorth(headerFirstPart, 172);
+		sectionHeaderView = clientFactory.getSectionHeaderView();
+		largeHeader.addSouth(sectionHeaderView, 50);
+		
+		//thinHeader = new DockLayoutPanel(Unit.PX);
+		//thinHeader.addSouth(clientFactory.getBreadCrumb(), 25);
+		
+		mainPanel.addNorth(largeHeader,222);
+		splitPanel = new SplitLayoutPanel();
+		west = clientFactory.getMenuView().asWidget();
+		splitPanel.addWest(west, 194);
+		south = clientFactory.getStatusBarView().asWidget();
 		mainPanel.addSouth(clientFactory.getStatusBarView(), clientFactory.getStatusBarView().getHeight());
-		auxPanel.add(centerPanel);
-		mainPanel.add(auxPanel);
-
+		splitPanel.add(centerPanel);
+		mainPanel.add(splitPanel);
+		
+		
+		
+		clientFactory.getEventBus().addHandler(MaximizeEvent.TYPE, this);
+		clientFactory.getEventBus().addHandler(MinimizeEvent.TYPE, this);
 	}
 	
 	public static ClientFactory getClientFactory() {
@@ -146,6 +185,38 @@ public class PortailRBV implements EntryPoint {
 			getClientFactory().getEventBus().fireEvent(new UserLogoutEvent());
 			getPresenter().goTo(new WelcomePlace());
 		}
+	}
+
+	@Override
+	public void onNotification(MinimizeEvent event) {
+		splitPanel.setWidgetHidden(west, false);
+		mainPanel.setWidgetHidden(south, false);
+		headerFirstPart = new DockLayoutPanel(Unit.PX);
+		headerView = clientFactory.getHeaderView();
+		headerFirstPart.addNorth(headerView, 147);
+		headerFirstPart.addSouth(clientFactory.getBreadCrumb(), 25);
+		largeHeader.clear();
+		largeHeader.addNorth(headerFirstPart, 172);
+		mainPanel.setWidgetSize(largeHeader, 222);
+		sectionHeaderView = clientFactory.getSectionHeaderView();
+		largeHeader.addSouth(sectionHeaderView, 50);
+		mainPanel.setWidgetHidden(largeHeader, false);
+		splitPanel.animate(500);
+		headerFirstPart.animate(100);
+		mainPanel.animate(500);
+		
+	}
+
+	@Override
+	public void onNotification(MaximizeEvent event) {
+		splitPanel.setWidgetHidden(west, true);
+		mainPanel.setWidgetHidden(south, true);
+		mainPanel.setWidgetSize(largeHeader, 25);
+		largeHeader.clear();
+		largeHeader.addSouth(clientFactory.getBreadCrumb(), 25);
+		splitPanel.animate(500);
+		headerFirstPart.animate(100);
+		mainPanel.animate(500);
 	}
 
   

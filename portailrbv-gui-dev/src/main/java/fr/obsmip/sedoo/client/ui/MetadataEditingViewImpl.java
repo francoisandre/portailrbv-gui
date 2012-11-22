@@ -96,7 +96,7 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 		  
 		 
 	  }
-	 
+	
 	@Override
 	public void setPresenter(Presenter presenter) {
 		this.presenter = presenter;
@@ -112,7 +112,7 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 	@Override
 	public void setGeneratedXML(String xml) 
 	{
-		DialogBoxTools.popUp("XML Généré",xml);
+		DialogBoxTools.popUp("XML Généré",xml, DialogBoxTools.TEXT_MODE);
 	}
 
 	

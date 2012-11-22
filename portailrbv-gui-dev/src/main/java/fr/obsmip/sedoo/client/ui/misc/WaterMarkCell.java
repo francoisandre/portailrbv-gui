@@ -11,7 +11,6 @@ import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 
 public class WaterMarkCell extends TextInputCell {
-	protected String defaultValue;
 	protected String size;
 	protected String maxLength;
 	protected String className;
@@ -19,13 +18,12 @@ public class WaterMarkCell extends TextInputCell {
 	private static Template template;
 
 	interface Template extends SafeHtmlTemplates {
-	    @Template("<input type=\"text\" value=\"{0}\" size=\"{1}\" maxlength=\"{2}\" class=\"{3}\" tabindex=\"-1\"></input>")
+	    @Template("<input type=\"text\" placeholder=\"{0}\" size=\"{2}\" maxlength=\"{1}\" class=\"{3}\" tabindex=\"-1\"></input>")
 	    SafeHtml input(String value, String size, String maxlength, String className);
 	  }
 
 	public WaterMarkCell(String defaultValue, String size, String maxlength, String className) {
 		super();
-		this.defaultValue = defaultValue;
 		this.size = size;
 		this.maxLength = maxlength;
 		this.className = className;
@@ -58,14 +56,6 @@ public class WaterMarkCell extends TextInputCell {
 		Element target = event.getEventTarget().cast();
 		if (!input.isOrHasChild(target)) {
 			return;
-		}
-
-		String eventType = event.getType();
-		if (eventType.equalsIgnoreCase("focus")) {
-			if (input.getValue().compareToIgnoreCase(defaultValue) == 0)
-			{
-				input.setValue("");
-			}
 		}
 		super.onBrowserEvent(context, parent, value, event, valueUpdater);
 

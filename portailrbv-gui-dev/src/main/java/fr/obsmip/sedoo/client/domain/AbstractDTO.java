@@ -13,7 +13,7 @@ public abstract class AbstractDTO implements Serializable{
 		}
 		else
 		{
-			return value;
+			return value.trim();
 		}
 	}
 

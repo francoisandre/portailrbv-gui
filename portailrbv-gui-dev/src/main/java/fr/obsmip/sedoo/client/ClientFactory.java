@@ -12,12 +12,14 @@ import fr.obsmip.sedoo.client.ui.MetadataDisplayView;
 import fr.obsmip.sedoo.client.ui.MetadataEditingView;
 import fr.obsmip.sedoo.client.ui.MetadataListView;
 import fr.obsmip.sedoo.client.ui.MetadataSearchView;
+import fr.obsmip.sedoo.client.ui.ObservatoryContactEditingView;
 import fr.obsmip.sedoo.client.ui.ObservatoryEditingView;
 import fr.obsmip.sedoo.client.ui.ObservatoryManagementView;
 import fr.obsmip.sedoo.client.ui.SectionHeaderView;
 import fr.obsmip.sedoo.client.ui.StatusBarView;
 import fr.obsmip.sedoo.client.ui.SystemView;
 import fr.obsmip.sedoo.client.ui.WelcomeView;
+import fr.obsmip.sedoo.client.ui.misc.BreadCrumb;
 
 public interface ClientFactory {
 	
@@ -40,4 +42,6 @@ public interface ClientFactory {
 	ObservatoryEditingView getObservatoryEditingView();
 	SectionHeaderView getSectionHeaderView();
 	DrainageBasinEditingView getDrainageBasinEditingView();
+	ObservatoryContactEditingView getObservatoryContactEditingView();
+	BreadCrumb getBreadCrumb();
 }

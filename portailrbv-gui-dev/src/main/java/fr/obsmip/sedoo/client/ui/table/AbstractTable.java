@@ -1,12 +1,10 @@
 package fr.obsmip.sedoo.client.ui.table;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
 import com.google.gwt.cell.client.Cell;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -23,7 +21,6 @@ import com.google.gwt.view.client.ListDataProvider;
 import fr.obsmip.sedoo.client.CellTableResources;
 import fr.obsmip.sedoo.client.GlobalBundle;
 import fr.obsmip.sedoo.client.domain.HasId;
-import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.ui.misc.ConfirmCallBack;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
@@ -31,22 +28,26 @@ import fr.obsmip.sedoo.client.ui.tabs.edit.ImagedActionCell;
 
 public abstract class AbstractTable extends Composite implements ClickHandler{
 
-	private List<? extends HasId> model;
+	protected List<? extends HasId> model;
 	protected CellTable<HasId> itemTable;
 	VerticalPanel tablePanel;
 	private Image addImage;
-
 	private Image deleteImage=new Image(GlobalBundle.INSTANCE.delete());
 	private Image editImage=new Image(GlobalBundle.INSTANCE.edit());
 	
-	private Column<HasId, String> deleteColumn;
+	protected Column<HasId, String> deleteColumn;
 	private Column<HasId, String> editColumn;
 	
 	private ListDataProvider<HasId> dataProvider = new ListDataProvider<HasId>();
 	
 	private HorizontalPanel emptyListPanel;
 	
+	private boolean addButtonEnabled = false;
 
+	protected Label addItemLabel;
+	
+	private boolean askDeletionConfirmation = true;
+	
 	public AbstractTable() {
 		super();
 		
@@ -94,14 +95,14 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 		addImage = new Image(GlobalBundle.INSTANCE.add());
 		addImage.setStyleName("clickableImage");
 		addItemPanel.add(addImage);
-		Label label = new Label(getAddItemText());
-		label.setStyleName("clickableImage");
-		addItemPanel.add(label);
+		addItemLabel = new Label(getAddItemText());
+		addItemLabel.setStyleName("clickableImage");
+		addItemPanel.add(addItemLabel);
 		tablePanel.add(itemTable);
 		tablePanel.add(addItemPanel);
 		tablePanel.setWidth("100%");
 		addImage.addClickHandler(this);
-		label.addClickHandler(this);
+		addItemLabel.addClickHandler(this);
 		initColumns();
 		initWidget(tablePanel);
 		
@@ -170,42 +171,48 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 
 	public void onClick(ClickEvent event)
 	{
-		addItem(); 
+		if (addButtonEnabled == true)
+		{
+			addItem();
+		}
+		else
+		{
+			DialogBoxTools.modalAlert("Not activated", "Not activated in this mode");
+		}
 	}
 
 	public abstract String getAddItemText();
-	public abstract String getDeleteItemConfirmationText();
+	
+	public String getDeleteItemConfirmationText() 
+	{
+		return Message.INSTANCE.deletionConfirmMessage();
+	}
 
 	ImagedActionCell.Delegate<HasId> deleteAction = new ImagedActionCell.Delegate<HasId>() {
 
 		@Override
-		public void execute(final HasId hasCode) {
+		public void execute(final HasId hasId) {
 
-			Message message =  GWT.create(Message.class);
+			if (isAskDeletionConfirmation()== false)
+			{
+				presenterDelete(hasId.getId());
+			}
+			else
+			{
 			ConfirmCallBack callBack = new ConfirmCallBack() {
 
 				@Override
 				public void confirm(boolean choice) {
 					if (choice == true)
 					{
-						Long id = hasCode.getId();
-						ListIterator<? extends HasId> listIterator = model.listIterator();
-						while (listIterator.hasNext()) 
-						{
-							HasId aux = (HasId) listIterator.next();
-							if (id.compareTo(aux.getId())==0)
-							{
-								presenterDelete(aux.getId());
-								break;
-							}
-						}			
+						presenterDelete(hasId.getId());
 					}
 
 				}
 			};
 
-			DialogBoxTools.modalConfirm(message.confirm(),getDeleteItemConfirmationText(), callBack).center();
-
+			DialogBoxTools.modalConfirm(Message.INSTANCE.confirm(),getDeleteItemConfirmationText(), callBack).center();
+			}
 		}
 
 
@@ -235,6 +242,19 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 			}
 		}
 		init(model);
+	}
+	
+	public void setAddButtonEnabled(boolean activated)
+	{
+		this.addButtonEnabled = activated;
+	}
+
+	public boolean isAskDeletionConfirmation() {
+		return askDeletionConfirmation;
+	}
+
+	public void setAskDeletionConfirmation(boolean askDeletionConfirmation) {
+		this.askDeletionConfirmation = askDeletionConfirmation;
 	}
 
 }

@@ -1,5 +1,6 @@
 package fr.obsmip.sedoo.client.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.activity.shared.AbstractActivity;
@@ -10,6 +11,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
+import fr.obsmip.sedoo.client.ShortcutFactory;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
@@ -21,6 +23,7 @@ import fr.obsmip.sedoo.client.service.MetadataService;
 import fr.obsmip.sedoo.client.service.MetadataServiceAsync;
 import fr.obsmip.sedoo.client.ui.MetadataListView;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
+import fr.obsmip.sedoo.client.ui.misc.Shortcut;
 
 public class MetadataListActivity extends RBVAbstractActivity implements MetadataListView.Presenter {
 
@@ -40,6 +43,10 @@ public class MetadataListActivity extends RBVAbstractActivity implements Metadat
     	metadataListView.setPresenter(this);
         containerWidget.setWidget(metadataListView.asWidget());
         broadcastActivityTitle(getMessage().listingViewTitle());
+        List<Shortcut> shortcuts = new ArrayList<Shortcut>();
+		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+		shortcuts.add(ShortcutFactory.getMetadataListShortcut());
+		clientFactory.getBreadCrumb().refresh(shortcuts);
         ActionStartEvent e = new ActionStartEvent("Chargement des métadonnées en cours...", ActionEventConstant.METADATA_LIST_LOADING_EVENT, true);
         clientFactory.getEventBus().fireEvent(e);
         

@@ -3,7 +3,8 @@
 >
 <ui:UiBinder
   xmlns:ui='urn:ui:com.google.gwt.uibinder'
-  xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+  xmlns:g='urn:import:com.google.gwt.user.client.ui'
+  xmlns:l='urn:import:fr.obsmip.sedoo.client.ui.misc'>
 
 
   <ui:style>
@@ -82,8 +83,8 @@
   	<!-- 
   	 <div class="{style.statusDiv}">
   	 -->
-    <g:Image ui:field='englishLanguageImage' resource='{bundle.english}'  styleName='{style.languageIcon}'></g:Image>
-    <g:Image ui:field='frenchLanguageImage' resource='{bundle.french}'  styleName='{style.languageIcon}'></g:Image>
+    <g:Image ui:field='englishLanguageImage' resource='{bundle.english}'  styleName='clickableImage'></g:Image>
+    <g:Image ui:field='frenchLanguageImage' resource='{bundle.french}'  styleName='clickableImage'></g:Image>
       <div>
         <b> <g:Label text="{messageBundle.headerViewNotConnectedMessage}" ui:field="notConnectedMessage"/><span ui:field="userName"></span></b>
       </div>
@@ -100,6 +101,7 @@
   	</td>
   	</tr>
   	<tr style="height:35px; background-color:#000000;"><td colspan="2">&nbsp;</td></tr>
+  	<tr style="height:1px; background-color:#FFFFFF;"><td colspan="2"></td></tr>
   	</table>
   
     

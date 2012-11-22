@@ -6,11 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
+import fr.obsmip.sedoo.client.domain.ObservatoryContactDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
-import fr.obsmip.sedoo.client.domain.UserDTO;
 import fr.obsmip.sedoo.core.domain.DrainageBasin;
 import fr.obsmip.sedoo.core.domain.Observatory;
-import fr.obsmip.sedoo.core.domain.User;
+import fr.obsmip.sedoo.core.domain.ObservatoryContact;
 
 public class ObservatoryDTOTools {
 	
@@ -43,20 +43,29 @@ public class ObservatoryDTOTools {
 		observatoryDTO.setLongLabel(observatory.getLongLabel());
 		observatoryDTO.setDescription(observatory.getDescription());
 		
-		
-		
 		List<DrainageBasinDTO> drainageBasinDTOs = new ArrayList<DrainageBasinDTO>();
 		if (full == true)
 		{
 			Iterator<DrainageBasin> iterator = observatory.getDrainageBasins().iterator();
 			while (iterator.hasNext()) {
-				DrainageBasin drainageBasin = (DrainageBasin) iterator.next();
+				DrainageBasin drainageBasin = iterator.next();
 				drainageBasinDTOs.add(DrainageBasinDTOTools.toDrainageBasinDTO(drainageBasin, full));
 			}		
 			
 		}
 		observatoryDTO.setDrainageBasinDTOs(drainageBasinDTOs);
-		
+
+		List<ObservatoryContactDTO> observatoryContactDTOs = new ArrayList<ObservatoryContactDTO>();
+		if (full == true)
+		{
+			Iterator<ObservatoryContact> iterator = observatory.getContacts().iterator();
+			while (iterator.hasNext()) {
+				ObservatoryContact observatoryContact = iterator.next();
+				observatoryContactDTOs.add(ObservatoryContactDTOTools.toObservatoryContactDTO(observatoryContact));
+			}		
+		}
+		observatoryDTO.setContactDTOs(observatoryContactDTOs);
+
 		return observatoryDTO;
 	}
 

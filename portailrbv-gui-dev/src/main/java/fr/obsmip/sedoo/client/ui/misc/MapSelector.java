@@ -28,6 +28,7 @@ import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -54,8 +55,13 @@ public class MapSelector extends Composite  {
 	
 	Map map;
 	
-	@UiField 
+	 
 	VerticalPanel mapPanel;
+
+	@UiField
+	VerticalPanel contentPanel;
+	
+	VerticalPanel hidingPanel;
 	
 	private DrawFeature drawRectangleFeatureControl = null;
 	
@@ -141,9 +147,6 @@ public class MapSelector extends Composite  {
         map.addControl(new MousePosition(mpOptions));
        
         
-        
-        
-        
         vectorLayer = new Vector("Vector layer");
         map.addLayer(vectorLayer);
         map.addControl(new EditingToolbar(vectorLayer)); 
@@ -162,9 +165,16 @@ public class MapSelector extends Composite  {
 //    final DockLayoutPanel dock = new DockLayoutPanel(Unit.PX);
 //    dock.addNorth(map, 500);
 
-    
+    contentPanel = new VerticalPanel();
+    hidingPanel = new VerticalPanel();
+    hidingPanel.setWidth("500px");
+    hidingPanel.setHeight("500px");
+    hidingPanel.add(new Label("..."));
+    mapPanel = new VerticalPanel();
     mapPanel.add(mapWidget);
-
+    contentPanel.add(hidingPanel);
+    //contentPanel.add(mapPanel);
+    //forcedShow();
 	}
 
 	class LocalListener implements FeatureAddedListener
@@ -236,4 +246,15 @@ public class MapSelector extends Composite  {
 		}
 	}
 
+	public void forcedHide()
+	{
+		mapPanel.setVisible(false);
+		hidingPanel.setVisible(true);
+	}
+
+	public void forcedShow() {
+		mapPanel.setVisible(true);		
+		hidingPanel.setVisible(false);
+	}
+	
 }

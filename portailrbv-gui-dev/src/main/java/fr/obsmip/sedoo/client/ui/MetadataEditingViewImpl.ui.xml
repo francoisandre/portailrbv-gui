@@ -62,10 +62,10 @@ overflow: auto;
 			<tabs:GeographicalLocationTab/>
 		</g:tab>
 		<g:tab>
-			<g:header>
-				Métadonnées
-			</g:header>
-			<g:HTML><h2>Hello tab 2</h2></g:HTML>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingConstraintTabHeader}" />
+			</g:customHeader>
+			<tabs:ConstraintTab />
 		</g:tab>
 		<g:tab>
 			<g:header>

@@ -11,6 +11,7 @@ import fr.obsmip.sedoo.client.activity.MetadataDisplayActivity;
 import fr.obsmip.sedoo.client.activity.MetadataEditingActivity;
 import fr.obsmip.sedoo.client.activity.MetadataListActivity;
 import fr.obsmip.sedoo.client.activity.MetadataSearchActivity;
+import fr.obsmip.sedoo.client.activity.ObservatoryContactEditingActivity;
 import fr.obsmip.sedoo.client.activity.ObservatoryEditingActivity;
 import fr.obsmip.sedoo.client.activity.ObservatoryManagementActivity;
 import fr.obsmip.sedoo.client.activity.SwitchLanguageActivity;
@@ -22,6 +23,7 @@ import fr.obsmip.sedoo.client.place.MetadataDisplayPlace;
 import fr.obsmip.sedoo.client.place.MetadataEditingPlace;
 import fr.obsmip.sedoo.client.place.MetadataListPlace;
 import fr.obsmip.sedoo.client.place.MetadataSearchPlace;
+import fr.obsmip.sedoo.client.place.ObservatoryContactEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryManagementPlace;
 import fr.obsmip.sedoo.client.place.SwitchLanguagePlace;
@@ -93,6 +95,10 @@ public class AppActivityMapper implements ActivityMapper {
 		else if (place instanceof DrainageBasinEditingPlace)
 		{
 			return new DrainageBasinEditingActivity((DrainageBasinEditingPlace) place, clientFactory);
+		}
+		else if (place instanceof ObservatoryContactEditingPlace)
+		{
+			return new ObservatoryContactEditingActivity((ObservatoryContactEditingPlace) place, clientFactory);
 		}
 		return null;
 	}

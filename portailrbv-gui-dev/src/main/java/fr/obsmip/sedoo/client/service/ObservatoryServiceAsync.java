@@ -5,7 +5,10 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
+import fr.obsmip.sedoo.client.domain.ObservatoryContactDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
+import fr.obsmip.sedoo.client.domain.PersonDTO;
+import fr.obsmip.sedoo.core.domain.ObservatoryContact;
 
 public interface ObservatoryServiceAsync {
 
@@ -25,5 +28,21 @@ public interface ObservatoryServiceAsync {
 	void saveDrainageBasin(DrainageBasinDTO drainageBasinDTO,
 			AsyncCallback<Void> callback);
 
+	void deleteSite(Long id, AsyncCallback<Void> callback);
+
+	void savePerson(PersonDTO personDTO, AsyncCallback<Void> callback);
+
+	void deletePerson(Long id, AsyncCallback<Void> callback);
+
+	void saveObservatoryContact(ObservatoryContactDTO dto,
+			AsyncCallback<Void> callback);
+
+	void getObservatoryContactById(Long id,
+			AsyncCallback<ObservatoryContactDTO> callback);
+
+	void addObservatoryContact(ObservatoryContactDTO contact, Long id,
+			AsyncCallback<Long> callback);
+
+	void addObservatory(ObservatoryDTO dto, AsyncCallback<Long> callback);
 
 }

@@ -29,6 +29,8 @@ import fr.obsmip.sedoo.client.ui.MetadataListView;
 import fr.obsmip.sedoo.client.ui.MetadataListViewImpl;
 import fr.obsmip.sedoo.client.ui.MetadataSearchView;
 import fr.obsmip.sedoo.client.ui.MetadataSearchViewImpl;
+import fr.obsmip.sedoo.client.ui.ObservatoryContactEditingView;
+import fr.obsmip.sedoo.client.ui.ObservatoryContactEditingViewImpl;
 import fr.obsmip.sedoo.client.ui.ObservatoryEditingView;
 import fr.obsmip.sedoo.client.ui.ObservatoryEditingViewImpl;
 import fr.obsmip.sedoo.client.ui.ObservatoryManagementView;
@@ -40,6 +42,8 @@ import fr.obsmip.sedoo.client.ui.SystemView;
 import fr.obsmip.sedoo.client.ui.SystemViewImpl;
 import fr.obsmip.sedoo.client.ui.WelcomeView;
 import fr.obsmip.sedoo.client.ui.WelcomeViewImpl;
+import fr.obsmip.sedoo.client.ui.misc.BreadCrumb;
+import fr.obsmip.sedoo.client.ui.misc.BreadCrumbImpl;
 
 
 public class ClientFactoryImpl implements ClientFactory {
@@ -52,8 +56,10 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewImpl();
 	private static final MetadataSearchView METADATA_SEARCH_VIEW = new MetadataSearchViewImpl();
 	private static final MetadataListView METADATA_LIST_VIEW = new MetadataListViewImpl();
+	private static final BreadCrumb BREAD_CRUMB = new BreadCrumbImpl();
 	private static final HeaderView HEADER_VIEW = new HeaderViewImpl();
 	private static final SectionHeaderView SECTION_HEADER_VIEW = new SectionHeaderViewImpl();
+	private static final ObservatoryContactEditingView OBSERVATORY_CONTACT_EDITING_VIEW = new ObservatoryContactEditingViewImpl();
 	
 	static
 	{
@@ -80,6 +86,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	static
 	{
 		EVENT_BUS.addHandler(ActivityChangeEvent.TYPE, SECTION_HEADER_VIEW);
+	}
+	
+	
+	public ClientFactoryImpl()
+	{
+		BREAD_CRUMB.setClientFactory(this);
 	}
 	
 	public EventBus getEventBus() {
@@ -168,6 +180,16 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public DrainageBasinEditingView getDrainageBasinEditingView() {
 		return DRAINAGE_BASIN_EDITING_VIEW;
+	}
+	
+	@Override
+	public ObservatoryContactEditingView getObservatoryContactEditingView() {
+		return OBSERVATORY_CONTACT_EDITING_VIEW;
+	}
+
+	@Override
+	public BreadCrumb getBreadCrumb() {
+		return BREAD_CRUMB;
 	}
 	
 	  

@@ -58,6 +58,15 @@
 	<bean id="drainageBasinDAO"
 		class="fr.obsmip.sedoo.core.dao.DrainageBasinDAOJPAImpl" />
 	
+	<bean id="siteDAO"
+		class="fr.obsmip.sedoo.core.dao.SiteDAOJPAImpl" />
+
+	<bean id="personDAO"
+		class="fr.obsmip.sedoo.core.dao.PersonDAOJPAImpl" />
+		
+	<bean id="observatoryContactDAO"
+		class="fr.obsmip.sedoo.core.dao.ObservatoryContactDAOJPAImpl" />
+	
 	<bean id="dataSource"   
                 class="org.springframework.jdbc.datasource.DriverManagerDataSource"
                 p:driverClassName="com.mysql.jdbc.Driver"  

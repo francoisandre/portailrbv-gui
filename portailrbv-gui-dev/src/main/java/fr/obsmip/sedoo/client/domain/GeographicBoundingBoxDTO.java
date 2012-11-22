@@ -45,22 +45,22 @@ public class GeographicBoundingBoxDTO extends AbstractDTO {
 		
 		if (checkDouble(getNorthBoundLatitude()))
 		{
-			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorNorthLatitude() +" should be a numeric value"));
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorNorthLatitude(), Message.INSTANCE.numericalData()));
 		}
 		
 		if (checkDouble(getSouthBoundLatitude()))
 		{
-			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorSouthLatitude() +" should be a numeric value"));
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorSouthLatitude(), Message.INSTANCE.numericalData()));
 		}
 		
 		if (checkDouble(getEastBoundLongitude()))
 		{
-			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorEastLongitude() +" should be a numeric value"));
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorEastLongitude(), Message.INSTANCE.numericalData()));
 		}
 		
 		if (checkDouble(getWestBoundLongitude()))
 		{
-			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorWestLongitude() +" should be a numeric value"));
+			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorWestLongitude(), Message.INSTANCE.numericalData()));
 		}
 		return result;
 		

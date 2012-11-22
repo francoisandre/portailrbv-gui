@@ -17,7 +17,7 @@
   <col width="80%" />
     <tbody class="tableBody">
     	<tr><td colspan="3" align="center"><g:Label text="{messageBundle.mapSelectorNorthLatitude}" /> <g:TextBox ui:field='northBoundLatitude' visibleLength="10"/></td></tr>
-    	<tr ><td><g:Label text="{messageBundle.mapSelectorWestLongitude}" /><g:TextBox ui:field='westBoundLongitude' visibleLength="10"/></td><td><g:VerticalPanel ui:field="mapPanel"> </g:VerticalPanel></td><td><g:Label text="{messageBundle.mapSelectorEastLongitude}" /><g:TextBox ui:field='eastBoundLongitude' visibleLength="10"/></td></tr>
+    	<tr ><td><g:Label text="{messageBundle.mapSelectorWestLongitude}" /><g:TextBox ui:field='westBoundLongitude' visibleLength="10"/></td><td><g:VerticalPanel ui:field="contentPanel"> </g:VerticalPanel></td><td><g:Label text="{messageBundle.mapSelectorEastLongitude}" /><g:TextBox ui:field='eastBoundLongitude' visibleLength="10"/></td></tr>
         <tr ><td colspan="3" align="center"><g:Label text="{messageBundle.mapSelectorSouthLatitude}" /><g:TextBox ui:field='southBoundLatitude' visibleLength="10"/></td></tr>
     </tbody>
     </table>

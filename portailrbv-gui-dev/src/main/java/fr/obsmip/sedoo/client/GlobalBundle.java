@@ -46,6 +46,12 @@ public interface GlobalBundle extends ClientBundle {
 	    @Source("ko.png")
 	    ImageResource ko();
 	    
+	    @Source("minimize.png")
+	    ImageResource minimize();
+	    
+	    @Source("maximize.png")
+	    ImageResource maximize();
+	    
 	    @Source("puce_fleche_bleu.png")
 	    ImageResource menuDot();
 	    

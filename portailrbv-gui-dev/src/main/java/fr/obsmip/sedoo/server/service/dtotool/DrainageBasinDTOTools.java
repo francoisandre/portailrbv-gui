@@ -29,15 +29,26 @@ public class DrainageBasinDTOTools {
 			}
 			
 			GeographicBoundingBoxDTO boxDTO = new GeographicBoundingBoxDTO();
-			boxDTO.setEastBoundLongitude(""+drainageBasin.getEastBoundLongitude());
-			boxDTO.setWestBoundLongitude(""+drainageBasin.getWestBoundLongitude());
-			boxDTO.setNorthBoundLatitude(""+drainageBasin.getNorthBoundLatitude());
-			boxDTO.setSouthBoundLatitude(""+drainageBasin.getSouthBoundLatitude());
+			boxDTO.setEastBoundLongitude(protectNullValue(drainageBasin.getEastBoundLongitude()));
+			boxDTO.setWestBoundLongitude(protectNullValue(drainageBasin.getWestBoundLongitude()));
+			boxDTO.setNorthBoundLatitude(protectNullValue(drainageBasin.getNorthBoundLatitude()));
+			boxDTO.setSouthBoundLatitude(protectNullValue(drainageBasin.getSouthBoundLatitude()));
 			dto.setGeographicBoundingBoxDTO(boxDTO);
 			
 		}
 		dto.setSiteDTOs(siteDTOs);
 		return dto;
+	}
+
+	private static String protectNullValue(Double value) {
+		if (value == null)
+		{
+			return "";
+		}
+		else
+		{
+			return ""+value;
+		}
 	}
 
 	public static DrainageBasin fromDrainageBasinDTO(DrainageBasin drainageBasin, DrainageBasinDTO dto) 

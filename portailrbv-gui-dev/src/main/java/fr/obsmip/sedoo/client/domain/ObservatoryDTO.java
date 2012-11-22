@@ -3,6 +3,8 @@ package fr.obsmip.sedoo.client.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.obsmip.sedoo.client.message.Message;
+
 public class ObservatoryDTO extends AbstractDTO implements HasId
 {
 	/**
@@ -15,6 +17,7 @@ public class ObservatoryDTO extends AbstractDTO implements HasId
 	private String longLabel;
 	private String ShortLabel;
 	private List<DrainageBasinDTO> drainageBasinDTOs;
+	private List<ObservatoryContactDTO> contactDTOs;
 	
 	public String getDescription() {
 		return description;
@@ -57,9 +60,15 @@ public class ObservatoryDTO extends AbstractDTO implements HasId
 		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
 		if ((getShortLabel() == null) || (getShortLabel().trim().length() ==0))
 		{
-			result.add(new ValidationAlert("Short label is mandatory"));
+			result.add(new ValidationAlert(Message.INSTANCE.observatoryShortLabel(), Message.INSTANCE.mandatoryData()));
 		}
 		return result;
+	}
+	public List<ObservatoryContactDTO> getContactDTOs() {
+		return contactDTOs;
+	}
+	public void setContactDTOs(List<ObservatoryContactDTO> contactDTOs) {
+		this.contactDTOs = contactDTOs;
 	}
 	
 	

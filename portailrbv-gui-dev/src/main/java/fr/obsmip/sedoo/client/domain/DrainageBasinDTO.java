@@ -3,12 +3,14 @@ package fr.obsmip.sedoo.client.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.obsmip.sedoo.client.message.Message;
+
 public class DrainageBasinDTO extends AbstractDTO implements HasId
 {
 	private Long id;
 	private String label;
-	private List<SiteDTO> siteDTOs;
-	private GeographicBoundingBoxDTO geographicBoundingBoxDTO;
+	private List<SiteDTO> siteDTOs = new ArrayList<SiteDTO>();
+	private GeographicBoundingBoxDTO geographicBoundingBoxDTO = new GeographicBoundingBoxDTO();
 	
 	public String getLabel() {
 		return label;
@@ -23,7 +25,6 @@ public class DrainageBasinDTO extends AbstractDTO implements HasId
 		this.id = id;
 	}
 	public List<SiteDTO> getSiteDTOs() {
-		// TODO Auto-generated method stub
 		return siteDTOs;
 	}
 	public void setSiteDTOs(List<SiteDTO> siteDTOs) {
@@ -43,7 +44,7 @@ public class DrainageBasinDTO extends AbstractDTO implements HasId
 		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
 		if ((getLabel() == null) || (getLabel().trim().length() ==0))
 		{
-			result.add(new ValidationAlert("Label is mandatory"));
+			result.add(new ValidationAlert(Message.INSTANCE.label(), Message.INSTANCE.mandatoryData()));
 		}
 		result.addAll(geographicBoundingBoxDTO.validate());
 		return result;

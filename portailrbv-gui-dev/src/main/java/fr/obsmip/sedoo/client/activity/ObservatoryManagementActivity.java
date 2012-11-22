@@ -1,5 +1,6 @@
 package fr.obsmip.sedoo.client.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
@@ -8,6 +9,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
+import fr.obsmip.sedoo.client.ShortcutFactory;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
@@ -20,6 +22,7 @@ import fr.obsmip.sedoo.client.service.UserService;
 import fr.obsmip.sedoo.client.service.UserServiceAsync;
 import fr.obsmip.sedoo.client.ui.ObservatoryManagementView;
 import fr.obsmip.sedoo.client.ui.ObservatoryManagementView.Presenter;
+import fr.obsmip.sedoo.client.ui.misc.Shortcut;
 
 public class ObservatoryManagementActivity extends RBVAbstractActivity implements Presenter {
 	
@@ -39,6 +42,10 @@ public class ObservatoryManagementActivity extends RBVAbstractActivity implement
 		observatoryManagementView.setPresenter(this);
 		containerWidget.setWidget(observatoryManagementView.asWidget());
 		broadcastActivityTitle(getMessage().observatoryManagementViewHeader());
+		List<Shortcut> shortcuts = new ArrayList<Shortcut>();
+		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+		shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
+		clientFactory.getBreadCrumb().refresh(shortcuts);
 		
 		 ActionStartEvent e = new ActionStartEvent("Chargement des observatoires en cours...", ActionEventConstant.OBSERVATORIES_LOADING_EVENT, true);
 	        clientFactory.getEventBus().fireEvent(e);

@@ -3,12 +3,10 @@ package fr.obsmip.sedoo.client.ui.table;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.cellview.client.TextColumn;
 
-import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
 import fr.obsmip.sedoo.client.domain.HasId;
-import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.domain.SiteDTO;
 import fr.obsmip.sedoo.client.message.Message;
-import fr.obsmip.sedoo.client.ui.ObservatoryEditingView.Presenter;
+import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView.Presenter;
 
 
 public class SiteTable extends AbstractTable {
@@ -28,7 +26,7 @@ public class SiteTable extends AbstractTable {
 
 	@Override
 	public void presenterDelete(Long id) {
-		// Nothing to do. The modification will only be recorded with the parent element		
+		presenter.deleteSite(id);	
 	}
 
 	@Override
@@ -38,11 +36,6 @@ public class SiteTable extends AbstractTable {
 		
 	}
 
-	@Override
-	public String getDeleteItemConfirmationText() {
-		return "Delete ???";
-	}
-	
 	@Override
 	protected void initColumns() {
 		
@@ -61,6 +54,4 @@ public class SiteTable extends AbstractTable {
 		this.presenter = presenter;
 	}
 
-	
-	
 }

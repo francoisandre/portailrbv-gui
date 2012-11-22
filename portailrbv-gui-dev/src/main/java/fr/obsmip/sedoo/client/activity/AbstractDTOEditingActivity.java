@@ -1,6 +1,7 @@
 package fr.obsmip.sedoo.client.activity;
 
 import fr.obsmip.sedoo.client.ClientFactory;
+import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.ui.DTOEditingView;
@@ -12,17 +13,34 @@ public abstract class AbstractDTOEditingActivity extends RBVAbstractActivity{
 	}
 
 	protected DTOEditingView view;
-	protected String previousHash;
+	protected String previousHash="#";
+	private String mode;
 	
 	public String mayStop() {
 	    AbstractDTO current = view.flush();
 	    if (previousHash.compareTo(current.getHash()) != 0)
 	    {
-	    	return Message.INSTANCE.unsavedModificationsConfirmation();
+	    	if (mode.compareTo(Constants.MODIFY)==0)
+	    	{
+	    		return Message.INSTANCE.unsavedModificationsConfirmation();
+	    	}
+	    	else
+	    	{
+	    		return Message.INSTANCE.unsavedCreationConfirmation();
+	    	}
 	    }
 	    else
 	    {
 	    	return null;
 	    }
 	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
 }

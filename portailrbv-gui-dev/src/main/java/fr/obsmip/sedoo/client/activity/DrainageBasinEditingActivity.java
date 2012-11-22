@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
-import fr.obsmip.sedoo.client.domain.AbstractDTO;
+import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
 import fr.obsmip.sedoo.client.domain.ValidationAlert;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
@@ -20,12 +20,13 @@ import fr.obsmip.sedoo.client.service.ObservatoryService;
 import fr.obsmip.sedoo.client.service.ObservatoryServiceAsync;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView.Presenter;
+import fr.obsmip.sedoo.client.ui.ObservatoryEditingView;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 
 public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity implements Presenter{
 
 	private Long id;
-	private String mode;
+	
 //	private DrainageBasinEditingView drainageBasinEditingView;
 
 	public DrainageBasinEditingActivity(DrainageBasinEditingPlace place, ClientFactory clientFactory) {
@@ -37,7 +38,7 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 		}
 		if (place.getMode() != null)
 		{
-			mode = place.getMode();
+			setMode(place.getMode());
 		}
 	}
 
@@ -51,7 +52,7 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 		view = drainageBasinEditingView;
 		drainageBasinEditingView.setPresenter(this);
 		containerWidget.setWidget(drainageBasinEditingView.asWidget());
-		if (mode.compareTo(DrainageBasinEditingPlace.MODIFY) == 0)
+		if (getMode().compareTo(Constants.MODIFY) == 0)
 		{
 			observatoryService.getDrainageBasinById(id, new AsyncCallback<DrainageBasinDTO>() {
 
@@ -60,7 +61,7 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 					broadcastActivityTitle(Message.INSTANCE.drainageBasinEditingViewModificationHeader() +" ("+result.getLabel()+")");
 					previousHash = result.getHash();
 					view.edit(result);
-
+					view.setMode(Constants.MODIFY);
 				}
 
 				@Override
@@ -75,8 +76,9 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 		else
 		{
 			previousHash = "";
-			drainageBasinEditingView.edit(new DrainageBasinDTO());
 			broadcastActivityTitle(Message.INSTANCE.drainageBasinEditingViewCreationHeader());
+			drainageBasinEditingView.edit(new DrainageBasinDTO());
+			view.setMode(Constants.CREATE);
 		}
 	}
 
@@ -91,12 +93,12 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 		List<ValidationAlert> validate = drainageBasinDTO.validate();
 		if (validate.isEmpty() == false)
 		{
-			DialogBoxTools.popUp(Message.INSTANCE.error(), "Erreurs...");
+			DialogBoxTools.popUp(Message.INSTANCE.error(), "Erreurs...", DialogBoxTools.TEXT_MODE);
 			return;
 		}
 		
 		//Modification mode
-		if (mode.compareTo(DrainageBasinEditingPlace.MODIFY) == 0)
+		if (getMode().compareTo(Constants.MODIFY) == 0)
 		{
 			drainageBasinDTO.setId(id);
 		}
@@ -111,6 +113,7 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 				previousHash = drainageBasinDTO.getHash();
 				ActionEndEvent e = new ActionEndEvent(ActionEventConstant.DRAINAGE_BASIN_SAVING_EVENT);
 		        clientFactory.getEventBus().fireEvent(e);
+		        view.setMode(Constants.MODIFY);
 			}
 			
 			@Override
@@ -126,20 +129,20 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 	}
 
 	@Override
-	public void deleteDrainageBasin(Long id) 
+	public void deleteSite(final Long id) 
 	{
-		observatoryService.deleteDrainageBasin(id, new AsyncCallback<Void>() {
+		observatoryService.deleteSite(id, new AsyncCallback<Void>() {
 			
 			@Override
 			public void onSuccess(Void result) {
-				// TODO Auto-generated method stub
-				
+				DrainageBasinEditingView aux = (DrainageBasinEditingView) view;
+				aux.broadcastSiteDeletion(id, true);
 			}
 			
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
+				DrainageBasinEditingView aux = (DrainageBasinEditingView) view;
+				aux.broadcastSiteDeletion(id, false);				
 			}
 		});
 			

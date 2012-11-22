@@ -107,19 +107,21 @@ public class ObservatoryManagementViewImpl extends AbstractSection implements Ob
 		TextColumn<ObservatoryDTO> observationColumn = new TextColumn<ObservatoryDTO>() {
 			@Override
 			public String getValue(ObservatoryDTO observatory) {
-				if (observatory.getDescription().length()>200)
+				String aux = observatory.getDescription();
+//				aux = aux.replace("\n", "<br />");
+				if (aux.length()>200)
 				{
-					return observatory.getDescription().substring(0, 200)+"...";
+					return aux.substring(0, 200)+"...";
 				}
 				else
 				{
-					return observatory.getDescription();
+					return aux;
 				}
 			}
 		};
 
 		observatoryTable.addColumn(nameColumn, "Name");
-		observatoryTable.addColumn(observationColumn, "Observation");
+		observatoryTable.addColumn(observationColumn, "Description");
 		observatoryTable.addColumn(editColumn);
 		observatoryTable.addColumn(deleteColumn);
 
@@ -215,7 +217,7 @@ public class ObservatoryManagementViewImpl extends AbstractSection implements Ob
 		else
 		{
 			DialogBoxTools.modalAlert("A problem has appeared while deleting the observatory",
-	                "A problem has appeared while deleting the observatory.").center();
+	                "A problem has appeared while deleting the observatory.");
 		}
 	}
 

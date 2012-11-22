@@ -21,15 +21,21 @@ public class DialogBoxTools
 {
 
 	private static final String DEFAULT_TITLE = "Informations";
+	public static final String HTML_MODE = "HTML_MODE";
+	public static final String TEXT_MODE = "TEXT_MODE";
 	
 	public static void popUp(String text) 
 	{
-		popUp(DEFAULT_TITLE, text);
+		popUp(DEFAULT_TITLE, text, TEXT_MODE);
 	}
 	
-	public static void popUp(String title, String text) 
+	public static void popUp(String title, String text, String mode) 
 	{
-		String formattedText = SafeHtmlUtils.htmlEscape(text);
+		String formattedText = text;
+		if (mode.compareTo(TEXT_MODE)==0)
+		{
+			formattedText = SafeHtmlUtils.htmlEscape(text);
+		}
 		final DialogBox dialogBox = new DialogBox();
 	    dialogBox.setText(title);
 	    
@@ -61,12 +67,12 @@ public class DialogBoxTools
 	    dialogBox.setGlassEnabled(true);
 	    dialogBox.setAutoHideEnabled(true);
 	    dialogBox.center();
-        dialogBox.show();
+	    dialogBox.show();
 		
 		
 	}
 	
-	public static DialogBox modalAlert(final String header, final String content) {
+	public static void modalAlert(final String header, final String content) {
         final DialogBox box = new DialogBox();
         final VerticalPanel panel = new VerticalPanel();
         box.setText(header);
@@ -86,7 +92,8 @@ public class DialogBoxTools
         panel.add(buttonClose);
         panel.setCellHorizontalAlignment(buttonClose, HasAlignment.ALIGN_RIGHT);
         box.add(panel);
-        return box;
+        box.center();
+        box.show();
     }
 	
 	public static DialogBox modalConfirm(final String header, final String content, final ConfirmCallBack callback) {

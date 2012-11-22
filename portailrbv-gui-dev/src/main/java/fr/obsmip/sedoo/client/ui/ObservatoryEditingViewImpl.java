@@ -1,7 +1,7 @@
 package fr.obsmip.sedoo.client.ui;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,14 +14,16 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.CellTableResources;
+import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
+import fr.obsmip.sedoo.client.domain.PersonDTO;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.table.DrainageBasinTable;
+import fr.obsmip.sedoo.client.ui.table.ObservatoryContactTable;
+import fr.obsmip.sedoo.client.ui.table.PersonTable;
 
-public class ObservatoryEditingViewImpl extends AbstractSection implements ObservatoryEditingView {
-
-
+public class ObservatoryEditingViewImpl extends AbstractDTOEditingView implements ObservatoryEditingView {
 
 	private static ObservatoryEditingViewImplUiBinder uiBinder = GWT
 			.create(ObservatoryEditingViewImplUiBinder.class);
@@ -45,8 +47,14 @@ public class ObservatoryEditingViewImpl extends AbstractSection implements Obser
 	DrainageBasinTable drainageBasinTable;
 	
 	@UiField
+	ObservatoryContactTable contactTable;
+	
+	@UiField
 	Button saveButton;
 
+	@UiField
+	Button backButton;
+	
 	public ObservatoryEditingViewImpl() {
 		super();
 		initWidget(uiBinder.createAndBindUi(this));
@@ -63,9 +71,16 @@ public class ObservatoryEditingViewImpl extends AbstractSection implements Obser
 		longLabel.setText(observatoryDTO.getLongLabel());
 		shortLabel.setText(observatoryDTO.getShortLabel());
 		description.setText(observatoryDTO.getDescription());
+		
+		//Drainage Bassin Table 
 		drainageBasinTable.setPresenter(presenter);
 		drainageBasinTable.setObservatoryDTO(observatoryDTO);
 		drainageBasinTable.init(observatoryDTO.getDrainageBasinDTOs());
+		
+		//Person Table 
+		contactTable.setPresenter(presenter);
+		contactTable.setObservatoryDTO(observatoryDTO);
+		contactTable.init(observatoryDTO.getContactDTOs());
 	}
 
 	private void init()
@@ -101,6 +116,12 @@ public class ObservatoryEditingViewImpl extends AbstractSection implements Obser
 	 {
 		presenter.save(flush());
 	 }
+	 
+	 @UiHandler("backButton")
+	 void onBackButtonClicked(ClickEvent event) 
+	 {
+		 presenter.back();
+	 }
 
 
 	@Override
@@ -112,11 +133,38 @@ public class ObservatoryEditingViewImpl extends AbstractSection implements Obser
 		else
 		{
 			DialogBoxTools.modalAlert("A problem has appeared while deleting the drainage basin",
-	                "A problem has appeared while deleting the drainage basin.").center();
+	                "A problem has appeared while deleting the drainage basin.");
 		}		
+	}
+
+
+	@Override
+	public void broadcastPersonDeletion(Long id, boolean success) {
+		if (success)
+		{
+			contactTable.removeRow(id);
+		}
+		else
+		{
+			DialogBoxTools.modalAlert("A problem has appeared while deleting this person",
+	                "A problem has appeared while deleting this person.");
+		}				
 	}
 	
 
-
+	@Override
+	public void setMode(String mode) {
+		super.setMode(mode);
+		if (mode.compareTo(Constants.CREATE)==0)
+		{
+			contactTable.setAddButtonEnabled(false);
+			drainageBasinTable.setAddButtonEnabled(false);
+		}
+		else
+		{
+			contactTable.setAddButtonEnabled(true);
+			drainageBasinTable.setAddButtonEnabled(true);			
+		}
+	}
 
 }

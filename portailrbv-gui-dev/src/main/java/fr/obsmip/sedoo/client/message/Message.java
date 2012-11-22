@@ -30,6 +30,30 @@ public interface Message extends Messages {
     @Key("metadataEditing.resourceURL")
     public String metadataEditingResourceURL();
     
+    @Key("metadataEditing.URLDefaultValue")
+    public String metadataEditingURLDefaultValue();
+    
+    @Key("metadataEditing.URLTableAddItemText")
+    public String metadataEditingURLTableAddItemText();
+    
+    @Key("metadataEditing.resourceIdentifier")
+    public String metadataEditingResourceIdentifier();
+    
+    @Key("metadataEditing.resourceIdentifierAddItemText")
+    public String metadataEditingResourceIdentifierAddItemText();
+    
+    @Key("metadataEditing.resourceIdentifierWaterMark")
+    public String metadataEditingResourceIdentifierWaterMark();
+    
+    @Key("metadataEditing.constraintTabHeader")
+    public String  metadataEditingConstraintTabHeader();
+    
+    @Key("metadataEditing.useConditions")
+    public String  metadataEditingUseConditions();
+    
+    @Key("metadataEditing.publicAccessLimitations")
+    public String  metadataEditingPublicAccessLimitations();
+    
     @Key("headerView.notConnectedMessage")
     public String headerViewNotConnectedMessage();
     
@@ -86,6 +110,9 @@ public interface Message extends Messages {
     
     @Key("observatoryEditingView.drainageBasinList")
     public String observatoryEditingDrainageBasinList();
+    
+    @Key("observatoryEditingView.contactList")
+    public String observatoryEditingContactList();
     
     @Key("observatoryEditingView.climateListText")
 	public String climateListText();
@@ -162,9 +189,24 @@ public interface Message extends Messages {
 	@Key("commons.save")
     public String save();
 	
+	@Key("commons.back")
+    public String back();
+	
 	@Key("commons.saving")
     public String saving();
+	
+	@Key("commons.deletionConfirmMessage")
+    public String deletionConfirmMessage();
 
+	@Key("commons.mandatoryData")
+    public String mandatoryData();
+
+	@Key("commons.numericalData")
+	public String numericalData();
+	
+	@Key("commons.emailData")
+	public String emailData();
+	
 	@Key("mapSelector.northLatitude")
 	public String mapSelectorNorthLatitude();
 	
@@ -186,11 +228,35 @@ public interface Message extends Messages {
 	@Key("siteTable.addItemText")
 	public String SiteTableAddItemText();
 	
+	@Key("observatoryContactTable.addItemText")
+	public String observatoryContactTableAddItemText();
+	
     @Key("drainageBasinEditingView.SiteList")
     public String drainageBasinEditingSiteList();
 	
     @Key("common.unsavedModificationsConfirmation")
     public String unsavedModificationsConfirmation();
+
+    @Key("common.unsavedCreationConfirmation")
+    public String unsavedCreationConfirmation();
     
+    @Key("person.personName")
+    public String personPersonName();
+    
+    @Key("person.organisationName")
+    public String personOrganisationName();
+    
+    @Key("person.email")
+    public String personEmail();
+    
+    @Key("observatoryContactEditingView.creationHeader")
+    public String observatoryContactEditingViewCreationHeader();
+    
+    @Key("observatoryContactEditingView.modificationHeader")
+    public String observatoryContactEditingViewModificationHeader();
+
+	
+
+
 	
 }

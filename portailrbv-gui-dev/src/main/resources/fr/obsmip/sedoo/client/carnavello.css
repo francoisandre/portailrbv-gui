@@ -145,3 +145,30 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 		.scrollableHTMLPanel {
 			overflow: auto;
 		}
+		
+		.breadCrumbPanel
+		{
+			padding-left:10px;
+		}
+		
+		
+		a.breadCrumbInnerToken:hover {
+		color:white;
+		text-decoration: none;
+		} 
+		
+		.breadCrumbInnerToken{
+			font-size: 11px;
+			color: black;
+			display : inline;
+			cursor :pointer; 
+			white-space: nowrap;
+		}
+		
+		.breadCrumbLastToken{
+			font-size: 11px;
+			color: white;
+			display : inline;
+			cursor: default;
+			white-space: nowrap;
+		}

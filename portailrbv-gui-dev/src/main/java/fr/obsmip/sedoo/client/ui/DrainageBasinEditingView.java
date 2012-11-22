@@ -6,13 +6,13 @@ public interface DrainageBasinEditingView extends DTOEditingView {
 	
 	void setPresenter(Presenter presenter);
 	
-	interface Presenter 
+	public interface Presenter 
 	 {
-
 		void save(DrainageBasinDTO flush);
-		void deleteDrainageBasin(Long id);
+		void deleteSite(Long id);
 	 }
 
 	DrainageBasinDTO flush();
+	void broadcastSiteDeletion(Long id, boolean b);
 
 }

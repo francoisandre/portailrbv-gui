@@ -8,5 +8,6 @@ public interface DTOEditingView  extends  IsWidget{
 
 	AbstractDTO flush();
 	void edit(AbstractDTO dto);
+	void setMode(String mode);
 
 }
