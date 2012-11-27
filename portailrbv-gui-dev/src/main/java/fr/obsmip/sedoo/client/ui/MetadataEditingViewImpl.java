@@ -12,12 +12,14 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.Constants;
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
+import fr.obsmip.sedoo.client.domain.AbstractDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.service.ParameterService;
 import fr.obsmip.sedoo.client.service.ParameterServiceAsync;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
+import fr.obsmip.sedoo.client.ui.tabs.edit.MetadataTab;
 
-public class MetadataEditingViewImpl extends AbstractSection implements MetadataEditingView,  Editor<MetadataDTO> {
+public class MetadataEditingViewImpl extends AbstractDTOEditingView implements MetadataEditingView,  Editor<MetadataDTO> {
 
 	private static MetadataEditingViewImplUiBinder uiBinder = GWT
 			.create(MetadataEditingViewImplUiBinder.class);
@@ -27,11 +29,12 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 	
 	 //interface Driver extends SimpleBeanEditorDriver<MetadataDTO, MetadataEditingViewImpl> {}      
      //Driver driver = GWT.create(Driver.class);
-     
-	private MetadataDTO metadata = null;
 	
 	
 	private Presenter presenter; 
+	
+	@UiField
+	MetadataTab metadataTab;
 	
 
 	interface MetadataEditingViewImplUiBinder extends UiBinder<Widget, MetadataEditingViewImpl> {
@@ -44,7 +47,7 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 	@UiField 
 	Button generateXMLButton;
 	
-	private String mode = null;
+	private String executionMode = null;
 
 	public MetadataEditingViewImpl() {
 		super();
@@ -52,13 +55,13 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 		applyCommonStyle();
 		//driver.initialize(this);
 		
-		if (mode == null)
+		if (executionMode == null)
 		{
 		paramService.getParameter(Constants.MODE_PARAM, new AsyncCallback<String>() {
 			
 			@Override
 			public void onSuccess(String result) {
-				setMode(result);
+				setExecutionMode(result);
 				updateMode(result);
 				
 			}
@@ -72,7 +75,7 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 		}
 		else
 		{
-			updateMode(mode);
+			updateMode(executionMode);
 		}
 		
 	}
@@ -92,7 +95,7 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 	  void onGenerateXMLButtonClicked(ClickEvent event) {
 		 
 		 //driver.flush();
-		 presenter.generateXML(metadata);
+		 presenter.generateXML(flush());
 		  
 		 
 	  }
@@ -103,21 +106,26 @@ public class MetadataEditingViewImpl extends AbstractSection implements Metadata
 	}
 
 	@Override
-	public void edit(MetadataDTO metadata) 
-	{
-		this.metadata = metadata;
-		//driver.edit(this.metadata);
-	}
-
-	@Override
 	public void setGeneratedXML(String xml) 
 	{
 		DialogBoxTools.popUp("XML Généré",xml, DialogBoxTools.TEXT_MODE);
 	}
 
 	
-	private void setMode(String mode) {
-		this.mode = mode;
+	private void setExecutionMode(String mode) {
+		this.executionMode = mode;
+	}
+
+	@Override
+	public MetadataDTO flush() {
+		return new MetadataDTO();
+	}
+
+	@Override
+	public void edit(AbstractDTO dto) {
+		MetadataDTO metadata = (MetadataDTO) dto;
+		metadataTab.edit(metadata);
+		
 	}
 
 

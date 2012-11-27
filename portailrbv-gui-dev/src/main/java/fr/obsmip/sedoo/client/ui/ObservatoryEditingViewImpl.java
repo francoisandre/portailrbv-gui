@@ -1,8 +1,5 @@
 package fr.obsmip.sedoo.client.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -17,11 +14,9 @@ import fr.obsmip.sedoo.client.CellTableResources;
 import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
-import fr.obsmip.sedoo.client.domain.PersonDTO;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.table.DrainageBasinTable;
 import fr.obsmip.sedoo.client.ui.table.ObservatoryContactTable;
-import fr.obsmip.sedoo.client.ui.table.PersonTable;
 
 public class ObservatoryEditingViewImpl extends AbstractDTOEditingView implements ObservatoryEditingView {
 

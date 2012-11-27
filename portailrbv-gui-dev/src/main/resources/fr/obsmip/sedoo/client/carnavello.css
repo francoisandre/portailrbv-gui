@@ -71,13 +71,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 			padding-top :10px;
 		}
 		
-		.leftColumn {
-			
-			padding-top :10px;
-			padding-left:10px;
-			font-weight: bold;
-			background-color: #E8E8E8 ;
-		}
+		
 
 @sprite .menuLink
 {
@@ -103,7 +97,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
   .leftColumn {
 			
 			padding-left:5px;
-			/*font-weight: bold;*/
 			background-color: #E8E8E8 ;
 			text-align: right;
 			white-space: nowrap;

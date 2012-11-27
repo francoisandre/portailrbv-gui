@@ -63,6 +63,12 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>thesaurusServlet</servlet-name>
+		<servlet-class>fr.obsmip.sedoo.server.service.ThesaurusServiceImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	
  
   <!-- Servlet Mapping -->
@@ -90,6 +96,12 @@
 	<servlet-mapping>
 		<servlet-name>observatoryServlet</servlet-name>
 		<url-pattern>/portailrbv/observatory</url-pattern>
+	</servlet-mapping>
+	
+		
+	<servlet-mapping>
+		<servlet-name>thesaurusServlet</servlet-name>
+		<url-pattern>/portailrbv/thesaurus</url-pattern>
 	</servlet-mapping>
 
   

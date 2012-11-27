@@ -2,7 +2,7 @@ package fr.obsmip.sedoo.client.ui;
 
 import com.google.gwt.user.client.ui.IsWidget;
 
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 
 public interface MetadataDisplayView extends IsWidget
 {

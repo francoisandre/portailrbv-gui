@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class AbstractDTO implements Serializable{
 	
-	protected String protectNullString(String value)
+	public static String protectNullString(String value)
 	{
 		if (value == null)
 		{

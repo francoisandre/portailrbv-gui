@@ -8,14 +8,6 @@
 			padding-top :10px;
 		}
 		
-		.leftColumn {
-			
-			padding-top :10px;
-			padding-left:10px;
-			font-weight: bold;
-			background-color: #E8E8E8 ;
-		}
-		
 		.table
 		{
 	 		width:95%; 

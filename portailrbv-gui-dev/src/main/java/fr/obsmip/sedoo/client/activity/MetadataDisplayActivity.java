@@ -7,7 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;

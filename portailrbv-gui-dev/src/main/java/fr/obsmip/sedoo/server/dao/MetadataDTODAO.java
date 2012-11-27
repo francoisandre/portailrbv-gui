@@ -3,8 +3,8 @@ package fr.obsmip.sedoo.server.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 
 public class MetadataDTODAO {
 

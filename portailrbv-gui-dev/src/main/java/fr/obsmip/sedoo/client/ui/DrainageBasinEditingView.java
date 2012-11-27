@@ -1,6 +1,9 @@
 package fr.obsmip.sedoo.client.ui;
 
+import java.util.List;
+
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
+import fr.obsmip.sedoo.client.domain.ThesaurusItemDTO;
 
 public interface DrainageBasinEditingView extends DTOEditingView {
 	
@@ -14,5 +17,8 @@ public interface DrainageBasinEditingView extends DTOEditingView {
 
 	DrainageBasinDTO flush();
 	void broadcastSiteDeletion(Long id, boolean b);
+	
+	void updateClimateList(List<ThesaurusItemDTO> items);
+	void updateLithologyList(List<ThesaurusItemDTO> items);
 
 }

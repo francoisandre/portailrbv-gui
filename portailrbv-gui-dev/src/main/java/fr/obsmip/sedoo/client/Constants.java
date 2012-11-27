@@ -6,4 +6,8 @@ public interface Constants
 	public final String DEBUG_MODE = "debug";
 	public final String MODIFY = "MODIFY";
 	public final String CREATE = "CREATE";
+	public final String FRENCH = "FRE";
+	public final String FRENCH_ALT = "FRA";
+	public final String ENGLISH = "EN";
+	public final String FRENCH_LOCALE = "FR";
 }

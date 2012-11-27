@@ -1,11 +1,14 @@
-package fr.obsmip.sedoo.client.domain;
+package fr.obsmip.sedoo.client.domain.metadata;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.obsmip.sedoo.client.domain.AbstractDTO;
+import fr.obsmip.sedoo.client.domain.GeographicalLocation;
+import fr.obsmip.sedoo.client.domain.ValidationAlert;
 
-public class MetadataDTO implements Serializable
+
+public class MetadataDTO extends AbstractDTO
 {
 	/**
 	 * 
@@ -18,6 +21,8 @@ public class MetadataDTO implements Serializable
 	private String resourceAbstract;
 	private List<String> resourceURL = new ArrayList<String>();
 	private GeographicalLocation geographicalLocation;
+	private MetadataPart metadataPart = new MetadataPart();
+	
 
 //	String getResourceTitle();
 //	void setResourceTitle(String resourceTitle);
@@ -50,7 +55,23 @@ public class MetadataDTO implements Serializable
 	}
 	
 	
+	@Override
+	public String getHash() {
+		return "@"+protectNullString(getResourceTitle())+"|"+getMetadataPart().getHash();
+	}
+	@Override
+	public List<ValidationAlert> validate() {
+		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
+		return result;
+	}
 	
+	public MetadataPart getMetadataPart() {
+		return metadataPart;
+	}
+	public void setMetadataPart(MetadataPart part) 
+	{
+		this.metadataPart = part;
+	}
 	
 }
 

@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
+import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
+import fr.obsmip.sedoo.client.domain.ThesaurusItemDTO;
 import fr.obsmip.sedoo.client.domain.ValidationAlert;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
@@ -18,6 +20,8 @@ import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.service.ObservatoryService;
 import fr.obsmip.sedoo.client.service.ObservatoryServiceAsync;
+import fr.obsmip.sedoo.client.service.ThesaurusService;
+import fr.obsmip.sedoo.client.service.ThesaurusServiceAsync;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView.Presenter;
 import fr.obsmip.sedoo.client.ui.ObservatoryEditingView;
@@ -26,7 +30,8 @@ import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity implements Presenter{
 
 	private Long id;
-	
+	static List<ThesaurusItemDTO> climateThesaurus;
+	static List<ThesaurusItemDTO> lithologyThesaurus;	
 //	private DrainageBasinEditingView drainageBasinEditingView;
 
 	public DrainageBasinEditingActivity(DrainageBasinEditingPlace place, ClientFactory clientFactory) {
@@ -48,10 +53,61 @@ public class DrainageBasinEditingActivity extends AbstractDTOEditingActivity imp
 
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-		DrainageBasinEditingView drainageBasinEditingView = clientFactory.getDrainageBasinEditingView();
+		final DrainageBasinEditingView drainageBasinEditingView = clientFactory.getDrainageBasinEditingView();
 		view = drainageBasinEditingView;
 		drainageBasinEditingView.setPresenter(this);
 		containerWidget.setWidget(drainageBasinEditingView.asWidget());
+		
+		
+		if (climateThesaurus == null)
+		{
+			ThesaurusServiceAsync thesaurusService = GWT.create(ThesaurusService.class);
+			thesaurusService.getClimateThesaurus(LocaleInfo.getCurrentLocale().getLocaleName(), new AsyncCallback<List<ThesaurusItemDTO>>() {
+				
+				@Override
+				public void onSuccess(List<ThesaurusItemDTO> result) {
+					drainageBasinEditingView.updateClimateList(result);
+					
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+					
+		}
+		else
+		{
+			drainageBasinEditingView.updateClimateList(climateThesaurus);
+		}
+		
+		if (lithologyThesaurus == null)
+		{
+			ThesaurusServiceAsync thesaurusService = GWT.create(ThesaurusService.class);
+			thesaurusService.getLithologyThesaurus(LocaleInfo.getCurrentLocale().getLocaleName(), new AsyncCallback<List<ThesaurusItemDTO>>() {
+				
+				@Override
+				public void onSuccess(List<ThesaurusItemDTO> result) {
+					drainageBasinEditingView.updateLithologyList(result);
+					
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+					
+		}
+		else
+		{
+			drainageBasinEditingView.updateLithologyList(lithologyThesaurus);
+		}
+		
+		
 		if (getMode().compareTo(Constants.MODIFY) == 0)
 		{
 			observatoryService.getDrainageBasinById(id, new AsyncCallback<DrainageBasinDTO>() {

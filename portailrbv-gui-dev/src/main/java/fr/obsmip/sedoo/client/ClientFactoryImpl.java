@@ -53,7 +53,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final WelcomeView WELCOME_VIEW = new WelcomeViewImpl();
 	private static final ObservatoryManagementView OBSERVATORY_MANAGEMENT_VIEW = new ObservatoryManagementViewImpl();
 	private static final ObservatoryEditingView OBSERVATORY_EDITING_VIEW = new ObservatoryEditingViewImpl();
-	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewImpl();
+	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewFakeImpl();
+//	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewImpl();
 	private static final MetadataSearchView METADATA_SEARCH_VIEW = new MetadataSearchViewImpl();
 	private static final MetadataListView METADATA_LIST_VIEW = new MetadataListViewImpl();
 	private static final BreadCrumb BREAD_CRUMB = new BreadCrumbImpl();

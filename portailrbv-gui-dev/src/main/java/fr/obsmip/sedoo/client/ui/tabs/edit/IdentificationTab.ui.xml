@@ -9,14 +9,6 @@
 			padding-top :10px;
 		}
 		
-		.leftColumn {
-			
-			padding-top :10px;
-			padding-left:10px;
-			font-weight: bold;
-			background-color: #E8E8E8 ;
-		}
-		
 		.table
 		{
 	 		width:95%; 
@@ -30,9 +22,6 @@
 		.row
 		{
 			border-bottom: 2px solid white;
-		}
-		
-		.libelle {
 		}
 		
 		.scrollable {
@@ -69,10 +58,10 @@ overflow: auto;
     <col width="20%" />
   <col width="80%" />
     <tbody class="tableBody">
-    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingResourceTitle}" /></span></td><td><g:TextBox ui:field='resourceTitle' visibleLength="80"/><l:Tooltip>Ceci est un <b> test de tooltip ! </b></l:Tooltip></td></tr>
-    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingResourceAbstract}" /></span></td><td><g:TextArea ui:field="resourceAbstract" width="80%"  visibleLines="5" /></td></tr>
-    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingResourceURL}" /></span></td><td><t:URLTable ui:field="resourceURLTable" /></td></tr>
-    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingResourceIdentifier}" /></span></td><td><t:StringTable ui:field="resourceIdentifiantTable" addItemText="{messageBundle.metadataEditingResourceIdentifierAddItemText}" watermark="{messageBundle.metadataEditingResourceIdentifierWaterMark}" askDeletionConfirmation="false" /></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceTitle}" /></td><td><g:TextBox ui:field='resourceTitle' visibleLength="80"/><l:Tooltip>Ceci est un <b> test de tooltip ! </b></l:Tooltip></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceAbstract}" /></td><td><g:TextArea ui:field="resourceAbstract" width="80%"  visibleLines="5" /></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceURL}" /></td><td><t:URLTable ui:field="resourceURLTable" /></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceIdentifier}" /></td><td><t:StringTable ui:field="resourceIdentifiantTable" addItemText="{messageBundle.metadataEditingResourceIdentifierAddItemText}" watermark="{messageBundle.metadataEditingResourceIdentifierWaterMark}" askDeletionConfirmation="false" /></td></tr>
     </tbody>
     </table>
     </div>

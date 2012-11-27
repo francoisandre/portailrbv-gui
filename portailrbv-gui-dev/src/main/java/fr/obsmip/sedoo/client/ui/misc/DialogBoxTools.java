@@ -11,9 +11,11 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.message.Message;
 
@@ -64,6 +66,21 @@ public class DialogBoxTools
 	      dialogContents.setCellHorizontalAlignment(closeButton, HasHorizontalAlignment.ALIGN_CENTER);
 	      
 	      dialogBox.setWidget(dialogContents);
+	    dialogBox.setGlassEnabled(true);
+	    dialogBox.setAutoHideEnabled(true);
+	    dialogBox.center();
+	    dialogBox.show();
+		
+		
+	}
+	
+	
+	public static void popUp(String title, DialogBoxContent content) 
+	{
+		final DialogBox dialogBox = new DialogBox();
+	    dialogBox.setText(title);
+        dialogBox.setWidget(content);
+        content.setDialogBox(dialogBox);
 	    dialogBox.setGlassEnabled(true);
 	    dialogBox.setAutoHideEnabled(true);
 	    dialogBox.center();
@@ -139,6 +156,8 @@ public class DialogBoxTools
         box.add(panel);
         return box;
     }
+	
+	
 
 	
 }

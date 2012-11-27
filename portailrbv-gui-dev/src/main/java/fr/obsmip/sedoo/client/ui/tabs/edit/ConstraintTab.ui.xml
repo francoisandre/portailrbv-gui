@@ -9,14 +9,6 @@
 			padding-top :10px;
 		}
 		
-		.leftColumn {
-			
-			padding-top :10px;
-			padding-left:10px;
-			font-weight: bold;
-			background-color: #E8E8E8 ;
-		}
-		
 		.table
 		{
 	 		width:95%; 
@@ -69,8 +61,8 @@ overflow: auto;
     <col width="20%" />
   <col width="80%" />
     <tbody class="tableBody">
-    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingUseConditions}" /></span></td><td><g:TextArea ui:field="useConditions" width="80%"  visibleLines="5" /></td></tr>
-    	<tr class='{style.row}'><td class='{style.leftColumn}'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingPublicAccessLimitations}" /></span></td><td><g:TextArea ui:field="publicAccessLimitations" width="80%"  visibleLines="5" /></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingUseConditions}" /></span></td><td><g:TextArea ui:field="useConditions" width="80%"  visibleLines="5" /></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingPublicAccessLimitations}" /></span></td><td><g:TextArea ui:field="publicAccessLimitations" width="80%"  visibleLines="5" /></td></tr>
     </tbody>
     </table>
     </div>

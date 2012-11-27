@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.service.MetadataService;
 import fr.obsmip.sedoo.core.RBVApplication;
 import fr.obsmip.sedoo.core.dao.MetadataDAO;

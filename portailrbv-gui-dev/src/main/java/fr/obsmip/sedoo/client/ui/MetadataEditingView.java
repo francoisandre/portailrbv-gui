@@ -1,13 +1,10 @@
 package fr.obsmip.sedoo.client.ui;
 
-import com.google.gwt.user.client.ui.IsWidget;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
-
-public interface MetadataEditingView extends IsWidget
+public interface MetadataEditingView extends DTOEditingView
 {
 	void setPresenter(Presenter presenter);
-	void edit(MetadataDTO metadataDTO);
 	void setGeneratedXML(String xml);
 	
 	 public interface Presenter 

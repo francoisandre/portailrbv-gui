@@ -68,10 +68,10 @@ overflow: auto;
 			<tabs:ConstraintTab />
 		</g:tab>
 		<g:tab>
-			<g:header>
-				UiBinder Tab 3
-			</g:header>
-			<g:HTML><strong><i><u>Hello tab number 3</u></i></strong></g:HTML>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingMetadataTabHeader}" />
+			</g:customHeader>
+			<tabs:MetadataTab ui:field="metadataTab" />
 		</g:tab>
 	</g:TabLayoutPanel>
 	 

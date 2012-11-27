@@ -5,8 +5,8 @@ import java.util.List;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 
 @RemoteServiceRelativePath("metadata")
 public interface MetadataService extends RemoteService {

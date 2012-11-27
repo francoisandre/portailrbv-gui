@@ -4,10 +4,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 import com.google.gwt.i18n.client.LocalizableResource.Generate;
 import com.google.gwt.i18n.client.Messages;
-import com.google.gwt.safehtml.shared.SafeHtml;
-import com.google.gwt.user.cellview.client.Header;
-
-import fr.obsmip.sedoo.client.GlobalBundle;
 
 @Generate(
 format = { "com.google.gwt.i18n.rebind.format.PropertiesFormat" }, 
@@ -48,11 +44,27 @@ public interface Message extends Messages {
     @Key("metadataEditing.constraintTabHeader")
     public String  metadataEditingConstraintTabHeader();
     
+    @Key("metadataEditing.metadataTabHeader")
+    public String  metadataEditingMetadataTabHeader();
+    
+    @Key("metadataEditing.metatadataLanguage")
+    public String  metadataEditingMetatadataLanguage();
+  
+    @Key("metadataEditing.metatadaEditingMetadataLastModificationDate")
+    public String  metatadaEditingMetadataLastModificationDate();
+    
     @Key("metadataEditing.useConditions")
     public String  metadataEditingUseConditions();
     
     @Key("metadataEditing.publicAccessLimitations")
     public String  metadataEditingPublicAccessLimitations();
+    
+    @Key("metadataEtiting.metadataContactTable.addItemText")
+	public String metadataContactTableAddItemText();
+    
+    @Key("metadataEtiting.metadataContactList")
+   	public String metadataContactList();
+    
     
     @Key("headerView.notConnectedMessage")
     public String headerViewNotConnectedMessage();
@@ -156,6 +168,12 @@ public interface Message extends Messages {
 	@Key("no")
 	public String no();
 	
+	@Key("ok")
+	public String ok();
+	
+	@Key("cancel")
+	public String cancel();
+	
 	@Key("delete")
 	public String delete();
 	
@@ -171,6 +189,9 @@ public interface Message extends Messages {
 	@Key("error")
 	public String error();
 	
+	@Key("loading")
+	public String loading();
+	
 	@Key("anErrorHasHappened")
 	public String anErrorHasHappened();
 	
@@ -183,9 +204,6 @@ public interface Message extends Messages {
 	@Key("observatory.description")
 	public String observatoryDescription();
 	
-	@Key("commons.name")
-	public String name();
-	
 	@Key("commons.save")
     public String save();
 	
@@ -194,6 +212,9 @@ public interface Message extends Messages {
 	
 	@Key("commons.saving")
     public String saving();
+	
+	@Key("commons.name")
+    public String name();
 	
 	@Key("commons.deletionConfirmMessage")
     public String deletionConfirmMessage();
@@ -206,6 +227,9 @@ public interface Message extends Messages {
 	
 	@Key("commons.emailData")
 	public String emailData();
+	
+	@Key("commons.atLeastOneElementNeeded")
+	public String atLeastOneElementNeeded();
 	
 	@Key("mapSelector.northLatitude")
 	public String mapSelectorNorthLatitude();
@@ -249,6 +273,9 @@ public interface Message extends Messages {
     @Key("person.email")
     public String personEmail();
     
+	@Key("person.roles")
+	public String personRoles();
+	
     @Key("observatoryContactEditingView.creationHeader")
     public String observatoryContactEditingViewCreationHeader();
     

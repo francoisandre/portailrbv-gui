@@ -29,7 +29,7 @@ import fr.obsmip.sedoo.client.ui.tabs.edit.ImagedActionCell;
 public abstract class AbstractTable extends Composite implements ClickHandler{
 
 	protected List<? extends HasId> model;
-	protected CellTable<HasId> itemTable;
+	protected FormattedCellTable<HasId> itemTable;
 	VerticalPanel tablePanel;
 	private Image addImage;
 	private Image deleteImage=new Image(GlobalBundle.INSTANCE.delete());
@@ -68,7 +68,7 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 
 		tablePanel.add(emptyListPanel);
 		
-		itemTable = new CellTable<HasId>(Integer.MAX_VALUE,CellTableResources.INSTANCE);
+		itemTable = new FormattedCellTable<HasId>(Integer.MAX_VALUE,CellTableResources.INSTANCE);
 		itemTable.setWidth("100%", false);
 
 		Cell<HasId> deleteActionCell = new ImagedActionCell<HasId>(deleteAction,this.deleteImage, Message.INSTANCE.delete());
@@ -242,6 +242,19 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 			}
 		}
 		init(model);
+	}
+	
+	public HasId getItemById(Long id)
+	{
+		ListIterator<? extends HasId> listIterator = model.listIterator();
+		while (listIterator.hasNext()) {
+			HasId hasId = listIterator.next();
+			if (hasId.getId().compareTo(id)==0)
+			{
+				return hasId;
+			}
+		}
+		return null;
 	}
 	
 	public void setAddButtonEnabled(boolean activated)

@@ -1,17 +1,19 @@
 package fr.obsmip.sedoo.client.ui.tabs.edit;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Widget;
 
-public class MetadataTab extends Composite implements HasText {
+import fr.obsmip.sedoo.client.Constants;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataPart;
+import fr.obsmip.sedoo.client.ui.table.MetadataContactTable;
+
+public class MetadataTab extends Composite {
 
 	private static MetadataTabUiBinder uiBinder = GWT
 			.create(MetadataTabUiBinder.class);
@@ -21,27 +23,47 @@ public class MetadataTab extends Composite implements HasText {
 
 	public MetadataTab() {
 		initWidget(uiBinder.createAndBindUi(this));
+		language.addItem("English", Constants.ENGLISH);
+		language.addItem("Français", Constants.FRENCH);
 	}
 
 	@UiField
-	Button button;
-
-	public MetadataTab(String firstName) {
-		initWidget(uiBinder.createAndBindUi(this));
-		button.setText(firstName);
+	ListBox language;
+	
+	@UiField 
+	Element lastModificationDate;
+	
+	@UiField
+	MetadataContactTable contactTable;
+	
+	public void setLastModificationDate(String value)
+	{
+		lastModificationDate.setInnerText(value);
 	}
 
-	@UiHandler("button")
-	void onClick(ClickEvent e) {
-		Window.alert("Hello!");
+	public void edit(MetadataDTO metadata) 
+	{
+		reset();
+		//Default positionning
+		language.setSelectedIndex(0);
+		if (metadata.getMetadataPart().getMetadataLanguage().compareTo(Constants.FRENCH)==0)
+		{
+			language.setSelectedIndex(1);
+		}
+		lastModificationDate.setInnerText(metadata.getMetadataPart().getMetadataLastModificationDate());
+		contactTable.init(metadata.getMetadataPart().getMetadataContacts());
+	}
+	
+	public void flush(MetadataDTO metadataDTO)
+	{
+		MetadataPart part = new MetadataPart();
+		part.setMetadataLanguage(language.getValue(language.getSelectedIndex()));
+		part.setMetadataLastModificationDate(lastModificationDate.getInnerText());
+		metadataDTO.setMetadataPart(part);
 	}
 
-	public void setText(String text) {
-		button.setText(text);
+	private void reset() {
 	}
 
-	public String getText() {
-		return button.getText();
-	}
 
 }

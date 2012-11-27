@@ -9,8 +9,8 @@ import org.geotoolkit.metadata.iso.extent.DefaultGeographicBoundingBox;
 import org.opengis.metadata.extent.GeographicBoundingBox;
 import org.slf4j.LoggerFactory;
 
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.core.domain.Metadata;
 import fr.obsmip.sedoo.core.domain.MetadataInitialisationException;
 import fr.obsmip.sedoo.core.domain.Summary;

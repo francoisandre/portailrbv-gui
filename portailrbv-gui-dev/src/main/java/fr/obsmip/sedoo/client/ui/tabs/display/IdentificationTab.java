@@ -6,7 +6,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 
-import fr.obsmip.sedoo.client.domain.MetadataDTO;
+import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.ui.tabs.AbstractTab;
 
 public class IdentificationTab extends AbstractTab {
