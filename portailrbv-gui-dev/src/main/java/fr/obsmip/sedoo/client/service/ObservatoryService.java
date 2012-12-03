@@ -21,6 +21,7 @@ public interface ObservatoryService extends RemoteService {
 	void saveObservatory(ObservatoryDTO dto) throws Exception;
 	Long addObservatory(ObservatoryDTO dto) throws Exception;
 	ObservatoryDTO getObservatoryById(Long id);
+	ObservatoryDTO getObservatoryByDrainageBasinId(Long id);
 	DrainageBasinDTO getDrainageBasinById(Long id);
 	void saveDrainageBasin(DrainageBasinDTO dto) throws Exception;
 	void savePerson(PersonDTO dto) throws Exception;

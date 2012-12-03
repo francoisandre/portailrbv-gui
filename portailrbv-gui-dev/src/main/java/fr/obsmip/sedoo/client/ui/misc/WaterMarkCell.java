@@ -14,19 +14,24 @@ public class WaterMarkCell extends TextInputCell {
 	protected String size;
 	protected String maxLength;
 	protected String className;
-	
+	protected String placeHolder="";
+	   
 	private static Template template;
 
 	interface Template extends SafeHtmlTemplates {
-	    @Template("<input type=\"text\" placeholder=\"{0}\" size=\"{2}\" maxlength=\"{1}\" class=\"{3}\" tabindex=\"-1\"></input>")
-	    SafeHtml input(String value, String size, String maxlength, String className);
+	    @Template("<input type=\"text\" value=\"{0}\" placeholder=\"{1}\" size=\"{2}\" maxlength=\"{3}\" class=\"{4}\" tabindex=\"-1\"></input>")
+	    SafeHtml input(String value, String placeHolder, String size, String maxlength, String className);
 	  }
 
-	public WaterMarkCell(String defaultValue, String size, String maxlength, String className) {
+	public WaterMarkCell(String placeHolder, String size, String maxlength, String className) {
 		super();
 		this.size = size;
 		this.maxLength = maxlength;
 		this.className = className;
+		if (placeHolder != null)
+		{
+			this.placeHolder = placeHolder;
+		}
 		 if (template == null) {
 		      template = GWT.create(Template.class);
 		    }
@@ -74,9 +79,9 @@ public class WaterMarkCell extends TextInputCell {
 
 	    String s = (viewData != null) ? viewData.getCurrentValue() : value;
 	    if (s != null) {
-	      sb.append(template.input(s,size, maxLength, className));
+	      sb.append(template.input(s, placeHolder,size, maxLength, className));
 	    } else {
-	      sb.appendHtmlConstant("<input type=\"text\" tabindex=\"-1\"></input>");
+	      sb.append(template.input("", placeHolder,size, maxLength, className));
 	    }
 	  }
 

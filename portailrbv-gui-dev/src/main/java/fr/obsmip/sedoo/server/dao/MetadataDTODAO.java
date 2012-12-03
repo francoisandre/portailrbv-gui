@@ -9,14 +9,6 @@ import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 public class MetadataDTODAO {
 
 	
-	public static MetadataDTO createFakeMetadata()
-	{
-		MetadataDTO bean = new MetadataDTO();
-		bean.setResourceAbstract("Resource Abstract");
-		bean.setResourceTitle("Resource Title");
-		return bean;
-	}
-	
 	public static List<SummaryDTO> getFakeSummaryList()
 	{
 		List<SummaryDTO> result = new ArrayList<SummaryDTO>();
@@ -32,5 +24,9 @@ public class MetadataDTODAO {
 		summaryDTO.setResourceAbstract("Ressource abstract "+i);
 		summaryDTO.setResourceTitle("Ressource title "+i);
 		return summaryDTO;
+	}
+
+	public static MetadataDTO createDefaultMetadata() {
+		return new MetadataDTO();
 	}
 }

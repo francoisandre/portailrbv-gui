@@ -2,6 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:t="urn:import:fr.obsmip.sedoo.client.ui.table"
+	xmlns:rp="urn:import:fr.obsmip.sedoo.client.ui.tabs.edit"
 	xmlns:l="urn:import:fr.obsmip.sedoo.client.ui.misc">
 	<ui:style>
 	
@@ -28,6 +29,7 @@
     	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.personPersonName}" /></td><td><g:TextBox ui:field="personName" visibleLength="60" /></td></tr>
      	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.personEmail}" /></td><td><g:TextBox ui:field="email" visibleLength="60"/></td></tr>
     	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.personOrganisationName}" /></td><td><g:TextBox ui:field="organisationName"  visibleLength="60"/></td></tr>
+    	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.personRoles}" /></td><td><rp:RolePanel ui:field="rolePanel" /></td></tr>
     </tbody>
     </table>
     

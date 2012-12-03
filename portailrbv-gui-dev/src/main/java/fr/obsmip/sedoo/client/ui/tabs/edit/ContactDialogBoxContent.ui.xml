@@ -1,5 +1,6 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:l="urn:import:fr.obsmip.sedoo.client.ui.tabs.edit"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 		
@@ -19,6 +20,7 @@
     	<tr ><td ><g:Label text="{messageBundle.personPersonName}" /></td><td><g:TextBox ui:field="personName" visibleLength="80" maxLength="120"></g:TextBox></td></tr>
     	<tr ><td ><g:Label text="{messageBundle.personEmail}" /></td><td><g:TextBox ui:field="email" visibleLength="80" maxLength="120"></g:TextBox></td></tr>
     	<tr ><td ><g:Label text="{messageBundle.personOrganisationName}" /></td><td><g:TextBox ui:field="organisationName" visibleLength="80" maxLength="120"></g:TextBox></td></tr>
+    	<tr ><td ><g:Label text="{messageBundle.personRoles}" /></td><td><l:RolePanel ui:field="rolePanel" /></td></tr>
     </tbody>
     </table>
 	</div>	

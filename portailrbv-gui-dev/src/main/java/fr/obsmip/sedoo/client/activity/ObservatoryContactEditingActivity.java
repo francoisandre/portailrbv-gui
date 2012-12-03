@@ -15,7 +15,6 @@ import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
 import fr.obsmip.sedoo.client.message.Message;
-import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryContactEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryEditingPlace;
 import fr.obsmip.sedoo.client.service.ObservatoryService;

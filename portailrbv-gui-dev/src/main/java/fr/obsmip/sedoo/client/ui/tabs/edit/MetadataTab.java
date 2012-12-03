@@ -13,7 +13,7 @@ import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataPart;
 import fr.obsmip.sedoo.client.ui.table.MetadataContactTable;
 
-public class MetadataTab extends Composite {
+public class MetadataTab extends AbstractTab {
 
 	private static MetadataTabUiBinder uiBinder = GWT
 			.create(MetadataTabUiBinder.class);
@@ -54,15 +54,17 @@ public class MetadataTab extends Composite {
 		contactTable.init(metadata.getMetadataPart().getMetadataContacts());
 	}
 	
-	public void flush(MetadataDTO metadataDTO)
+	public MetadataDTO flush(MetadataDTO metadataDTO)
 	{
 		MetadataPart part = new MetadataPart();
 		part.setMetadataLanguage(language.getValue(language.getSelectedIndex()));
 		part.setMetadataLastModificationDate(lastModificationDate.getInnerText());
 		metadataDTO.setMetadataPart(part);
+		return metadataDTO;
 	}
 
-	private void reset() {
+	public void reset() {
+		contactTable.reset();
 	}
 
 

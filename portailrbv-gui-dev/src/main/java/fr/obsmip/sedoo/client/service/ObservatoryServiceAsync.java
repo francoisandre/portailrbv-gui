@@ -45,4 +45,7 @@ public interface ObservatoryServiceAsync {
 
 	void addObservatory(ObservatoryDTO dto, AsyncCallback<Long> callback);
 
+	void getObservatoryByDrainageBasinId(Long id,
+			AsyncCallback<ObservatoryDTO> callback);
+
 }

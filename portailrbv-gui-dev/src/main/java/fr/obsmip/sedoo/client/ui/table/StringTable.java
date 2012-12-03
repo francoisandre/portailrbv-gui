@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.cellview.client.Column;
 import fr.obsmip.sedoo.client.domain.HasId;
 import fr.obsmip.sedoo.client.domain.IdentifiedString;
@@ -17,6 +18,16 @@ public class StringTable extends AbstractTable {
 	
 	private Column<HasId, String> valueColumn;
 
+	
+	@UiConstructor
+	public StringTable(String waterMark, String addItemText) 
+	{
+		super();
+		this.addItemText = addItemText;
+		this.watermark = waterMark;
+		localInitColumns();
+	}
+	
 	@Override
 	public void addItem() {
 		addEmptyRow();
@@ -56,9 +67,12 @@ public class StringTable extends AbstractTable {
 
 	@Override
 	protected void initColumns() {
+		//Nothing is done there
+	}
 		
+	protected void localInitColumns() {
 		valueColumn = new Column<HasId, String>(
-				new WaterMarkCell(getWatermark(),"120","80")) {
+				new WaterMarkCell(getWatermark(),"80","120")) {
 			@Override
 			public String getValue(HasId identifiedString) {
 				return ((IdentifiedString) identifiedString).getValue();
@@ -83,14 +97,14 @@ public class StringTable extends AbstractTable {
 	public void reset() 
 	{
 		List<IdentifiedString> aux = new ArrayList<IdentifiedString>();
-		aux.add(getDefaultIdentifiedString(1L));
+		//aux.add(getDefaultIdentifiedString(1L));
 		init(aux);
 	}
 
 	protected IdentifiedString getDefaultIdentifiedString(Long id) {
 
 		IdentifiedString string = new IdentifiedString();
-		string.setValue(getWatermark());
+		string.setValue("");
 		string.setId(id);
 		return string;
 	}

@@ -1,22 +1,36 @@
 package fr.obsmip.sedoo.client.place;
 
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 
-public class MetadataEditingPlace extends Place
+import fr.obsmip.sedoo.client.Constants;
+import fr.obsmip.sedoo.client.domain.AbstractDTO;
+
+public class MetadataEditingPlace extends AbstractEditingPlace
 {
 	
 	public MetadataEditingPlace() {
 		super();
 	}
 	
-	public MetadataEditingPlace(String id)
-	{
-		super();
-		setId(id);
+	public Long getDrainageBasinId() {
+		return drainageBasinId;
 	}
+
+	public void setDrainageBasinId(Long drainageBasinId) {
+		this.drainageBasinId = drainageBasinId;
+	}
+
+	public String getMetadataId() {
+		return metadataId;
+	}
+
+	public void setMetadataId(String metadataId) {
+		this.metadataId = metadataId;
+	}
+
+	private Long drainageBasinId;
+	private String metadataId;
 	
-	private String id;
 	
 	public static MetadataEditingPlace instance;
 
@@ -25,14 +39,15 @@ public class MetadataEditingPlace extends Place
 		@Override
 		public String getToken(MetadataEditingPlace place)
 		{
-			if (place.getId()==null)
+			if (place.getMode().compareTo(Constants.CREATE)==0)
 			{
-				return "";
+				return place.getMode()+"@"+AbstractDTO.protectNullString(""+place.getDrainageBasinId());
 			}
 			else
 			{
-				return place.getId();
+				return place.getMode()+"@"+AbstractDTO.protectNullString(""+place.getDrainageBasinId())+"@"+AbstractDTO.protectNullString(place.getMetadataId());
 			}
+			
 		}
 
 		@Override
@@ -42,24 +57,20 @@ public class MetadataEditingPlace extends Place
 			{
 				instance = new MetadataEditingPlace();
 			}
-			if (token.length()>0)
+			String[] split = token.split("@");
+			if (split.length>=2)
 			{
-				instance.setId(token);
+				instance.setMode(split[0]);
+				instance.setDrainageBasinId(new Long(split[1]));
 			}
-			else
+			if (split.length==3)
 			{
-				instance.setId(null);
+				instance.setMetadataId(split[2]);
 			}
 			return instance;
 		}
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	
 }

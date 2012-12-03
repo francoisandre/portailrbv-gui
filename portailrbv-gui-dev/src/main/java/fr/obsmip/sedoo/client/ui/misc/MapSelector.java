@@ -92,6 +92,7 @@ public class MapSelector extends Composite  {
         
         
         
+        
         /*
         GoogleV3Options gHybridOptions = new GoogleV3Options();
         gHybridOptions.setIsBaseLayer(true);
@@ -165,16 +166,14 @@ public class MapSelector extends Composite  {
 //    final DockLayoutPanel dock = new DockLayoutPanel(Unit.PX);
 //    dock.addNorth(map, 500);
 
-    contentPanel = new VerticalPanel();
     hidingPanel = new VerticalPanel();
     hidingPanel.setWidth("500px");
     hidingPanel.setHeight("500px");
-    hidingPanel.add(new Label("..."));
     mapPanel = new VerticalPanel();
     mapPanel.add(mapWidget);
     contentPanel.add(hidingPanel);
-    //contentPanel.add(mapPanel);
-    //forcedShow();
+    contentPanel.add(mapPanel);
+    forcedShow();
 	}
 
 	class LocalListener implements FeatureAddedListener

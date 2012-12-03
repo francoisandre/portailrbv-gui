@@ -16,6 +16,12 @@ public abstract class AbstractDTO implements Serializable{
 			return value.trim();
 		}
 	}
+	
+	public static boolean isEmpty(String value)
+	{
+		String aux = protectNullString(value);
+		return (aux.length()==0);
+	}
 
 	public abstract String getHash();
 	

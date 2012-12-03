@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryContactDTO;
+import fr.obsmip.sedoo.client.ui.tabs.edit.RolePanel;
 
 public class ObservatoryContactEditingViewImpl extends AbstractDTOEditingView implements ObservatoryContactEditingView {
 
@@ -28,6 +29,9 @@ public class ObservatoryContactEditingViewImpl extends AbstractDTOEditingView im
 	
 	@UiField
 	TextBox organisationName;
+	
+	@UiField
+	RolePanel rolePanel;
 	
 	@UiField
 	Button saveButton;
@@ -56,6 +60,7 @@ public class ObservatoryContactEditingViewImpl extends AbstractDTOEditingView im
 		personName.setText(observatoryContactDTO.getPersonName());
 		organisationName.setText(observatoryContactDTO.getOrganisationName());
 		email.setText(observatoryContactDTO.getEmail());
+		rolePanel.edit(observatoryContactDTO.getRoles());
 	}
 	
 	public void reset()
@@ -91,7 +96,7 @@ public class ObservatoryContactEditingViewImpl extends AbstractDTOEditingView im
 		 observatoryContactDTO.setEmail(email.getText().trim());
 		 observatoryContactDTO.setPersonName(personName.getText().trim());
 		 observatoryContactDTO.setOrganisationName(organisationName.getText().trim());
-		 //TODO: Roles
+		 observatoryContactDTO.setRoles(rolePanel.flush());
 		 return observatoryContactDTO;
 	 }
 

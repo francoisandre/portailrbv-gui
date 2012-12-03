@@ -40,6 +40,7 @@ public class DialogBoxTools
 		}
 		final DialogBox dialogBox = new DialogBox();
 	    dialogBox.setText(title);
+	    dialogBox.getElement().getStyle().setProperty("zIndex", "9999");
 	    
 	    VerticalPanel dialogContents = new VerticalPanel();
 	    dialogContents.setSpacing(4);
@@ -79,6 +80,7 @@ public class DialogBoxTools
 	{
 		final DialogBox dialogBox = new DialogBox();
 	    dialogBox.setText(title);
+	    dialogBox.getElement().getStyle().setProperty("zIndex", "9999");
         dialogBox.setWidget(content);
         content.setDialogBox(dialogBox);
 	    dialogBox.setGlassEnabled(true);
@@ -91,6 +93,7 @@ public class DialogBoxTools
 	
 	public static void modalAlert(final String header, final String content) {
         final DialogBox box = new DialogBox();
+        box.getElement().getStyle().setProperty("zIndex", "9999");
         final VerticalPanel panel = new VerticalPanel();
         box.setText(header);
         panel.add(new Label(content));
@@ -118,6 +121,7 @@ public class DialogBoxTools
 		Message message =  GWT.create(Message.class);
 		
         final DialogBox box = new DialogBox();
+        box.getElement().getStyle().setProperty("zIndex", "9999");
         final VerticalPanel panel = new VerticalPanel();
         box.setText(header);
         panel.add(new Label(content));

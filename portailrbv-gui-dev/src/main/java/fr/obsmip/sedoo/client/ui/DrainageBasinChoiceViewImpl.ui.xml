@@ -1,0 +1,42 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.libelle {
+			font-weight: bold;
+		}
+		
+		.paragraph {
+			padding-left:10px;
+			padding-top :10px;
+		}
+		
+	</ui:style>
+ <ui:with field='bundle'
+    type='fr.obsmip.sedoo.client.GlobalBundle' /> 	
+	
+	<ui:with field='messageBundle'
+    type='fr.obsmip.sedoo.client.message.Message' /> 
+	 <g:DockLayoutPanel unit='EM' >
+	 
+	 <g:center>
+    <g:HTMLPanel>
+     <table class="{style.paragraph}" >
+     <tr>
+      <td><span class='{style.libelle}'><g:Label text="{messageBundle.observatory}" /></span></td><td><g:ListBox ui:field='observatories'/></td>
+     </tr>
+     <tr>
+      <td><span class='{style.libelle}'><g:Label text="{messageBundle.drainageBasin}" /></span></td><td><g:ListBox ui:field='drainageBasins'/></td>
+     </tr>
+     <tr>
+     <td colspan="2" style="text-align:left">
+     <g:Button ui:field="createButton" text="{messageBundle.addMetadataEntry}" />
+     </td>
+     </tr>
+     </table>
+    </g:HTMLPanel>
+    </g:center>
+  </g:DockLayoutPanel>
+</ui:UiBinder> 
+
+

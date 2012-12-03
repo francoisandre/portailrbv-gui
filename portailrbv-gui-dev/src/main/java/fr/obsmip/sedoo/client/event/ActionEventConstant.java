@@ -10,4 +10,5 @@ public interface ActionEventConstant
 	public final int OBSERVATORY_SAVING_EVENT = 6;
 	public final int DRAINAGE_BASIN_SAVING_EVENT = 7;
 	public final int OBSERVATORY_CONTACT_SAVING_EVENT = 8;
+	public final int DRAINAGE_BASIN_LOADING_EVENT = 9;
 }

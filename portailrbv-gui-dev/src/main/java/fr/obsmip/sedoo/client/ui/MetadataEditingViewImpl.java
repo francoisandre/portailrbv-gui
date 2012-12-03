@@ -17,7 +17,11 @@ import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.service.ParameterService;
 import fr.obsmip.sedoo.client.service.ParameterServiceAsync;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
+import fr.obsmip.sedoo.client.ui.tabs.edit.ConstraintTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.GeographicalLocationTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.IdentificationTab;
 import fr.obsmip.sedoo.client.ui.tabs.edit.MetadataTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.TemporalExtentTab;
 
 public class MetadataEditingViewImpl extends AbstractDTOEditingView implements MetadataEditingView,  Editor<MetadataDTO> {
 
@@ -36,11 +40,21 @@ public class MetadataEditingViewImpl extends AbstractDTOEditingView implements M
 	@UiField
 	MetadataTab metadataTab;
 	
+	@UiField
+	IdentificationTab identificationTab;
+	
+	@UiField
+	ConstraintTab constraintTab;
+	
+	@UiField
+	GeographicalLocationTab geographicalLocationTab;
+	
+	@UiField
+	TemporalExtentTab temporalExtentTab;
+	
 
 	interface MetadataEditingViewImplUiBinder extends UiBinder<Widget, MetadataEditingViewImpl> {
 	}
-	
-	
 	
 	@UiField 
 	HorizontalPanel testPanel;
@@ -118,14 +132,21 @@ public class MetadataEditingViewImpl extends AbstractDTOEditingView implements M
 
 	@Override
 	public MetadataDTO flush() {
-		return new MetadataDTO();
+		MetadataDTO metadataDTO = new MetadataDTO();
+		metadataTab.flush(metadataDTO);
+		identificationTab.flush(metadataDTO);
+		constraintTab.flush(metadataDTO);
+		temporalExtentTab.flush(metadataDTO);
+		return metadataDTO;
 	}
 
 	@Override
 	public void edit(AbstractDTO dto) {
 		MetadataDTO metadata = (MetadataDTO) dto;
 		metadataTab.edit(metadata);
-		
+		identificationTab.edit(metadata);
+		constraintTab.edit(metadata);
+		temporalExtentTab.edit(metadata);
 	}
 
 

@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+	<g:VerticalPanel>
+	<g:CheckBox ui:field="author"></g:CheckBox>
+	<g:CheckBox ui:field="originator"></g:CheckBox>
+	<g:CheckBox ui:field="distributor"></g:CheckBox>
+	<g:CheckBox ui:field="resourceProvider"></g:CheckBox>
+	<g:CheckBox ui:field="custodian"></g:CheckBox>
+	<g:CheckBox ui:field="processor"></g:CheckBox>
+	<g:CheckBox ui:field="principalInvestigator"></g:CheckBox>
+	<g:CheckBox ui:field="pointOfContact"></g:CheckBox>
+	<g:CheckBox ui:field="ownerX"></g:CheckBox>
+	<g:CheckBox ui:field="user"></g:CheckBox>
+	<g:CheckBox ui:field="publisher"></g:CheckBox>
+	</g:VerticalPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 

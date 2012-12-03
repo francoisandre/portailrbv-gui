@@ -78,8 +78,7 @@ public class ObservatoryEditingActivity extends AbstractDTOEditingActivity imple
 
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
-
+					DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
 				}
 			});
 

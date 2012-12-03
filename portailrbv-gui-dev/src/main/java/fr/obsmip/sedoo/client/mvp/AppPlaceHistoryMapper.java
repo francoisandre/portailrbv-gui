@@ -3,6 +3,7 @@ package fr.obsmip.sedoo.client.mvp;
 import com.google.gwt.place.shared.PlaceHistoryMapper;
 import com.google.gwt.place.shared.WithTokenizers;
 
+import fr.obsmip.sedoo.client.place.DrainageBasinChoicePlace;
 import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.place.LoginPlace;
 import fr.obsmip.sedoo.client.place.MetadataDisplayPlace;
@@ -22,6 +23,6 @@ import fr.obsmip.sedoo.client.place.WelcomePlace;
  * annotation or by extending PlaceHistoryMapperWithFactory and creating a
  * separate TokenizerFactory.
  */
-@WithTokenizers( {  SystemPlace.Tokenizer.class,  DrainageBasinEditingPlace.Tokenizer.class, WelcomePlace.Tokenizer.class, MetadataEditingPlace.Tokenizer.class,MetadataDisplayPlace.Tokenizer.class, SwitchLanguagePlace.Tokenizer.class, MetadataListPlace.Tokenizer.class, MetadataSearchPlace.Tokenizer.class, LoginPlace.Tokenizer.class, ObservatoryManagementPlace.Tokenizer.class, ObservatoryContactEditingPlace.Tokenizer.class, ObservatoryEditingPlace.Tokenizer.class})
+@WithTokenizers( {  DrainageBasinChoicePlace.Tokenizer.class, SystemPlace.Tokenizer.class,  DrainageBasinEditingPlace.Tokenizer.class, WelcomePlace.Tokenizer.class, MetadataEditingPlace.Tokenizer.class,MetadataDisplayPlace.Tokenizer.class, SwitchLanguagePlace.Tokenizer.class, MetadataListPlace.Tokenizer.class, MetadataSearchPlace.Tokenizer.class, LoginPlace.Tokenizer.class, ObservatoryManagementPlace.Tokenizer.class, ObservatoryContactEditingPlace.Tokenizer.class, ObservatoryEditingPlace.Tokenizer.class})
 public interface AppPlaceHistoryMapper extends PlaceHistoryMapper {
 }

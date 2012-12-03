@@ -19,6 +19,11 @@ public class MetadataContactDTO extends PersonDTO
 			result.add(new ValidationAlert(Message.INSTANCE.personOrganisationName(), Message.INSTANCE.mandatoryData()));
 		}
 		
+		if (protectNullString(getRoles()).trim().length()==0)
+		{
+			result.add(new ValidationAlert(Message.INSTANCE.personRoles(), Message.INSTANCE.atLeastOneElementNeeded()));
+		}
+		
 		return result;
 	}
 }

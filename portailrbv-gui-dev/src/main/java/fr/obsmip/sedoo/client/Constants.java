@@ -10,4 +10,5 @@ public interface Constants
 	public final String FRENCH_ALT = "FRA";
 	public final String ENGLISH = "EN";
 	public final String FRENCH_LOCALE = "FR";
+	public final String NOW = "now";
 }

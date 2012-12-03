@@ -4,6 +4,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import fr.obsmip.sedoo.client.place.DrainageBasinChoicePlace;
 import fr.obsmip.sedoo.client.place.MetadataEditingPlace;
 import fr.obsmip.sedoo.client.place.MetadataListPlace;
 import fr.obsmip.sedoo.client.ui.misc.MenuLink;
@@ -27,7 +28,7 @@ private VerticalPanel getMetadataPanel() {
 	creatingLink.addClickHandler(new ClickHandler() {
 	        public void onClick(ClickEvent event) 
 	        {
-	        	getPresenter().goTo(new MetadataEditingPlace());
+	        	getPresenter().goTo(new DrainageBasinChoicePlace());
 	        }
 	});
 	metadataPanel.add(creatingLink);

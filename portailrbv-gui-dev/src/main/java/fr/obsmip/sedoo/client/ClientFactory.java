@@ -3,6 +3,7 @@ package fr.obsmip.sedoo.client;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.PlaceController;
 
+import fr.obsmip.sedoo.client.ui.DrainageBasinChoiceView;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView;
 import fr.obsmip.sedoo.client.ui.HeaderView;
 import fr.obsmip.sedoo.client.ui.LanguageSwitchingView;
@@ -42,6 +43,7 @@ public interface ClientFactory {
 	ObservatoryEditingView getObservatoryEditingView();
 	SectionHeaderView getSectionHeaderView();
 	DrainageBasinEditingView getDrainageBasinEditingView();
+	DrainageBasinChoiceView getDrainageBasinChoiceView();
 	ObservatoryContactEditingView getObservatoryContactEditingView();
 	BreadCrumb getBreadCrumb();
 }

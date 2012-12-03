@@ -1,0 +1,70 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:l2="urn:import:fr.obsmip.sedoo.client.ui.misc"
+	xmlns:l="urn:import:fr.obsmip.sedoo.client.ui.misc.customdatepicker">
+	<ui:style>
+		.paragraph {
+			padding-left:10px;
+			padding-top :10px;
+		}
+		
+		.table
+		{
+	 		width:95%; 
+	 		margin:10px; 
+	 		background:white; 
+	 		border-collapse:collapse; 
+	 		font-size:0.8em;
+	 		background-color: #E8E8E8 ;
+		}
+		
+		.row
+		{
+			border-bottom: 2px solid white;
+		}
+		
+		.libelle {
+		}
+		
+		.scrollable {
+			overflow: scroll;
+		}
+		
+		@external .gwt-TabLayoutPanel .gwt-TabLayoutPanelContent;
+		@external .cellTableKeyboardSelectedRow;
+		@external .cellTableKeyboardSelectedRowCell;
+		
+ 
+ .cellTableKeyboardSelectedRow {
+	background: #fff;
+}
+
+.cellTableKeyboardSelectedRowCell {
+}
+ 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent
+{
+overflow: auto;     
+}
+		
+	</ui:style>
+	
+	<ui:with field='messageBundle'
+    type='fr.obsmip.sedoo.client.message.Message' /> 
+    
+    <ui:with field='bundle'
+    type='fr.obsmip.sedoo.client.GlobalBundle' /> 
+	<g:HTMLPanel styleName="{style.scrollable}">
+	<div styleName="{style.scrollable}">
+    <table class='{style.table}'>
+    <col width="20%" />
+  <col width="80%" />
+    <tbody class="tableBody">
+   		<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingStartDate}" /></span></td><td><l:RBVDateBox ui:field="startDate" /><l2:Tooltip><g:Label text="{messageBundle.iso8601Format}" /></l2:Tooltip></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'> <g:Label text="{messageBundle.metadataEditingEndDate}" /></span></td><td><g:RadioButton ui:field='explicitEndDate' name="endDateToggle" /><l:RBVDateBox ui:field="endDate" /><l2:Tooltip><g:Label text="{messageBundle.iso8601Format}" /></l2:Tooltip><br /><g:RadioButton ui:field='nowEndDate' name="endDateToggle" text="{messageBundle.now}" /></td></tr>
+    </tbody>
+    </table>
+    </div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

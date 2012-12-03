@@ -14,7 +14,7 @@ public abstract class AbstractDTOEditingActivity extends RBVAbstractActivity{
 
 	protected DTOEditingView view;
 	protected String previousHash="#";
-	private String mode;
+	private String mode = Constants.CREATE;
 	
 	public String mayStop() {
 	    AbstractDTO current = view.flush();
@@ -41,6 +41,11 @@ public abstract class AbstractDTOEditingActivity extends RBVAbstractActivity{
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+	
+	public boolean isCreateMode()
+	{
+		return (mode.compareTo(Constants.CREATE)==0);
 	}
 
 }

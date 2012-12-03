@@ -47,7 +47,7 @@ public class MetadataListActivity extends RBVAbstractActivity implements Metadat
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		shortcuts.add(ShortcutFactory.getMetadataListShortcut());
 		clientFactory.getBreadCrumb().refresh(shortcuts);
-        ActionStartEvent e = new ActionStartEvent("Chargement des métadonnées en cours...", ActionEventConstant.METADATA_LIST_LOADING_EVENT, true);
+        ActionStartEvent e = new ActionStartEvent(Message.INSTANCE.loading(), ActionEventConstant.METADATA_LIST_LOADING_EVENT, true);
         clientFactory.getEventBus().fireEvent(e);
         
         metadataService.getSummaries((new AsyncCallback<List<SummaryDTO>>() {

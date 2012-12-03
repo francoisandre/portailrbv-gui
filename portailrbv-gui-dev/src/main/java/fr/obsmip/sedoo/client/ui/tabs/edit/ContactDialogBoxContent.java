@@ -41,6 +41,9 @@ public class ContactDialogBoxContent extends Composite implements DialogBoxConte
 	TextBox organisationName;
 	
 	@UiField
+	RolePanel rolePanel;
+	
+	@UiField
 	Button ok;
 	
 	@UiField
@@ -91,6 +94,7 @@ public class ContactDialogBoxContent extends Composite implements DialogBoxConte
 		aux.setEmail(email.getText().trim());
 		aux.setOrganisationName(organisationName.getText().trim());
 		aux.setPersonName(personName.getText().trim());
+		aux.setRoles(rolePanel.flush());
 		return aux;
 	}
 
@@ -113,6 +117,7 @@ public class ContactDialogBoxContent extends Composite implements DialogBoxConte
 			email.setText(AbstractDTO.protectNullString(item.getEmail()));
 			organisationName.setText(AbstractDTO.protectNullString(item.getOrganisationName()));
 			personName.setText(AbstractDTO.protectNullString(item.getPersonName()));
+			rolePanel.edit(AbstractDTO.protectNullString(item.getRoles()));
 		}
 	}
 

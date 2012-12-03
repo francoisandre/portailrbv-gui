@@ -158,6 +158,13 @@ ObservatoryService {
 		observatory = ObservatoryDTOTools.fromObservatoryDTO(observatory, dto);
 		return observatoryDAO.save(observatory);
 	}
+
+	@Override
+	public ObservatoryDTO getObservatoryByDrainageBasinId(Long id) {
+		DrainageBasinDAO drainageBasinDAO = RBVApplication.getInstance().getDrainageBasinDAO();
+		DrainageBasin drainageBasin = drainageBasinDAO.getDrainageBasinById(id, true);
+		return ObservatoryDTOTools.toObservatoryDTO(drainageBasin.getObservatory(), false);
+	}
 	
 	
 	

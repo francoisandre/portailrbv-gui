@@ -11,6 +11,8 @@ import fr.obsmip.sedoo.client.event.ActivityChangeEvent;
 import fr.obsmip.sedoo.client.event.UserLoginEvent;
 import fr.obsmip.sedoo.client.event.UserLogoutEvent;
 import fr.obsmip.sedoo.client.ui.DebugStatusBarViewImpl;
+import fr.obsmip.sedoo.client.ui.DrainageBasinChoiceView;
+import fr.obsmip.sedoo.client.ui.DrainageBasinChoiceViewImpl;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingViewImpl;
 import fr.obsmip.sedoo.client.ui.HeaderView;
@@ -53,8 +55,9 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final WelcomeView WELCOME_VIEW = new WelcomeViewImpl();
 	private static final ObservatoryManagementView OBSERVATORY_MANAGEMENT_VIEW = new ObservatoryManagementViewImpl();
 	private static final ObservatoryEditingView OBSERVATORY_EDITING_VIEW = new ObservatoryEditingViewImpl();
-	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewFakeImpl();
-//	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewImpl();
+//	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewFakeImpl();
+	private static final DrainageBasinEditingView DRAINAGE_BASIN_EDITING_VIEW = new DrainageBasinEditingViewImpl();
+	private static final DrainageBasinChoiceView DRAINAGE_BASIN_CHOICE_VIEW = new DrainageBasinChoiceViewImpl();
 	private static final MetadataSearchView METADATA_SEARCH_VIEW = new MetadataSearchViewImpl();
 	private static final MetadataListView METADATA_LIST_VIEW = new MetadataListViewImpl();
 	private static final BreadCrumb BREAD_CRUMB = new BreadCrumbImpl();
@@ -191,6 +194,11 @@ public class ClientFactoryImpl implements ClientFactory {
 	@Override
 	public BreadCrumb getBreadCrumb() {
 		return BREAD_CRUMB;
+	}
+
+	@Override
+	public DrainageBasinChoiceView getDrainageBasinChoiceView() {
+		return DRAINAGE_BASIN_CHOICE_VIEW;
 	}
 	
 	  

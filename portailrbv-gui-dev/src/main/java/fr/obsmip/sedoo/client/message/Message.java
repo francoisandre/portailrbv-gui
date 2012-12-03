@@ -23,6 +23,9 @@ public interface Message extends Messages {
     @Key("metadataEditing.title")
     public String metadataEditingTitle();
     
+    @Key("metadataCreating.title")
+    public String metadataCreatingTitle();
+    
     @Key("metadataEditing.resourceURL")
     public String metadataEditingResourceURL();
     
@@ -41,8 +44,17 @@ public interface Message extends Messages {
     @Key("metadataEditing.resourceIdentifierWaterMark")
     public String metadataEditingResourceIdentifierWaterMark();
     
+    @Key("metadataEditing.identificationTabHeader")
+    public String  metadataEditingIdentificationTabHeader();
+    
+    @Key("metadataEditing.geographicalLocationTabHeader")
+    public String  metadataEditingGeographicalLocationTabHeader();
+    
     @Key("metadataEditing.constraintTabHeader")
     public String  metadataEditingConstraintTabHeader();
+    
+    @Key("metadataEditing.temporalExtentHeader")
+    public String  metadataEditingTemporalExtentHeader();
     
     @Key("metadataEditing.metadataTabHeader")
     public String  metadataEditingMetadataTabHeader();
@@ -65,6 +77,20 @@ public interface Message extends Messages {
     @Key("metadataEtiting.metadataContactList")
    	public String metadataContactList();
     
+    @Key("metadataEtiting.resourceContactList")
+    public String resourceContactList();
+    
+    @Key("metadataEditing.startDate")
+    public String  metadataEditingStartDate();
+    
+    @Key("metadataEditing.endDate")
+    public String  metadataEditingEndDate();
+    
+    @Key("metadataEditing.lastModificationDate")
+    public String  metadataEditingLastModificationDate();
+    
+    @Key("metadataEditing.linkWithEndDate")
+    public String  metadataEditingLinkWithEndDate();
     
     @Key("headerView.notConnectedMessage")
     public String headerViewNotConnectedMessage();
@@ -192,6 +218,9 @@ public interface Message extends Messages {
 	@Key("loading")
 	public String loading();
 	
+	@Key("now")
+	public String now();
+	
 	@Key("anErrorHasHappened")
 	public String anErrorHasHappened();
 	
@@ -216,6 +245,9 @@ public interface Message extends Messages {
 	@Key("commons.name")
     public String name();
 	
+	@Key("commons.iso8601Format")
+    public String iso8601Format();
+	
 	@Key("commons.deletionConfirmMessage")
     public String deletionConfirmMessage();
 
@@ -227,6 +259,12 @@ public interface Message extends Messages {
 	
 	@Key("commons.emailData")
 	public String emailData();
+	
+	@Key("commons.dateData")
+	public String dateData();
+	
+	@Key("commons.dateUnconsistency")
+	public String dateUnconsistency();
 	
 	@Key("commons.atLeastOneElementNeeded")
 	public String atLeastOneElementNeeded();
@@ -276,14 +314,22 @@ public interface Message extends Messages {
 	@Key("person.roles")
 	public String personRoles();
 	
-    @Key("observatoryContactEditingView.creationHeader")
+	@Key("person.roleItems")
+	public String personRoleItems();
+	
+	@Key("observatoryContactEditingView.creationHeader")
     public String observatoryContactEditingViewCreationHeader();
     
     @Key("observatoryContactEditingView.modificationHeader")
     public String observatoryContactEditingViewModificationHeader();
 
-	
-
-
-	
+    @Key("commons.observatory")
+	public String observatory();
+    
+    @Key("commons.drainageBasin")
+	public String drainageBasin();
+    
+    @Key("metadataListing.addMetadataEntry")
+	public String addMetadataEntry();
+    
 }

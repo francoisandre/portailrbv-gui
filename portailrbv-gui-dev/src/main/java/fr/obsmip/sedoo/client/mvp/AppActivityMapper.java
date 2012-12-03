@@ -5,6 +5,7 @@ import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
 
 import fr.obsmip.sedoo.client.ClientFactory;
+import fr.obsmip.sedoo.client.activity.DrainageBasinChoiceActivity;
 import fr.obsmip.sedoo.client.activity.DrainageBasinEditingActivity;
 import fr.obsmip.sedoo.client.activity.LoginActivity;
 import fr.obsmip.sedoo.client.activity.MetadataDisplayActivity;
@@ -17,6 +18,7 @@ import fr.obsmip.sedoo.client.activity.ObservatoryManagementActivity;
 import fr.obsmip.sedoo.client.activity.SwitchLanguageActivity;
 import fr.obsmip.sedoo.client.activity.SystemActivity;
 import fr.obsmip.sedoo.client.activity.WelcomeActivity;
+import fr.obsmip.sedoo.client.place.DrainageBasinChoicePlace;
 import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.place.LoginPlace;
 import fr.obsmip.sedoo.client.place.MetadataDisplayPlace;
@@ -99,6 +101,10 @@ public class AppActivityMapper implements ActivityMapper {
 		else if (place instanceof ObservatoryContactEditingPlace)
 		{
 			return new ObservatoryContactEditingActivity((ObservatoryContactEditingPlace) place, clientFactory);
+		}
+		else if (place instanceof DrainageBasinChoicePlace)
+		{
+			return new DrainageBasinChoiceActivity((DrainageBasinChoicePlace) place, clientFactory);
 		}
 		return null;
 	}

@@ -42,8 +42,8 @@ public class IdentificationTab extends AbstractTab {
 	public void display(MetadataDTO metadata) 
 	{
 		//reset();
-		resourceTitle.setInnerText(metadata.getResourceTitle());
-		resourceAbstract.setInnerText(metadata.getResourceAbstract());
+		resourceTitle.setInnerText(metadata.getIdentificationPart().getResourceTitle());
+		resourceAbstract.setInnerText(metadata.getIdentificationPart().getResourceAbstract());
 		
 	}
 	

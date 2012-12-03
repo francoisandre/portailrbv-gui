@@ -133,7 +133,7 @@ public class MetadataContactTable extends AbstractTable {
 		itemTable.addColumn(organisationColumn, Message.INSTANCE.personOrganisationName());
 		itemTable.setColumnWidth(organisationColumn, 100.0, Unit.PX);
 		
-		MultiLineTextColumn<HasId> roleColumn = new MultiLineTextColumn<HasId>() {
+		MultiLineTextColumn<HasId> roleColumn = new MultiLineTextColumn<HasId>(RoleRenderer.getInstance()) {
 			@Override
 			public String getValue(HasId aux) {
 				return ((MetadataContactDTO) aux).getRoles();
@@ -147,6 +147,11 @@ public class MetadataContactTable extends AbstractTable {
 
 	public ContactDialogBoxContent getContent() {
 		return content;
+	}
+
+	public void reset() {
+			List<IdentifiedString> aux = new ArrayList<IdentifiedString>();
+			init(aux);
 	}
 	
 

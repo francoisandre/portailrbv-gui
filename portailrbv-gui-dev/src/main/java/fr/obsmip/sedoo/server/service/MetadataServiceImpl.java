@@ -41,7 +41,7 @@ MetadataService {
 	@Override
 	public MetadataDTO createDefaultMetadata() {
 		
-		return MetadataDTODAO.createFakeMetadata();
+		return MetadataDTODAO.createDefaultMetadata();
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package fr.obsmip.sedoo.client.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.obsmip.sedoo.client.message.Message;
@@ -10,8 +9,7 @@ public class ObservatoryContactDTO extends PersonDTO{
 	@Override
 	public List<ValidationAlert> validate() 
 	{
-		List<ValidationAlert> alerts = new ArrayList<ValidationAlert>();
-		alerts.addAll(super.validate());
+		List<ValidationAlert> alerts =super.validate();
 		if (protectNullString(getOrganisationName()).trim().length()==0)
 		{
 			alerts.add(new ValidationAlert(Message.INSTANCE.personOrganisationName(), Message.INSTANCE.mandatoryData()));

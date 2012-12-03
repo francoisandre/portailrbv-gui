@@ -50,22 +50,28 @@ overflow: auto;
 	 
 	 <g:TabLayoutPanel addStyleNames="{style.tabPanelExample1}" ui:field="tabPanel" barUnit="PX" barHeight="40" >
 		<g:tab>
-			<g:header>
-				Identification
-			</g:header>
-			<tabs:IdentificationTab></tabs:IdentificationTab>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingIdentificationTabHeader}" />
+			</g:customHeader>
+			<tabs:IdentificationTab ui:field="identificationTab" />
 		</g:tab>
 		<g:tab>
-			<g:header>
-				Géographical Location
-			</g:header>
-			<tabs:GeographicalLocationTab/>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingGeographicalLocationTabHeader}" />
+			</g:customHeader>
+			<tabs:GeographicalLocationTab  ui:field="geographicalLocationTab"/>
+		</g:tab>
+		<g:tab>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingTemporalExtentHeader}" />
+			</g:customHeader>
+			<tabs:TemporalExtentTab ui:field="temporalExtentTab" />
 		</g:tab>
 		<g:tab>
 			<g:customHeader >
 				<g:Label text="{messageBundle.metadataEditingConstraintTabHeader}" />
 			</g:customHeader>
-			<tabs:ConstraintTab />
+			<tabs:ConstraintTab ui:field="constraintTab" />
 		</g:tab>
 		<g:tab>
 			<g:customHeader >

@@ -6,9 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.geotoolkit.metadata.iso.extent.DefaultGeographicBoundingBox;
-import org.opengis.metadata.extent.GeographicBoundingBox;
-import org.slf4j.LoggerFactory;
 
+import fr.obsmip.sedoo.client.domain.IdentifiedString;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.core.domain.Metadata;
@@ -27,12 +26,12 @@ public class MetadataDTOTools {
 			e.printStackTrace();
 		}
 		
-		metadata.setResourceTitle(metadataDTO.getResourceTitle());
-		metadata.setResourceAbstract(metadataDTO.getResourceAbstract());
-		metadata.setResourceURL(metadataDTO.getResourceURL());
-		metadataDTO.getGeographicalBoundingBox().getEastBoundLongitude();
-		DefaultGeographicBoundingBox boundingbox = new DefaultGeographicBoundingBox(metadataDTO.getGeographicalBoundingBox().getWestBoundLongitude(), metadataDTO.getGeographicalBoundingBox().getEastBoundLongitude(), metadataDTO.getGeographicalBoundingBox().getSouthBoundLatitude(), metadataDTO.getGeographicalBoundingBox().getNorthBoundLatitude());
-		metadata.setGeographicBoundingBox(boundingbox);
+		metadata.setResourceTitle(metadataDTO.getIdentificationPart().getResourceTitle());
+		metadata.setResourceAbstract(metadataDTO.getIdentificationPart().getResourceAbstract());
+		metadata.setResourceURL(toStringList(metadataDTO.getIdentificationPart().getResourceURL()));
+//		metadataDTO.getGeographicalBoundingBox().getEastBoundLongitude();
+//		DefaultGeographicBoundingBox boundingbox = new DefaultGeographicBoundingBox(metadataDTO.getGeographicalBoundingBox().getWestBoundLongitude(), metadataDTO.getGeographicalBoundingBox().getEastBoundLongitude(), metadataDTO.getGeographicalBoundingBox().getSouthBoundLatitude(), metadataDTO.getGeographicalBoundingBox().getNorthBoundLatitude());
+//		metadata.setGeographicBoundingBox(boundingbox);
 		
 		return metadata;
 	}
@@ -61,9 +60,20 @@ public class MetadataDTOTools {
 	public static MetadataDTO toMetadatoDTO(Metadata metadata) 
 	{
 		MetadataDTO metadataDTO = new MetadataDTO();
-		metadataDTO.setResourceAbstract(metadata.getResourceAbstract());
-		metadataDTO.setResourceTitle(metadata.getResourceTitle());
+		metadataDTO.getIdentificationPart().setResourceAbstract(metadata.getResourceAbstract());
+		metadataDTO.getIdentificationPart().setResourceTitle(metadata.getResourceTitle());
 		return metadataDTO;
+	}
+	
+	public static List<String> toStringList(List<IdentifiedString> src)
+	{
+		List<String> result = new ArrayList<String>();
+		Iterator<IdentifiedString> iterator = src.iterator();
+		while (iterator.hasNext()) 
+		{
+			result.add(iterator.next().getValue());
+		}
+		return result;
 	}
 
 }

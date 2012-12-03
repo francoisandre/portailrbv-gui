@@ -4,64 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
-import fr.obsmip.sedoo.client.domain.GeographicalLocation;
 import fr.obsmip.sedoo.client.domain.ValidationAlert;
 
 
 public class MetadataDTO extends AbstractDTO
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5447272101770073769L;
-	/**
-	 * 
-	 */
-	private String resourceTitle;
-	private String resourceAbstract;
-	private List<String> resourceURL = new ArrayList<String>();
-	private GeographicalLocation geographicalLocation;
+		
 	private MetadataPart metadataPart = new MetadataPart();
-	
-
-//	String getResourceTitle();
-//	void setResourceTitle(String resourceTitle);
-//	String getResourceAbstract();
-//	void setResourceAbstract(String resourceAbstract);
-	
-	public String getResourceTitle() {
-		return resourceTitle;
-	}
-	public void setResourceTitle(String resourceTitle) {
-		this.resourceTitle = resourceTitle;
-	}
-	public String getResourceAbstract() {
-		return resourceAbstract;
-	}
-	public void setResourceAbstract(String resourceAbstract) {
-		this.resourceAbstract = resourceAbstract;
-	}
-	public List<String> getResourceURL() {
-		return resourceURL;
-	}
-	public void setResourceURL(List<String> resourceURL) {
-		this.resourceURL = resourceURL;
-	}
-	public GeographicalLocation getGeographicalBoundingBox() {
-		return geographicalLocation;
-	}
-	public void setGeographicalBoundingBox(GeographicalLocation geographicalBoundingBox) {
-		this.geographicalLocation = geographicalBoundingBox;
-	}
+	private IdentificationPart identificationPart = new IdentificationPart();
+	private ConstraintPart constraintPart = new ConstraintPart();
+	private TemporalExtentPart temporalExtentPart = new TemporalExtentPart();
+	private GeographicalLocationPart geographicalLocationPart = new GeographicalLocationPart();
 	
 	
 	@Override
 	public String getHash() {
-		return "@"+protectNullString(getResourceTitle())+"|"+getMetadataPart().getHash();
+		return "@"+getIdentificationPart()+"|"+getMetadataPart().getHash()+"|"+getConstraintPart().getHash()+"|"+getTemporalExtentPart().getHash()+"|"+getGeographicalLocationPart().getHash();
 	}
 	@Override
 	public List<ValidationAlert> validate() {
 		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
+		result.addAll(getIdentificationPart().validate());
+		result.addAll(getMetadataPart().validate());
+		result.addAll(getTemporalExtentPart().validate());
+		result.addAll(getConstraintPart().validate());
+		result.addAll(getGeographicalLocationPart().validate());
 		return result;
 	}
 	
@@ -71,6 +38,30 @@ public class MetadataDTO extends AbstractDTO
 	public void setMetadataPart(MetadataPart part) 
 	{
 		this.metadataPart = part;
+	}
+	public IdentificationPart getIdentificationPart() {
+		return identificationPart;
+	}
+	public void setIdentificationPart(IdentificationPart identificationPart) {
+		this.identificationPart = identificationPart;
+	}
+	public ConstraintPart getConstraintPart() {
+		return constraintPart;
+	}
+	public void setConstraintPart(ConstraintPart constraintPart) {
+		this.constraintPart = constraintPart;
+	}
+	public TemporalExtentPart getTemporalExtentPart() {
+		return temporalExtentPart;
+	}
+	public void setTemporalExtentPart(TemporalExtentPart temporalExtentPart) {
+		this.temporalExtentPart = temporalExtentPart;
+	}
+	public GeographicalLocationPart getGeographicalLocationPart() {
+		return geographicalLocationPart;
+	}
+	public void setGeographicalLocationPart(GeographicalLocationPart geographicalLocationPart) {
+		this.geographicalLocationPart = geographicalLocationPart;
 	}
 	
 }
