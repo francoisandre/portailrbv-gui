@@ -1,5 +1,6 @@
 package fr.obsmip.sedoo.client.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
@@ -9,11 +10,14 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.Constants;
+import fr.obsmip.sedoo.client.ShortcutFactory;
 import fr.obsmip.sedoo.client.domain.ObservatoryContactDTO;
+import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.domain.ValidationAlert;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
+import fr.obsmip.sedoo.client.event.NotificationEvent;
 import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.ObservatoryContactEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryEditingPlace;
@@ -22,11 +26,13 @@ import fr.obsmip.sedoo.client.service.ObservatoryServiceAsync;
 import fr.obsmip.sedoo.client.ui.ObservatoryContactEditingView;
 import fr.obsmip.sedoo.client.ui.ObservatoryContactEditingView.Presenter;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
+import fr.obsmip.sedoo.client.ui.misc.Shortcut;
 
 public class ObservatoryContactEditingActivity extends AbstractDTOEditingActivity implements Presenter{
 
 	private Long id;
 	private Long observatoryId;
+	private String observatoryShortLabel="";
 	
 
 	public ObservatoryContactEditingActivity(ObservatoryContactEditingPlace place, ClientFactory clientFactory) {
@@ -61,6 +67,13 @@ public class ObservatoryContactEditingActivity extends AbstractDTOEditingActivit
 					broadcastActivityTitle(Message.INSTANCE.observatoryContactEditingViewModificationHeader() +" ("+result.getPersonName()+")");
 					previousHash = result.getHash();
 					setObservatoryId(result.getObservatoryId());
+					List<Shortcut> shortcuts = new ArrayList<Shortcut>();
+					shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+			        shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
+			        observatoryShortLabel = result.getObservatoryShortLabel();
+			        shortcuts.add(ShortcutFactory.getObservatoryModificationShortcut(observatoryShortLabel, observatoryId));
+			        shortcuts.add(ShortcutFactory.getObservatoryContactModificationShortcut(result.getPersonName(), id));
+			        clientFactory.getBreadCrumb().refresh(shortcuts);
 					view.edit(result);
 					view.setMode(Constants.MODIFY);
 				}
@@ -75,10 +88,30 @@ public class ObservatoryContactEditingActivity extends AbstractDTOEditingActivit
 			
 		}
 		else
+		//Creation
 		{
 			previousHash = "";
 			broadcastActivityTitle(Message.INSTANCE.observatoryContactEditingViewCreationHeader());
 			observatoryContactEditingView.edit(new ObservatoryContactDTO());
+			observatoryService.getObservatoryById(observatoryId, new AsyncCallback<ObservatoryDTO>() {
+				
+				@Override
+				public void onSuccess(ObservatoryDTO result) {
+					List<Shortcut> shortcuts = new ArrayList<Shortcut>();
+					shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+			        shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
+			        observatoryShortLabel = result.getShortLabel();
+			        shortcuts.add(ShortcutFactory.getObservatoryModificationShortcut(observatoryShortLabel, observatoryId));
+			        shortcuts.add(ShortcutFactory.getObservatoryContactCreationShortcut(id));
+			        clientFactory.getBreadCrumb().refresh(shortcuts);		
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					// Nothing done ...
+					
+				}
+			});
 			view.setMode(Constants.CREATE);
 		}
 	}
@@ -117,6 +150,7 @@ public class ObservatoryContactEditingActivity extends AbstractDTOEditingActivit
         			clientFactory.getEventBus().fireEvent(e);
         			broadcastActivityTitle(Message.INSTANCE.observatoryContactEditingViewModificationHeader() +" ("+observatoryContactDTO.getPersonName()+")");
         			view.setMode(Constants.MODIFY);
+        			clientFactory.getEventBus().fireEvent(new NotificationEvent(Message.INSTANCE.savedModifications()));
         		}
 
         		@Override
@@ -141,6 +175,13 @@ public class ObservatoryContactEditingActivity extends AbstractDTOEditingActivit
         			broadcastActivityTitle(Message.INSTANCE.observatoryContactEditingViewModificationHeader() +" ("+observatoryContactDTO.getPersonName()+")");
         			view.setMode(Constants.MODIFY);
         			id = result;
+        			List<Shortcut> shortcuts = new ArrayList<Shortcut>();
+					shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+			        shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
+			        shortcuts.add(ShortcutFactory.getObservatoryModificationShortcut(observatoryShortLabel, observatoryId));
+			        shortcuts.add(ShortcutFactory.getObservatoryContactModificationShortcut(observatoryContactDTO.getPersonName(), id));
+			        clientFactory.getBreadCrumb().refresh(shortcuts);	
+			        clientFactory.getEventBus().fireEvent(new NotificationEvent(Message.INSTANCE.addedElement()));
         		}
 
         		@Override

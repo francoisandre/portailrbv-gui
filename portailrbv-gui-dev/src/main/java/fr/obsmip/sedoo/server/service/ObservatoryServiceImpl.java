@@ -1,5 +1,7 @@
 package fr.obsmip.sedoo.server.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -19,6 +21,7 @@ import fr.obsmip.sedoo.core.domain.DrainageBasin;
 import fr.obsmip.sedoo.core.domain.Observatory;
 import fr.obsmip.sedoo.core.domain.ObservatoryContact;
 import fr.obsmip.sedoo.core.domain.Person;
+import fr.obsmip.sedoo.core.domain.Site;
 import fr.obsmip.sedoo.server.service.dtotool.DrainageBasinDTOTools;
 import fr.obsmip.sedoo.server.service.dtotool.ObservatoryContactDTOTools;
 import fr.obsmip.sedoo.server.service.dtotool.ObservatoryDTOTools;
@@ -89,7 +92,21 @@ ObservatoryService {
 		
 		DrainageBasin drainageBasin = null;
 		drainageBasin = dao.getDrainageBasinById(id, true);
-		drainageBasin = DrainageBasinDTOTools.fromDrainageBasinDTO(drainageBasin, dto);
+		
+		List<Long> siteIds = new ArrayList<Long>();
+		Iterator<Site> iterator = drainageBasin.getSites().iterator();
+		
+		while (iterator.hasNext()) {
+			siteIds.add(iterator.next().getId());
+		}
+
+		SiteDAO siteDao = RBVApplication.getInstance().getSiteDAO();
+		Iterator<Long> idIterator = siteIds.iterator();
+		while (idIterator.hasNext()) {
+			siteDao.delete(idIterator.next());
+		}
+		
+		drainageBasin = DrainageBasinDTOTools.fromDTO(dto, drainageBasin);
 		dao.save(drainageBasin);
 	}
 
@@ -118,7 +135,14 @@ ObservatoryService {
 	}
 
 	@Override
-	public void saveObservatoryContact(ObservatoryContactDTO dto) {
+	public void saveObservatoryContact(ObservatoryContactDTO dto) throws Exception {
+		ObservatoryContactDAO dao = RBVApplication.getInstance().getObservatoryContactDAO();
+		Long id = dto.getId();
+		
+		ObservatoryContact observatoryContact = null;
+		observatoryContact = dao.getObservatoryContactById(id, true);
+		observatoryContact = ObservatoryContactDTOTools.fromDTO(dto,observatoryContact);
+		dao.save(observatoryContact);
 		
 	}
 
@@ -165,9 +189,28 @@ ObservatoryService {
 		DrainageBasin drainageBasin = drainageBasinDAO.getDrainageBasinById(id, true);
 		return ObservatoryDTOTools.toObservatoryDTO(drainageBasin.getObservatory(), false);
 	}
-	
-	
-	
+
+	@Override
+	public List<ObservatoryContactDTO> getObservatoryContactsByDrainageBasinId(Long id) {
+		DrainageBasinDAO drainageBasinDAO = RBVApplication.getInstance().getDrainageBasinDAO();
+		DrainageBasin drainageBasin = drainageBasinDAO.getDrainageBasinById(id, true);
+		ObservatoryDTO observatoryById = getObservatoryById(drainageBasin.getObservatory().getId());
+		return observatoryById.getContactDTOs();
+	}
+
+	@Override
+	public Long addDrainageBasin(DrainageBasinDTO dto, Long id)
+			throws Exception {
+		ObservatoryDAO observatoryDAO = RBVApplication.getInstance().getObservatoryDAO();
+		DrainageBasin draingaBasin = DrainageBasinDTOTools.fromDTO(dto);
+		Observatory observatory = observatoryDAO.getObservatoryById(id, true);
+		observatory.addDrainageBasin(draingaBasin);
+		observatoryDAO.save(observatory);
+		observatory = observatoryDAO.getObservatoryById(id, true);
+		List<DrainageBasin> draingaBasins = observatory.getDrainageBasins();
+		DrainageBasin lastDrainageBasin = draingaBasins.get(draingaBasins.size()-1);
+		return lastDrainageBasin.getId();
+	}
 	
 	
 	

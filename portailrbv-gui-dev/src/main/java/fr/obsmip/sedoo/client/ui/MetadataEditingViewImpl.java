@@ -3,6 +3,7 @@ package fr.obsmip.sedoo.client.ui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -12,8 +13,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.Constants;
+import fr.obsmip.sedoo.client.PortailRBV;
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
+import fr.obsmip.sedoo.client.event.NotificationEvent;
 import fr.obsmip.sedoo.client.service.ParameterService;
 import fr.obsmip.sedoo.client.service.ParameterServiceAsync;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
@@ -60,6 +63,9 @@ public class MetadataEditingViewImpl extends AbstractDTOEditingView implements M
 	HorizontalPanel testPanel;
 	@UiField 
 	Button generateXMLButton;
+	
+	@UiField 
+	Button notificationMoleButton;
 	
 	private String executionMode = null;
 
@@ -114,9 +120,20 @@ public class MetadataEditingViewImpl extends AbstractDTOEditingView implements M
 		 
 	  }
 	
+	@UiHandler("notificationMoleButton")
+	  void onNotificationMoleButtonClicked(ClickEvent event) {
+		 
+		 //driver.flush();
+		 EventBus eventBus = PortailRBV.getClientFactory().getEventBus();
+		 eventBus.fireEvent(new NotificationEvent("Coucou Coucou Coucou Coucou"));
+		 
+	  }
+	
 	@Override
 	public void setPresenter(Presenter presenter) {
 		this.presenter = presenter;
+		identificationTab.setPresenter(presenter);
+		metadataTab.setPresenter(presenter);
 	}
 
 	@Override

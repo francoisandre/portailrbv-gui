@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Widget;
 import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataPart;
+import fr.obsmip.sedoo.client.ui.MetadataEditingView.Presenter;
 import fr.obsmip.sedoo.client.ui.table.MetadataContactTable;
 
 public class MetadataTab extends AbstractTab {
@@ -35,6 +36,8 @@ public class MetadataTab extends AbstractTab {
 	
 	@UiField
 	MetadataContactTable contactTable;
+
+	private Presenter presenter;
 	
 	public void setLastModificationDate(String value)
 	{
@@ -65,6 +68,15 @@ public class MetadataTab extends AbstractTab {
 
 	public void reset() {
 		contactTable.reset();
+	}
+
+	public Presenter getPresenter() {
+		return presenter;
+	}
+
+	public void setPresenter(Presenter presenter) {
+		this.presenter = presenter;
+		contactTable.setPresenter(getPresenter());
 	}
 
 

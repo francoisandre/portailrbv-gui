@@ -14,6 +14,8 @@ public class ObservatoryDTO extends AbstractDTO implements HasId
 	
 	private Long id;
 	private String description;
+	private String useConditions;
+	private String publicAccessLimitations;
 	private String longLabel;
 	private String ShortLabel;
 	private List<DrainageBasinDTO> drainageBasinDTOs;
@@ -53,7 +55,7 @@ public class ObservatoryDTO extends AbstractDTO implements HasId
 	}
 	public String getHash() 
 	{
-		return "@"+protectNullString(getLongLabel())+"|"+protectNullString(getShortLabel())+"|"+protectNullString(getDescription());
+		return "@"+protectNullString(getLongLabel())+"|"+protectNullString(getShortLabel())+"|"+protectNullString(getDescription())+"|"+protectNullString(getPublicAccessLimitations())+"|"+protectNullString(getUseConditions());
 	}
 	@Override
 	public List<ValidationAlert> validate() {
@@ -69,6 +71,18 @@ public class ObservatoryDTO extends AbstractDTO implements HasId
 	}
 	public void setContactDTOs(List<ObservatoryContactDTO> contactDTOs) {
 		this.contactDTOs = contactDTOs;
+	}
+	public String getUseConditions() {
+		return useConditions;
+	}
+	public void setUseConditions(String useConditions) {
+		this.useConditions = useConditions;
+	}
+	public String getPublicAccessLimitations() {
+		return publicAccessLimitations;
+	}
+	public void setPublicAccessLimitations(String publicAccessLimitations) {
+		this.publicAccessLimitations = publicAccessLimitations;
 	}
 	
 	

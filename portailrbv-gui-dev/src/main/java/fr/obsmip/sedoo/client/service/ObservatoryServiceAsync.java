@@ -48,4 +48,10 @@ public interface ObservatoryServiceAsync {
 	void getObservatoryByDrainageBasinId(Long id,
 			AsyncCallback<ObservatoryDTO> callback);
 
+	void getObservatoryContactsByDrainageBasinId(Long id,
+			AsyncCallback<List<ObservatoryContactDTO>> callback);
+
+	void addDrainageBasin(DrainageBasinDTO dto, Long id,
+			AsyncCallback<Long> callback);
+
 }

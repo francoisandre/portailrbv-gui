@@ -5,17 +5,16 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DecoratorPanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasAlignment;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.message.Message;
 
@@ -78,7 +77,16 @@ public class DialogBoxTools
 	
 	public static void popUp(String title, DialogBoxContent content) 
 	{
+		popUp(title, content, null, null);
+	}
+	
+	public static void popUp(String title, DialogBoxContent content, String width, String height) 
+	{
 		final DialogBox dialogBox = new DialogBox();
+		if ((width != null) && (height != null))
+		{
+			((Composite)content).setSize(width, height);
+		}
 	    dialogBox.setText(title);
 	    dialogBox.getElement().getStyle().setProperty("zIndex", "9999");
         dialogBox.setWidget(content);

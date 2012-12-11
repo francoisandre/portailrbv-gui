@@ -47,6 +47,7 @@ public class PersonDTOTools {
 		result.setEmail(dto.getEmail());
 		result.setOrganisationName(dto.getOrganisationName());
 		result.setPersonName(dto.getPersonName());
+		result.setRoles(dto.getRoles());
 		return result;
 	}
 

@@ -58,6 +58,21 @@ public interface GlobalBundle extends ClientBundle {
 	    @Source("plus.png")
 	    ImageResource menuPlus();
 	    
+	    @Source("drag.png")
+	    ImageResource drag();
+	    
+	    @Source("drainageBasinDraw.png")
+	    ImageResource drainageBasinDraw();
+	    
+	    @Source("siteDraw.png")
+	    ImageResource siteDraw();
+	    
+	    @Source("siteDelete.png")
+	    ImageResource siteDelete();
+	    
+	    @Source("drainageBasinDelete.png")
+	    ImageResource drainageBasinDelete();
+	    
 	    @Source("cellTable.css")
         CellTable.Style cellTableStyle();
 	    

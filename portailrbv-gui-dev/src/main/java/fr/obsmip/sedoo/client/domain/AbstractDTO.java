@@ -3,6 +3,10 @@ package fr.obsmip.sedoo.client.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.view.client.ProvidesKey;
+import com.sun.corba.se.pept.transport.ContactInfo;
+
 public abstract class AbstractDTO implements Serializable{
 	
 	public static String protectNullString(String value)
@@ -26,5 +30,33 @@ public abstract class AbstractDTO implements Serializable{
 	public abstract String getHash();
 	
 	public abstract List<ValidationAlert> validate();
+	
+	public static final ProvidesKey<HasId> KEY_PROVIDER = new ProvidesKey<HasId>() {
+	      @Override
+	      public Object getKey(HasId item) {
+	        return item == null ? null : item.getId();
+	      }
+	    };
+	    
+	    
+	    public static boolean checkDouble(String aux) 
+		{
+			if (aux == null)
+			{
+				return false;
+			}
+			else
+			{
+				try
+				{
+					NumberFormat.getDecimalFormat().parse(aux);
+					return true;
+				}
+				catch (NumberFormatException e)
+				{
+					return false;
+				}
+			}
+		}
 	
 }

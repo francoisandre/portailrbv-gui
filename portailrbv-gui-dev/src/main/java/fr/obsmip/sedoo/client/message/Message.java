@@ -14,6 +14,7 @@ public interface Message extends Messages {
 	
 	public static final Message INSTANCE = GWT.create(Message.class);
 	
+	
     @Key("metadataEditing.resourceTitle")
     public String metadataEditingResourceTitle();
     
@@ -169,6 +170,18 @@ public interface Message extends Messages {
     
     @Key("drainageBasinEditingView.modificationHeader")
     public String drainageBasinEditingViewModificationHeader();
+   
+    @Key("drainageBasinEditingView.siteName")
+    public String drainageBasinEditingViewSiteName();
+   
+    @Key("drainageBasinEditingView.siteLongitude")
+    public String drainageBasinEditingViewSiteLongitude();
+    
+    @Key("drainageBasinEditingView.siteLatitude")
+    public String drainageBasinEditingViewSiteLatitude();
+    
+    @Key("drainageBasinEditingView.siteAltitude")
+    public String drainageBasinEditingViewSiteAltitude();
     
     @Key("observatoryManagementView.deletionConfirmationMessage")
 	public String observatoryDeletionConfirmationMessage();
@@ -302,6 +315,12 @@ public interface Message extends Messages {
     @Key("common.unsavedCreationConfirmation")
     public String unsavedCreationConfirmation();
     
+    @Key("common.savedModifications")
+    public String savedModifications();
+    
+    @Key("common.addedElement")
+    public String addedElement();
+    
     @Key("person.personName")
     public String personPersonName();
     
@@ -332,4 +351,30 @@ public interface Message extends Messages {
     @Key("metadataListing.addMetadataEntry")
 	public String addMetadataEntry();
     
+    @Key("metadataEditing.addContactFromDirectory")
+    public String metadataEditingAddContactFromDirectory();
+    
+    @Key("metadataEditing.selectContactFromList")
+    public String metadataEditingSelectContactFromList();
+
+    @Key("mapSelector.drawDrainageBasinButtonTooltip")
+	public String drawDrainageBasinButtonTooltip();
+    
+    @Key("mapSelector.eraseDrainageBasinButtonTooltip")
+	public String eraseDrainageBasinButtonTooltip();
+    
+    @Key("mapSelector.eraseSiteButtonTooltip")
+	public String eraseSiteButtonTooltip();
+
+    @Key("mapSelector.drawSiteButtonTooltip")
+	public String drawSiteButtonTooltip();
+    
+    @Key("mapSelector.dragPanButtonTooltip")
+   	public String dragPanButtonTooltip();
+
+	@Key("commons.filter")
+	public String filter();
+	
+	@Key("metadataListing.entryList")
+	public String metadataListingEntryList();
 }

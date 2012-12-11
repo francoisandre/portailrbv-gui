@@ -1,15 +1,14 @@
 package fr.obsmip.sedoo.client.ui;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextBox;
@@ -18,10 +17,9 @@ import com.google.gwt.user.client.ui.Widget;
 import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
+import fr.obsmip.sedoo.client.domain.SiteDTO;
 import fr.obsmip.sedoo.client.domain.ThesaurusItemDTO;
 import fr.obsmip.sedoo.client.message.Message;
-import fr.obsmip.sedoo.client.service.ThesaurusService;
-import fr.obsmip.sedoo.client.service.ThesaurusServiceAsync;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.misc.MapSelector;
 import fr.obsmip.sedoo.client.ui.table.SiteTable;
@@ -51,6 +49,9 @@ public class DrainageBasinEditingViewImpl extends AbstractDTOEditingView impleme
 	Button saveButton;
 	
 	@UiField
+	Button backButton;
+	
+	@UiField
 	MapSelector mapSelector;
 	
 	private Presenter presenter;
@@ -60,6 +61,9 @@ public class DrainageBasinEditingViewImpl extends AbstractDTOEditingView impleme
 		super();
 		initWidget(uiBinder.createAndBindUi(this));
 		applyCommonStyle();
+		mapSelector.setSiteEventListener(siteTable);
+		mapSelector.setSiteIdProvider(siteTable);
+		siteTable.setSiteEventListener(mapSelector);
 		init();
 	}
 
@@ -72,18 +76,21 @@ public class DrainageBasinEditingViewImpl extends AbstractDTOEditingView impleme
 	@Override
 	public void edit(AbstractDTO dto) {
 		reset();
-//		siteTable.setPresenter(null);
-//		siteTable.setObservatoryDTO(observatory);
 		DrainageBasinDTO drainageBasinDTO = (DrainageBasinDTO) dto;
 		siteTable.init(drainageBasinDTO.getSiteDTOs());
 		label.setText(drainageBasinDTO.getLabel());
+		//TODO Faire les climats et lytho
 		mapSelector.setGeographicBoundingBoxDTO(drainageBasinDTO.getGeographicBoundingBoxDTO());
+		mapSelector.setSites(drainageBasinDTO.getSiteDTOs());
 	}
 	
 	public void reset()
 	{
 		label.setText("");
 		mapSelector.reset();
+		climateList.setSelectedIndex(0);
+		lithologyList.setSelectedIndex(0);
+		siteTable.init(new ArrayList<SiteDTO>());
 	}
 
 	@Override
@@ -95,9 +102,13 @@ public class DrainageBasinEditingViewImpl extends AbstractDTOEditingView impleme
 	 @UiHandler("saveButton")
 	 void onSaveButtonClicked(ClickEvent event) 
 	 {
-		 mapSelector.forcedHide();
-		 DialogBoxTools.modalAlert("coucou", "tutu");
-		 mapSelector.forcedShow();
+		 presenter.save(flush());
+	 }
+	 
+	 @UiHandler("backButton")
+	 void onBackButtonClicked(ClickEvent event) 
+	 {
+		 presenter.back();
 	 }
 	 
 	 @Override
@@ -106,6 +117,8 @@ public class DrainageBasinEditingViewImpl extends AbstractDTOEditingView impleme
 		 DrainageBasinDTO drainageBasinDTO = new DrainageBasinDTO(); 
 		 drainageBasinDTO.setLabel(label.getText().trim());
 		 drainageBasinDTO.setGeographicBoundingBoxDTO(mapSelector.getGeographicBoundingBoxDTO());
+		 //TODO Faire les climats et lytho
+		 drainageBasinDTO.setSiteDTOs(siteTable.getSiteDTOs());
 		 return drainageBasinDTO;
 	 }
 

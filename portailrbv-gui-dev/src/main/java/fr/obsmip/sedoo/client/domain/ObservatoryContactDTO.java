@@ -31,6 +31,15 @@ public class ObservatoryContactDTO extends PersonDTO{
 		this.observatoryId = observatoryId;
 	}
 
+	public String getObservatoryShortLabel() {
+		return observatoryShortLabel;
+	}
+
+	public void setObservatoryShortLabel(String observatoryShortLabel) {
+		this.observatoryShortLabel = observatoryShortLabel;
+	}
+
 	private Long observatoryId;
+	private String observatoryShortLabel;
 
 }

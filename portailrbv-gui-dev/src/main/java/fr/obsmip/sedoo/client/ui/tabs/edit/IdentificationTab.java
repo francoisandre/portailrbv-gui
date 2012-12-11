@@ -14,6 +14,7 @@ import fr.obsmip.sedoo.client.domain.AbstractDTO;
 import fr.obsmip.sedoo.client.domain.IdentifiedString;
 import fr.obsmip.sedoo.client.domain.MetadataContactDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
+import fr.obsmip.sedoo.client.ui.MetadataEditingView.Presenter;
 import fr.obsmip.sedoo.client.ui.table.MetadataContactTable;
 import fr.obsmip.sedoo.client.ui.table.StringTable;
 
@@ -25,6 +26,8 @@ public class IdentificationTab extends AbstractTab  {
 	interface IdentificationTabUiBinder extends
 			UiBinder<Widget, IdentificationTab> {
 	}
+	
+	private Presenter presenter;
 	
 	@UiField
 	TextBox resourceTitle;
@@ -71,6 +74,15 @@ public class IdentificationTab extends AbstractTab  {
 		metadataDTO.getIdentificationPart().setResourceIdentifiers((List<IdentifiedString>) resourceIdentifiantTable.getModel());
 		metadataDTO.getIdentificationPart().setResourceContacts((List<MetadataContactDTO>) resourceContactTable.getModel());
 		return metadataDTO;
+	}
+
+	public Presenter getPresenter() {
+		return presenter;
+	}
+
+	public void setPresenter(Presenter presenter) {
+		this.presenter = presenter;
+		resourceContactTable.setPresenter(getPresenter());
 	}
 	
 	

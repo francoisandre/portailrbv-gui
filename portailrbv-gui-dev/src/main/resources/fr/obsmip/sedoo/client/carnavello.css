@@ -52,6 +52,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	color: #4A99C6;
 
 	}
+	
+	.map-selector-toolbar{
+	    position: relative;
+    z-index: 1;
+    top: 33px;
+	}
+	
 
 @External .gwt-StackLayoutPanelHeader
 .local1 .gwt-StackLayoutPanelHeader

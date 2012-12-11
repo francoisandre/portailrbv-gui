@@ -10,6 +10,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -24,6 +25,8 @@ import fr.obsmip.sedoo.client.event.MaximizeEvent;
 import fr.obsmip.sedoo.client.event.MaximizeEventHandler;
 import fr.obsmip.sedoo.client.event.MinimizeEvent;
 import fr.obsmip.sedoo.client.event.MinimizeEventHandler;
+import fr.obsmip.sedoo.client.event.NotificationEvent;
+import fr.obsmip.sedoo.client.event.NotificationHandler;
 import fr.obsmip.sedoo.client.event.UserLogoutEvent;
 import fr.obsmip.sedoo.client.mvp.AppActivityMapper;
 import fr.obsmip.sedoo.client.mvp.AppPlaceHistoryMapper;
@@ -34,11 +37,12 @@ import fr.obsmip.sedoo.client.place.SwitchLanguagePlace;
 import fr.obsmip.sedoo.client.place.WelcomePlace;
 import fr.obsmip.sedoo.client.ui.HeaderView;
 import fr.obsmip.sedoo.client.ui.SectionHeaderView;
+import fr.obsmip.sedoo.client.ui.misc.LocalNotificationMole;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEventHandler {
+public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEventHandler, NotificationHandler {
   /**
    * The message displayed to the user when the server cannot be reached or
    * returns an error.
@@ -65,6 +69,7 @@ public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEve
 	private HeaderView headerView;
 	private SectionHeaderView sectionHeaderView;
 	private DockLayoutPanel headerFirstPart;
+	private LocalNotificationMole notificationMole;
 	
 	private static UserDTO user;
 
@@ -105,6 +110,8 @@ public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEve
 		//centeringPanel.getElement().getStyle().setProperty("background", "radial-gradient(center top, rgb(0, 255, 0) 0%, rgb(0, 0, 255) 100%)");
 		centeringPanel.add(mainPanel);
 		
+		notificationMole = new LocalNotificationMole();
+		RootLayoutPanel.get().add(notificationMole);
 		RootLayoutPanel.get().add(centeringPanel);
 		Window.enableScrolling(false);
 	    Window.setMargin("0px");
@@ -119,6 +126,7 @@ public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEve
 		mainPanel.getElement().getStyle().setProperty("boxShadow","1px 1px 5px 1px rgba(0, 0, 0, 0.7)");
 		mainPanel.setWidth("1039px");
 		mainPanel.getElement().getStyle().setProperty("margin", "auto");
+		
 		
 //		DockLayoutPanel header = new DockLayoutPanel(Unit.PX);
 //		header.addNorth(clientFactory.getHeaderView(), 147);
@@ -151,8 +159,10 @@ public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEve
 		
 		
 		
+		
 		clientFactory.getEventBus().addHandler(MaximizeEvent.TYPE, this);
 		clientFactory.getEventBus().addHandler(MinimizeEvent.TYPE, this);
+		clientFactory.getEventBus().addHandler(NotificationEvent.TYPE, this);
 	}
 	
 	public static ClientFactory getClientFactory() {
@@ -217,6 +227,36 @@ public class PortailRBV implements EntryPoint, MaximizeEventHandler, MinimizeEve
 		splitPanel.animate(500);
 		headerFirstPart.animate(100);
 		mainPanel.animate(500);
+	}
+	
+	@Override
+	public void onNotification(NotificationEvent event) {
+		showMole(event.getMessage());
+		if (notificationMole != null) {
+		}		
+	}
+
+
+	private void showMole(String message) {
+		
+		
+		notificationMole.setAnimationDuration(400);
+		notificationMole.addStyleName("notif");
+		notificationMole.getElement().getStyle().setProperty("zIndex", "9999");
+		notificationMole.getElement().getStyle().setProperty("position", "absolute");
+		notificationMole.getElement().getStyle().setProperty("left", "0");
+		notificationMole.getElement().getStyle().setProperty("top", "0");
+		notificationMole.setWidth("200px");
+
+		notificationMole.show(message);
+			Timer timer = new Timer() {
+				@Override
+				public void run() {
+					notificationMole.hide();
+				}
+			};
+			timer.schedule(2500);
+		
 	}
 
   

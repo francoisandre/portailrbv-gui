@@ -20,7 +20,9 @@
 	 <g:DockLayoutPanel unit='EM' >
 	 
 	 <g:center>
-    <g:HTMLPanel>
+    <g:HTMLPanel styleName="scrollableHTMLPanel">
+    
+    <span class='h2class'><g:Label text="{messageBundle.filter}" /></span>
      <table class="{style.paragraph}" >
      <tr>
       <td><span class='{style.libelle}'><g:Label text="{messageBundle.observatory}" /></span></td><td><g:ListBox ui:field='observatories'/></td>
@@ -30,10 +32,12 @@
      </tr>
      <tr>
      <td colspan="2" style="text-align:left">
+    
      <g:Button ui:field="createButton" text="{messageBundle.addMetadataEntry}" />
      </td>
      </tr>
      </table>
+      <span class='h2class'><g:Label text="{messageBundle.metadataListingEntryList}" /></span>
     </g:HTMLPanel>
     </g:center>
   </g:DockLayoutPanel>

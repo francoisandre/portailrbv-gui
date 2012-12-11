@@ -24,6 +24,11 @@ public class StringTable extends AbstractTable {
 	{
 		super();
 		this.addItemText = addItemText;
+		// getAddItemText() est appellé lors du super(), il est donc nécessaire de repositionner addItemLabel
+		if (addItemLabel != null)
+		{
+			addItemLabel.setText(addItemText);
+		}
 		this.watermark = waterMark;
 		localInitColumns();
 	}

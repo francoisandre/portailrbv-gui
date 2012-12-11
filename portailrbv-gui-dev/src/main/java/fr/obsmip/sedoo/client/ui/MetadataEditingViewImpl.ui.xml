@@ -42,6 +42,7 @@ overflow: auto;
        <g:HTMLPanel styleName="{style.paragraph} {style.end}">
        <g:HorizontalPanel ui:field="testPanel" visible="false"  >
 				<g:Button ui:field="generateXMLButton" text="Voir le XML" />
+				<g:Button ui:field="notificationMoleButton" text="tester le Notification Mole" />
 	</g:HorizontalPanel>
        </g:HTMLPanel>
 				

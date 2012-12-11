@@ -3,6 +3,11 @@ package fr.obsmip.sedoo.client.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gwtopenmaps.openlayers.client.Bounds;
+import org.gwtopenmaps.openlayers.client.LonLat;
+
+import com.google.gwt.i18n.client.NumberFormat;
+
 import fr.obsmip.sedoo.client.message.Message;
 
 public class GeographicBoundingBoxDTO extends AbstractDTO {
@@ -43,22 +48,22 @@ public class GeographicBoundingBoxDTO extends AbstractDTO {
 	public List<ValidationAlert> validate() {
 		List<ValidationAlert> result = new ArrayList<ValidationAlert>();
 		
-		if (checkDouble(getNorthBoundLatitude()))
+		if (!checkDouble(getNorthBoundLatitude()))
 		{
 			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorNorthLatitude(), Message.INSTANCE.numericalData()));
 		}
 		
-		if (checkDouble(getSouthBoundLatitude()))
+		if (!checkDouble(getSouthBoundLatitude()))
 		{
 			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorSouthLatitude(), Message.INSTANCE.numericalData()));
 		}
 		
-		if (checkDouble(getEastBoundLongitude()))
+		if (!checkDouble(getEastBoundLongitude()))
 		{
 			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorEastLongitude(), Message.INSTANCE.numericalData()));
 		}
 		
-		if (checkDouble(getWestBoundLongitude()))
+		if (!checkDouble(getWestBoundLongitude()))
 		{
 			result.add(new ValidationAlert(Message.INSTANCE.mapSelectorWestLongitude(), Message.INSTANCE.numericalData()));
 		}
@@ -66,24 +71,37 @@ public class GeographicBoundingBoxDTO extends AbstractDTO {
 		
 	}
 	
-	private boolean checkDouble(String aux) 
-	{
-		if (aux == null)
-		{
-			return true;
-		}
-		else
-		{
-			try
-			{
-				Double tmp = new Double(aux);
-				return true;
-			}
-			catch (NumberFormatException e)
-			{
-				return false;
-			}
-		}
+	
+	public LonLat getRightLowerCorner() {
+		return new LonLat(NumberFormat.getDecimalFormat().parse(eastBoundLongitude), NumberFormat.getDecimalFormat().parse(southBoundLatitude));
 	}
+	public LonLat getLeftUpperCorner() 
+	{
+		return new LonLat(NumberFormat.getDecimalFormat().parse(westBoundLongitude), NumberFormat.getDecimalFormat().parse(northBoundLatitude));
+	}
+	public LonLat getRightLowerDisplayCorner() {
+		
+		double horizontalPadding = getHorizontalPadding();
+		double verticalPadding = getVerticalPadding();
+		return new LonLat(NumberFormat.getDecimalFormat().parse(eastBoundLongitude)+horizontalPadding, NumberFormat.getDecimalFormat().parse(southBoundLatitude)-verticalPadding);
+	}
+	
+	public LonLat getLeftUpperDisplayCorner() 
+	{
+		double horizontalPadding = getHorizontalPadding();
+		double verticalPadding = getVerticalPadding();
+		return new LonLat(NumberFormat.getDecimalFormat().parse(westBoundLongitude)-horizontalPadding, NumberFormat.getDecimalFormat().parse(northBoundLatitude)+verticalPadding);
+	}
+	
+	public double getHorizontalPadding()
+	{
+		 return 0.2*(NumberFormat.getDecimalFormat().parse(eastBoundLongitude)-NumberFormat.getDecimalFormat().parse(westBoundLongitude));
+	}
+	
+	public double getVerticalPadding()
+	{
+		 return 0.2*(NumberFormat.getDecimalFormat().parse(northBoundLatitude)-NumberFormat.getDecimalFormat().parse(southBoundLatitude));
+	}
+	
 
 }

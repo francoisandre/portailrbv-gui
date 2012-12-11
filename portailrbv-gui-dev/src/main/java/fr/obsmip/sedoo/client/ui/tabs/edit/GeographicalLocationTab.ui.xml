@@ -19,7 +19,7 @@
     <col width="10%" />
   <col width="80%" />
     <tbody class="tableBody">
-    	<tr class='row'><td class='leftColumn' colspan="2"><l:MapSelector ui:field="mapSelector" /> </td></tr>
+    	<tr class='row'><td class='leftColumn' colspan="2"><l:MapSelector ui:field="mapSelector" complete="false" /> </td></tr>
     </tbody>
     </table>
     

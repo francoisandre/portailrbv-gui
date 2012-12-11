@@ -1,5 +1,6 @@
 package fr.obsmip.sedoo.client.ui.table;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -8,7 +9,6 @@ import com.google.gwt.cell.client.Cell;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -31,7 +31,9 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 	protected List<? extends HasId> model;
 	protected FormattedCellTable<HasId> itemTable;
 	VerticalPanel tablePanel;
+	HorizontalPanel toolBarPanel;
 	private Image addImage;
+	protected Label addItemLabel;
 	private Image deleteImage=new Image(GlobalBundle.INSTANCE.delete());
 	private Image editImage=new Image(GlobalBundle.INSTANCE.edit());
 	
@@ -44,7 +46,6 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 	
 	private boolean addButtonEnabled = false;
 
-	protected Label addItemLabel;
 	
 	private boolean askDeletionConfirmation = true;
 	
@@ -89,17 +90,17 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 			}
 		};
 
-		HorizontalPanel addItemPanel = new HorizontalPanel();
-		addItemPanel.setSpacing(5);
+		toolBarPanel = new HorizontalPanel();
+		toolBarPanel.setSpacing(5);
 		//addItemPanel.setWidth("100%");
 		addImage = new Image(GlobalBundle.INSTANCE.add());
 		addImage.setStyleName("clickableImage");
-		addItemPanel.add(addImage);
+		toolBarPanel.add(addImage);
 		addItemLabel = new Label(getAddItemText());
 		addItemLabel.setStyleName("clickableImage");
-		addItemPanel.add(addItemLabel);
+		toolBarPanel.add(addItemLabel);
 		tablePanel.add(itemTable);
-		tablePanel.add(addItemPanel);
+		tablePanel.add(toolBarPanel);
 		tablePanel.setWidth("100%");
 		addImage.addClickHandler(this);
 		addItemLabel.addClickHandler(this);
@@ -165,19 +166,21 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 		list.clear();
 		list.addAll(this.model);
 		itemTable.setRowData(dataProvider.getList());
-		
 	}
 	
 
 	public void onClick(ClickEvent event)
 	{
-		if (addButtonEnabled == true)
+		if ((event.getSource() == addImage) || (event.getSource() == addItemLabel))
 		{
-			addItem();
-		}
-		else
-		{
-			DialogBoxTools.modalAlert("Not activated", "Not activated in this mode");
+			if (addButtonEnabled == true)
+			{
+				addItem();
+			}
+			else
+			{
+				DialogBoxTools.modalAlert("Not activated", "Not activated in this mode");
+			}
 		}
 	}
 
@@ -268,6 +271,21 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 
 	public void setAskDeletionConfirmation(boolean askDeletionConfirmation) {
 		this.askDeletionConfirmation = askDeletionConfirmation;
+	}
+	
+	public Long getMaxId()
+	{
+		Long maxId = 0L;
+		Iterator<? extends HasId> iterator = model.iterator();
+		while (iterator.hasNext()) 
+		{
+			HasId aux = (HasId) iterator.next();
+			if (aux.getId()> maxId)
+			{
+				maxId = aux.getId();
+			}
+		}
+		return maxId;
 	}
 
 }

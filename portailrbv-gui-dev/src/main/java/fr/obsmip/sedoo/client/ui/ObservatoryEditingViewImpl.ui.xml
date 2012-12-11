@@ -21,6 +21,8 @@
     	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.observatoryShortLabel}" /></td><td><g:TextBox ui:field='shortLabel' visibleLength="60"/></td></tr>
     	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.observatoryLongLabel}" /></td><td><g:TextBox ui:field='longLabel' visibleLength="60"/></td></tr>
     	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.observatoryDescription}" /></td><td><g:TextArea ui:field="description" width="90%"  visibleLines="15" /></td></tr>
+    	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingUseConditions}" /></td><td><g:TextArea ui:field="useConditions" width="90%"  visibleLines="5" /></td></tr>
+    	<tr class='row'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingPublicAccessLimitations}" /></td><td><g:TextArea ui:field="publicAccessLimitations" width="90%"  visibleLines="5" /></td></tr>
     </tbody>
     </table>
     <span class='h2class'><g:Label text="{messageBundle.observatoryEditingDrainageBasinList}" /></span>

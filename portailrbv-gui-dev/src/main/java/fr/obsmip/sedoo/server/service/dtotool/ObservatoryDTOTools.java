@@ -31,6 +31,8 @@ public class ObservatoryDTOTools {
 		observatory.setDescription(dto.getDescription());
 		observatory.setShortLabel(dto.getShortLabel());
 		observatory.setLongLabel(dto.getLongLabel());
+		observatory.setPublicAccessLimitations(dto.getPublicAccessLimitations());
+		observatory.setUseConditions(dto.getUseConditions());
 		return observatory;
 	}
 	
@@ -42,6 +44,8 @@ public class ObservatoryDTOTools {
 		observatoryDTO.setShortLabel(observatory.getShortLabel());
 		observatoryDTO.setLongLabel(observatory.getLongLabel());
 		observatoryDTO.setDescription(observatory.getDescription());
+		observatoryDTO.setPublicAccessLimitations(observatory.getPublicAccessLimitations());
+		observatoryDTO.setUseConditions(observatory.getUseConditions());
 		
 		List<DrainageBasinDTO> drainageBasinDTOs = new ArrayList<DrainageBasinDTO>();
 		if (full == true)

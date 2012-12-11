@@ -8,6 +8,7 @@ import com.google.gwt.place.shared.PlaceController;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
 import fr.obsmip.sedoo.client.event.ActivityChangeEvent;
+import fr.obsmip.sedoo.client.event.NotificationEvent;
 import fr.obsmip.sedoo.client.event.UserLoginEvent;
 import fr.obsmip.sedoo.client.event.UserLogoutEvent;
 import fr.obsmip.sedoo.client.ui.DebugStatusBarViewImpl;
@@ -61,6 +62,12 @@ public class ClientFactoryImpl implements ClientFactory {
 	private static final MetadataSearchView METADATA_SEARCH_VIEW = new MetadataSearchViewImpl();
 	private static final MetadataListView METADATA_LIST_VIEW = new MetadataListViewImpl();
 	private static final BreadCrumb BREAD_CRUMB = new BreadCrumbImpl();
+	
+	static
+	{
+//		EVENT_BUS.addHandler(NotificationEvent.TYPE, BREAD_CRUMB);
+	}
+	
 	private static final HeaderView HEADER_VIEW = new HeaderViewImpl();
 	private static final SectionHeaderView SECTION_HEADER_VIEW = new SectionHeaderViewImpl();
 	private static final ObservatoryContactEditingView OBSERVATORY_CONTACT_EDITING_VIEW = new ObservatoryContactEditingViewImpl();
@@ -91,6 +98,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	{
 		EVENT_BUS.addHandler(ActivityChangeEvent.TYPE, SECTION_HEADER_VIEW);
 	}
+	
+	
 	
 	
 	public ClientFactoryImpl()

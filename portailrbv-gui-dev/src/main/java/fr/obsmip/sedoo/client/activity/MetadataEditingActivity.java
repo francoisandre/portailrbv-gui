@@ -2,6 +2,7 @@ package fr.obsmip.sedoo.client.activity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
@@ -16,6 +17,7 @@ import fr.obsmip.sedoo.client.ShortcutFactory;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
 import fr.obsmip.sedoo.client.domain.IdentifiedString;
 import fr.obsmip.sedoo.client.domain.MetadataContactDTO;
+import fr.obsmip.sedoo.client.domain.ObservatoryContactDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.message.Message;
@@ -28,6 +30,7 @@ import fr.obsmip.sedoo.client.service.ObservatoryServiceAsync;
 import fr.obsmip.sedoo.client.ui.MetadataEditingView;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.misc.Shortcut;
+import fr.obsmip.sedoo.client.ui.table.MetadataContactSelectionTable;
 
 public class MetadataEditingActivity extends AbstractDTOEditingActivity implements MetadataEditingView.Presenter {
 
@@ -66,14 +69,7 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 		clientFactory.getBreadCrumb().refresh(shortcuts);
 		((MetadataEditingView) view).setPresenter(this);
 		
-		if (getMode().compareTo(Constants.MODIFY) == 0)
-		{
-			//TODO
-		}
-		else
-		{
-			((MetadataEditingView) view).edit(createNewMetadata());
-		}
+		
 		
 		
 		observatoryService.getDrainageBasinById(drainageBassinId, new AsyncCallback<DrainageBasinDTO>() {
@@ -97,6 +93,16 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 			@Override
 			public void onSuccess(ObservatoryDTO result) {
 				observatoryDTO = result;
+				
+				if (getMode().compareTo(Constants.MODIFY) == 0)
+				{
+					//TODO
+				}
+				else
+				{
+					((MetadataEditingView) view).edit(createNewMetadata());
+				}
+				
 			}
 
 			@Override
@@ -148,7 +154,15 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 		fakeContact.setEmail("jeanbreille@insu.cnrs.dir.fr");
 //		aux.getMetadataPart().getMetadataContacts().add(fakeContact);
 		aux.getIdentificationPart().getResourceContacts().add(fakeContact);
-		aux.getConstraintPart().setUseConditions("Conditions favorables");
+		if (!observatoryDTO.isEmpty(observatoryDTO.getPublicAccessLimitations()))
+		{
+			aux.getConstraintPart().setPublicAccessLimitations(observatoryDTO.getPublicAccessLimitations().trim());
+		}
+		if (!observatoryDTO.isEmpty(observatoryDTO.getUseConditions()))
+		{
+			aux.getConstraintPart().setUseConditions(observatoryDTO.getUseConditions().trim());
+		}
+		
 		return aux; 
 	}
 
@@ -192,6 +206,43 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 
 	public void setGeneratedXML(String generatedXML) {
 		this.generatedXML = generatedXML;
+	}
+
+	@Override
+	public void getObservatoryContacts(final MetadataContactSelectionTable table) 
+	{
+		observatoryService.getObservatoryContactsByDrainageBasinId(drainageBassinId, new AsyncCallback<List<ObservatoryContactDTO>>() {
+
+			@Override
+			public void onSuccess(List<ObservatoryContactDTO> result) 
+			{
+				List<MetadataContactDTO> aux = new ArrayList<MetadataContactDTO>();
+				if (result != null)
+				{
+					Long index = 1L;
+					Iterator<ObservatoryContactDTO> iterator = result.iterator();
+					while (iterator.hasNext()) {
+						ObservatoryContactDTO current = (ObservatoryContactDTO) iterator.next();
+						MetadataContactDTO contact = new MetadataContactDTO();
+						contact.setId(index);
+						contact.setEmail(current.getEmail());
+						contact.setOrganisationName(current.getOrganisationName());
+						contact.setRoles(current.getRoles());
+						contact.setPersonName(current.getPersonName());
+						aux.add(contact);
+						index++;
+					}
+					
+				}
+				table.init(aux);
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
+
+			}
+		});
 	}
 
 }

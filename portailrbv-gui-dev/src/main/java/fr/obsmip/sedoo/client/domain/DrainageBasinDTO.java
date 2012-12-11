@@ -1,6 +1,7 @@
 package fr.obsmip.sedoo.client.domain;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import fr.obsmip.sedoo.client.message.Message;
@@ -11,6 +12,8 @@ public class DrainageBasinDTO extends AbstractDTO implements HasId
 	private String label;
 	private List<SiteDTO> siteDTOs = new ArrayList<SiteDTO>();
 	private GeographicBoundingBoxDTO geographicBoundingBoxDTO = new GeographicBoundingBoxDTO();
+	private Long observatoryId;
+	private String observatoryShortLabel;
 	
 	public String getLabel() {
 		return label;
@@ -37,7 +40,12 @@ public class DrainageBasinDTO extends AbstractDTO implements HasId
 		this.geographicBoundingBoxDTO = geographicBoundingBoxDTO;
 	}
 	public String getHash() {
-		return "@"+protectNullString(getLabel())+"|"+getGeographicBoundingBoxDTO().getHash();
+		StringBuilder sb =  new StringBuilder("@"+protectNullString(getLabel())+"|"+getGeographicBoundingBoxDTO().getHash());
+		Iterator<SiteDTO> iterator = siteDTOs.iterator();
+		while (iterator.hasNext()) {
+			sb.append(iterator.next().getHash()+"|");
+		}
+		return sb.toString();
 	}
 	@Override
 	public List<ValidationAlert> validate() {
@@ -47,6 +55,25 @@ public class DrainageBasinDTO extends AbstractDTO implements HasId
 			result.add(new ValidationAlert(Message.INSTANCE.label(), Message.INSTANCE.mandatoryData()));
 		}
 		result.addAll(geographicBoundingBoxDTO.validate());
+		
+		Iterator<SiteDTO> iterator = siteDTOs.iterator();
+		while (iterator.hasNext()) {
+			result.addAll(iterator.next().validate());
+		}
+		
 		return result;
 	}
+	public Long getObservatoryId() {
+		return observatoryId;
+	}
+	public void setObservatoryId(Long observatoryId) {
+		this.observatoryId = observatoryId;
+	}
+	public String getObservatoryShortLabel() {
+		return observatoryShortLabel;
+	}
+	public void setObservatoryShortLabel(String observatoryShortLabel) {
+		this.observatoryShortLabel = observatoryShortLabel;
+	}
+	
 }

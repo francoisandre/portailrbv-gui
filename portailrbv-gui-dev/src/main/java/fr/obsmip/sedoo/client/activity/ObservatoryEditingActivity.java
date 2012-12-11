@@ -16,6 +16,7 @@ import fr.obsmip.sedoo.client.domain.ValidationAlert;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
+import fr.obsmip.sedoo.client.event.NotificationEvent;
 import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryContactEditingPlace;
@@ -163,6 +164,7 @@ public class ObservatoryEditingActivity extends AbstractDTOEditingActivity imple
 			        shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
 			        shortcuts.add(ShortcutFactory.getObservatoryModificationShortcut(observatoryDTO.getShortLabel(), observatoryId));
 			        clientFactory.getBreadCrumb().refresh(shortcuts);
+			        clientFactory.getEventBus().fireEvent(new NotificationEvent(Message.INSTANCE.savedModifications()));
 				}
 				
 				@Override
@@ -195,6 +197,7 @@ public class ObservatoryEditingActivity extends AbstractDTOEditingActivity imple
 			        clientFactory.getBreadCrumb().refresh(shortcuts);
 			        mode = Constants.MODIFY;
 			        view.setMode(Constants.MODIFY);
+			        clientFactory.getEventBus().fireEvent(new NotificationEvent(Message.INSTANCE.addedElement()));
 			        
 				}
 				

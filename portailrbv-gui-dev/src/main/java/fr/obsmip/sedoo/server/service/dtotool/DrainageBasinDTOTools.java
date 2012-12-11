@@ -8,6 +8,8 @@ import java.util.List;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
 import fr.obsmip.sedoo.client.domain.GeographicBoundingBoxDTO;
 import fr.obsmip.sedoo.client.domain.SiteDTO;
+import fr.obsmip.sedoo.core.RBVApplication;
+import fr.obsmip.sedoo.core.dao.SiteDAO;
 import fr.obsmip.sedoo.core.domain.DrainageBasin;
 import fr.obsmip.sedoo.core.domain.Site;
 
@@ -22,10 +24,16 @@ public class DrainageBasinDTOTools {
 		List<SiteDTO> siteDTOs = new ArrayList<SiteDTO>();
 		if (full)
 		{
+			//L'identifiant des sites transmis n'est pas le vrai identifiant mais un identifiant fictif - Lors d'une sauvegarde les sites existants sont systèmatiquement
+			// supprimés et recrées
+			Long id = 1L;
 			Iterator<Site> iterator = drainageBasin.getSites().iterator();
 			while (iterator.hasNext()) {
 				Site site = iterator.next();
-				siteDTOs.add(SiteDTOTools.toSiteDTO(site));
+				SiteDTO aux = SiteDTOTools.toSiteDTO(site);
+				aux.setId(id);
+				id++;
+				siteDTOs.add(aux);
 			}
 			
 			GeographicBoundingBoxDTO boxDTO = new GeographicBoundingBoxDTO();
@@ -37,6 +45,12 @@ public class DrainageBasinDTOTools {
 			
 		}
 		dto.setSiteDTOs(siteDTOs);
+		
+		dto.setObservatoryId(drainageBasin.getObservatory().getId());
+		dto.setObservatoryShortLabel(drainageBasin.getObservatory().getShortLabel());
+		
+		//TODO climate lytho
+		
 		return dto;
 	}
 
@@ -51,14 +65,49 @@ public class DrainageBasinDTOTools {
 		}
 	}
 
-	public static DrainageBasin fromDrainageBasinDTO(DrainageBasin drainageBasin, DrainageBasinDTO dto) 
-	{
-		drainageBasin.setName(dto.getLabel());
-		drainageBasin.setNorthBoundLatitude(new Double(dto.getGeographicBoundingBoxDTO().getNorthBoundLatitude()));
-		drainageBasin.setSouthBoundLatitude(new Double(dto.getGeographicBoundingBoxDTO().getSouthBoundLatitude()));
-		drainageBasin.setEastBoundLongitude(new Double(dto.getGeographicBoundingBoxDTO().getEastBoundLongitude()));
-		drainageBasin.setWestBoundLongitude(new Double(dto.getGeographicBoundingBoxDTO().getWestBoundLongitude()));
-		return drainageBasin;
+	public static DrainageBasin fromDTO(DrainageBasinDTO dto) 
+	{	
+		return fromDTO(dto, null);
+	}
+	
+	public static DrainageBasin fromDTO(DrainageBasinDTO dto, DrainageBasin drainageBasin) 
+	{	
+		DrainageBasin aux;
+		if (drainageBasin == null)
+		{
+			aux = new DrainageBasin();
+		}
+		else
+		{
+			aux = drainageBasin;
+		}
+		aux.setName(dto.getLabel());
+		aux.setNorthBoundLatitude(new Double(dto.getGeographicBoundingBoxDTO().getNorthBoundLatitude()));
+		aux.setSouthBoundLatitude(new Double(dto.getGeographicBoundingBoxDTO().getSouthBoundLatitude()));
+		aux.setEastBoundLongitude(new Double(dto.getGeographicBoundingBoxDTO().getEastBoundLongitude()));
+		aux.setWestBoundLongitude(new Double(dto.getGeographicBoundingBoxDTO().getWestBoundLongitude()));
+		
+		//TODO Supprimer réellemnt en base
+		
+		SiteDAO dao = RBVApplication.getInstance().getSiteDAO();
+		if (drainageBasin != null)
+		{
+			//On est en train de modifier un basin. Il faut supprimer les sites déjà présents en base
+			//dao.deleteFromDrainageBasinId(drainageBasin.getId());
+			aux.getSites().clear();
+		}
+		
+		Iterator<SiteDTO> iterator = dto.getSiteDTOs().iterator();
+		while (iterator.hasNext()) {
+			
+			aux.addSite(SiteDTOTools.fromDTO(iterator.next()));
+		}
+		
+		
+		//TODO climate lytho
+		//TODO sites
+		
+		return aux;
 	}
 
 }

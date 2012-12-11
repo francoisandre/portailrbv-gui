@@ -9,6 +9,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -19,7 +20,8 @@ import com.google.gwt.user.client.ui.Widget;
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.event.MaximizeEvent;
 import fr.obsmip.sedoo.client.event.MinimizeEvent;
-import fr.obsmip.sedoo.client.place.SwitchLanguagePlace;
+import fr.obsmip.sedoo.client.event.NotificationEvent;
+import fr.obsmip.sedoo.client.event.NotificationHandler;
 
 public class BreadCrumbImpl extends Composite implements BreadCrumb {
 
@@ -35,7 +37,7 @@ public class BreadCrumbImpl extends Composite implements BreadCrumb {
 
 	@UiField 
 	Image maximizeImage;
-
+	
 	private ClientFactory clientFactory;
 
 	interface BreadCrumbUiBinder extends UiBinder<Widget, BreadCrumbImpl> {
@@ -98,5 +100,9 @@ public class BreadCrumbImpl extends Composite implements BreadCrumb {
 	void onMinimizeImageClicked(ClickEvent event) {
 		clientFactory.getEventBus().fireEvent(new MinimizeEvent());
 	}
+
+
+	
+	
 
 }

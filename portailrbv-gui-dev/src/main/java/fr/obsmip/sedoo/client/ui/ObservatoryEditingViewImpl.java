@@ -39,6 +39,12 @@ public class ObservatoryEditingViewImpl extends AbstractDTOEditingView implement
 	TextArea description;
 	
 	@UiField
+	TextArea useConditions;
+	
+	@UiField 
+	TextArea publicAccessLimitations;
+	
+	@UiField
 	DrainageBasinTable drainageBasinTable;
 	
 	@UiField
@@ -66,6 +72,8 @@ public class ObservatoryEditingViewImpl extends AbstractDTOEditingView implement
 		longLabel.setText(observatoryDTO.getLongLabel());
 		shortLabel.setText(observatoryDTO.getShortLabel());
 		description.setText(observatoryDTO.getDescription());
+		useConditions.setText(observatoryDTO.getUseConditions());
+		publicAccessLimitations.setText(observatoryDTO.getPublicAccessLimitations());
 		
 		//Drainage Bassin Table 
 		drainageBasinTable.setPresenter(presenter);
@@ -76,6 +84,8 @@ public class ObservatoryEditingViewImpl extends AbstractDTOEditingView implement
 		contactTable.setPresenter(presenter);
 		contactTable.setObservatoryDTO(observatoryDTO);
 		contactTable.init(observatoryDTO.getContactDTOs());
+		
+		
 	}
 
 	private void init()
@@ -87,6 +97,8 @@ public class ObservatoryEditingViewImpl extends AbstractDTOEditingView implement
 		longLabel.setText("");
 		shortLabel.setText("");
 		description.setText("");
+		useConditions.setText("");
+		publicAccessLimitations.setText("");
 	}
 
 
@@ -103,6 +115,8 @@ public class ObservatoryEditingViewImpl extends AbstractDTOEditingView implement
 		observatoryDTO.setLongLabel(longLabel.getText().trim());
 		observatoryDTO.setShortLabel(shortLabel.getText().trim());
 		observatoryDTO.setDescription(description.getText().trim());
+		observatoryDTO.setUseConditions(useConditions.getText().trim());
+		observatoryDTO.setPublicAccessLimitations(publicAccessLimitations.getText().trim());
 		return observatoryDTO;
 	}
 	

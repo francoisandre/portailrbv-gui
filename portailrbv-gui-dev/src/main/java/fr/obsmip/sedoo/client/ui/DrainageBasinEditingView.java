@@ -13,6 +13,7 @@ public interface DrainageBasinEditingView extends DTOEditingView {
 	 {
 		void save(DrainageBasinDTO flush);
 		void deleteSite(Long id);
+		void back();
 	 }
 
 	DrainageBasinDTO flush();
