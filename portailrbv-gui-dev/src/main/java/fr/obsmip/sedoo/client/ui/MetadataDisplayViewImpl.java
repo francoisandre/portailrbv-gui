@@ -1,25 +1,31 @@
 package fr.obsmip.sedoo.client.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
-import fr.obsmip.sedoo.client.ui.tabs.display.IdentificationTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.AbstractTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.ConstraintTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.IdentificationTab;
 
 public class MetadataDisplayViewImpl extends AbstractSection implements MetadataDisplayView {
 
 	private static MetadataDisplayViewImplUiBinder uiBinder = GWT
 			.create(MetadataDisplayViewImplUiBinder.class);
 	
-	private MetadataDTO metadata = null;
-	
-	
-	private Presenter presenter; 
 	
 	@UiField
 	IdentificationTab identificationTab;
+	
+	@UiField
+	ConstraintTab constraintTab;
+	
+	private List<AbstractTab> tabs = new ArrayList<AbstractTab>();
 
 	interface MetadataDisplayViewImplUiBinder extends UiBinder<Widget, MetadataDisplayViewImpl> {
 	}
@@ -30,32 +36,26 @@ public class MetadataDisplayViewImpl extends AbstractSection implements Metadata
 		super();
 		initWidget(uiBinder.createAndBindUi(this));
 		applyCommonStyle();
-	}
-
-	 
-
-
-	@Override
-	public void setPresenter(Presenter presenter) {
-		this.presenter = presenter;
+		tabs.add(identificationTab);
+		tabs.add(constraintTab);
 	}
 
 	@Override
 	public void display(MetadataDTO metadata) 
 	{
-		identificationTab.display(metadata);
-		
-		
+		for (int i =0; i< tabs.size(); i++)
+		{
+			tabs.get(i).display(metadata);
+		}
 	}
-
 
 	@Override
 	public void reset() {
-		identificationTab.reset();
-		
+		for (int i =0; i< tabs.size(); i++)
+		{
+			tabs.get(i).reset();
+		}
 	}
-
-	
 
 
 }

@@ -1,12 +1,15 @@
 package fr.obsmip.sedoo.client.ui.tabs.edit;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.CellTableResources;
@@ -41,12 +44,23 @@ public class IdentificationTab extends AbstractTab  {
 	@UiField 
 	StringTable resourceIdentifiantTable;
 	
+	@UiField
+	Label resourceTitleDisplay;
+	
+	@UiField 
+	Label resourceAbstractDisplay;
+	
 	@UiField 
 	MetadataContactTable resourceContactTable;
+	
 	
 	public IdentificationTab() {
 		initWidget(uiBinder.createAndBindUi(this));
 		CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
+		displayWidgets.add(resourceTitleDisplay);
+		displayWidgets.add(resourceAbstractDisplay);
+		editWidgets.add(resourceTitle);
+		editWidgets.add(resourceAbstract);
 		reset();
 	}
 
@@ -59,12 +73,21 @@ public class IdentificationTab extends AbstractTab  {
 	}
 
 	public void edit(MetadataDTO metadata) {
+		enableEditMode();
 		reset();
 		resourceTitle.setText(AbstractDTO.protectNullString(metadata.getIdentificationPart().getResourceTitle()));
 		resourceAbstract.setText(AbstractDTO.protectNullString(metadata.getIdentificationPart().getResourceAbstract()));
 		resourceContactTable.init(metadata.getIdentificationPart().getResourceContacts());
 		resourceURLTable.init(metadata.getIdentificationPart().getResourceURL());
 		resourceIdentifiantTable.init(metadata.getIdentificationPart().getResourceIdentifiers());
+	}
+	
+	public void display(MetadataDTO metadata) 
+	{
+		enableDisplayMode();
+		reset();
+		resourceTitleDisplay.setText(AbstractDTO.protectNullString(metadata.getIdentificationPart().getResourceTitle()));
+		resourceAbstractDisplay.setText(AbstractDTO.protectNullString(metadata.getIdentificationPart().getResourceAbstract()));
 	}
 
 	public MetadataDTO flush(MetadataDTO metadataDTO) {

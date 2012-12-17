@@ -38,7 +38,7 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 	private Image editImage=new Image(GlobalBundle.INSTANCE.edit());
 	
 	protected Column<HasId, String> deleteColumn;
-	private Column<HasId, String> editColumn;
+	protected Column<HasId, String> editColumn;
 	
 	private ListDataProvider<HasId> dataProvider = new ListDataProvider<HasId>();
 	

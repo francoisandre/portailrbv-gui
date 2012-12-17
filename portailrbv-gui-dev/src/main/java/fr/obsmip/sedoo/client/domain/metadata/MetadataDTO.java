@@ -15,6 +15,7 @@ public class MetadataDTO extends AbstractDTO
 	private ConstraintPart constraintPart = new ConstraintPart();
 	private TemporalExtentPart temporalExtentPart = new TemporalExtentPart();
 	private GeographicalLocationPart geographicalLocationPart = new GeographicalLocationPart();
+	private String uuid;
 	
 	
 	@Override
@@ -62,6 +63,12 @@ public class MetadataDTO extends AbstractDTO
 	}
 	public void setGeographicalLocationPart(GeographicalLocationPart geographicalLocationPart) {
 		this.geographicalLocationPart = geographicalLocationPart;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 	
 }

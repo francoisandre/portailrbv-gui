@@ -37,7 +37,7 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 	private final MetadataServiceAsync metadataService = GWT.create(MetadataService.class);
 	private final ObservatoryServiceAsync observatoryService = GWT.create(ObservatoryService.class);
 
-	private String metadataId;
+	private String metadataUuid;
 	private Long drainageBassinId;
 	private DrainageBasinDTO drainageBasinDTO;
 	private ObservatoryDTO observatoryDTO;
@@ -45,7 +45,7 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 	public MetadataEditingActivity(MetadataEditingPlace place, ClientFactory clientFactory) {
 
 		super(clientFactory);
-		metadataId = place.getMetadataId();
+		metadataUuid = place.getMetadataUuid();
 		drainageBassinId = place.getDrainageBasinId();
 		setMode(place.getMode());
 		
@@ -63,15 +63,11 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 		{
 			broadcastActivityTitle(Message.INSTANCE.metadataEditingTitle());
 		}
-		List<Shortcut> shortcuts = new ArrayList<Shortcut>();
-		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
-		shortcuts.add(ShortcutFactory.getMetadataEditingShortcut());
-		clientFactory.getBreadCrumb().refresh(shortcuts);
 		((MetadataEditingView) view).setPresenter(this);
 		
 		
 		
-		
+		//On charge les infos du DrainageBasin
 		observatoryService.getDrainageBasinById(drainageBassinId, new AsyncCallback<DrainageBasinDTO>() {
 
 			@Override
@@ -79,29 +75,55 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 				drainageBasinDTO = result;
 				
 				broadcastActivityTitle(Message.INSTANCE.metadataCreatingTitle() +" ("+drainageBasinDTO.getLabel()+")");
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
-
-			}
-		});
-		
-		observatoryService.getObservatoryByDrainageBasinId(drainageBassinId, new AsyncCallback<ObservatoryDTO>() {
-
-			@Override
-			public void onSuccess(ObservatoryDTO result) {
-				observatoryDTO = result;
+				List<Shortcut> shortcuts = new ArrayList<Shortcut>();
+				shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+				shortcuts.add(ShortcutFactory.getMetadataEditingShortcut(drainageBasinDTO.getLabel()));
+				clientFactory.getBreadCrumb().refresh(shortcuts);
 				
-				if (getMode().compareTo(Constants.MODIFY) == 0)
-				{
-					//TODO
-				}
-				else
-				{
-					((MetadataEditingView) view).edit(createNewMetadata());
-				}
+				// On charge les infos de l'observatoire
+				observatoryService.getObservatoryByDrainageBasinId(drainageBassinId, new AsyncCallback<ObservatoryDTO>() {
+
+					@Override
+					public void onSuccess(ObservatoryDTO result) {
+						observatoryDTO = result;
+						
+						//On charge la fiche de métadonnées
+						
+						if (getMode().compareTo(Constants.MODIFY) == 0)
+						{
+							metadataService.getMetadataByUuid(metadataUuid, new AsyncCallback<MetadataDTO>() {
+
+								@Override
+								public void onSuccess(MetadataDTO result) {
+									broadcastActivityTitle(Message.INSTANCE.drainageBasinEditingViewModificationHeader() +" ("+result.getIdentificationPart().getResourceTitle()+")");
+									previousHash = result.getHash();
+									view.setMode(Constants.MODIFY);
+									view.edit(result);
+								}
+
+								@Override
+								public void onFailure(Throwable caught) {
+									DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
+
+								}
+							});
+						}
+						else
+						{
+							previousHash="";
+							view.setMode(Constants.CREATE);
+							((MetadataEditingView) view).edit(createNewMetadata());
+						}
+
+						
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
+
+					}
+				});
 				
 			}
 

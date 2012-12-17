@@ -5,12 +5,12 @@ import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.place.shared.Place;
 
 import fr.obsmip.sedoo.client.ClientFactory;
-import fr.obsmip.sedoo.client.activity.DrainageBasinChoiceActivity;
 import fr.obsmip.sedoo.client.activity.DrainageBasinEditingActivity;
 import fr.obsmip.sedoo.client.activity.LoginActivity;
 import fr.obsmip.sedoo.client.activity.MetadataDisplayActivity;
 import fr.obsmip.sedoo.client.activity.MetadataEditingActivity;
 import fr.obsmip.sedoo.client.activity.MetadataListActivity;
+import fr.obsmip.sedoo.client.activity.MetadataManagingActivity;
 import fr.obsmip.sedoo.client.activity.MetadataSearchActivity;
 import fr.obsmip.sedoo.client.activity.ObservatoryContactEditingActivity;
 import fr.obsmip.sedoo.client.activity.ObservatoryEditingActivity;
@@ -18,12 +18,12 @@ import fr.obsmip.sedoo.client.activity.ObservatoryManagementActivity;
 import fr.obsmip.sedoo.client.activity.SwitchLanguageActivity;
 import fr.obsmip.sedoo.client.activity.SystemActivity;
 import fr.obsmip.sedoo.client.activity.WelcomeActivity;
-import fr.obsmip.sedoo.client.place.DrainageBasinChoicePlace;
 import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.place.LoginPlace;
 import fr.obsmip.sedoo.client.place.MetadataDisplayPlace;
 import fr.obsmip.sedoo.client.place.MetadataEditingPlace;
 import fr.obsmip.sedoo.client.place.MetadataListPlace;
+import fr.obsmip.sedoo.client.place.MetadataManagingPlace;
 import fr.obsmip.sedoo.client.place.MetadataSearchPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryContactEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryEditingPlace;
@@ -102,9 +102,9 @@ public class AppActivityMapper implements ActivityMapper {
 		{
 			return new ObservatoryContactEditingActivity((ObservatoryContactEditingPlace) place, clientFactory);
 		}
-		else if (place instanceof DrainageBasinChoicePlace)
+		else if (place instanceof MetadataManagingPlace)
 		{
-			return new DrainageBasinChoiceActivity((DrainageBasinChoicePlace) place, clientFactory);
+			return new MetadataManagingActivity((MetadataManagingPlace) place, clientFactory);
 		}
 		return null;
 	}

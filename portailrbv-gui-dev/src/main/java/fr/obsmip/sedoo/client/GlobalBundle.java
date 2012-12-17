@@ -28,6 +28,12 @@ public interface GlobalBundle extends ClientBundle {
 	    @Source("logo.png")
 	    ImageResource logo();
 	    
+	    @Source("print.png")
+	    ImageResource print();
+	    
+	    @Source("view.gif")
+	    ImageResource view();
+	    
 	    @Source("bandeau.png")
 	    ImageResource bandeau();
 	    
@@ -78,4 +84,6 @@ public interface GlobalBundle extends ClientBundle {
 	    
 	    public static final GlobalBundle INSTANCE = GWT.create(GlobalBundle.class);
 //	    
+
+		
 	  }

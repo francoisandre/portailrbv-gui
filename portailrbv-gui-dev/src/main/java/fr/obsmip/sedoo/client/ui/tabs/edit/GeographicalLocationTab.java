@@ -42,6 +42,11 @@ public class GeographicalLocationTab extends AbstractTab {
 		return null;
 	}
 	
+	@Override
+	public void display(MetadataDTO metadata) {
+		
+	}
+	
 
 
 }

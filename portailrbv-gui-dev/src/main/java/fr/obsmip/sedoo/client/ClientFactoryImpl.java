@@ -8,10 +8,8 @@ import com.google.gwt.place.shared.PlaceController;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
 import fr.obsmip.sedoo.client.event.ActivityChangeEvent;
-import fr.obsmip.sedoo.client.event.NotificationEvent;
 import fr.obsmip.sedoo.client.event.UserLoginEvent;
 import fr.obsmip.sedoo.client.event.UserLogoutEvent;
-import fr.obsmip.sedoo.client.ui.DebugStatusBarViewImpl;
 import fr.obsmip.sedoo.client.ui.DrainageBasinChoiceView;
 import fr.obsmip.sedoo.client.ui.DrainageBasinChoiceViewImpl;
 import fr.obsmip.sedoo.client.ui.DrainageBasinEditingView;
@@ -41,6 +39,7 @@ import fr.obsmip.sedoo.client.ui.ObservatoryManagementViewImpl;
 import fr.obsmip.sedoo.client.ui.SectionHeaderView;
 import fr.obsmip.sedoo.client.ui.SectionHeaderViewImpl;
 import fr.obsmip.sedoo.client.ui.StatusBarView;
+import fr.obsmip.sedoo.client.ui.StatusBarViewImpl;
 import fr.obsmip.sedoo.client.ui.SystemView;
 import fr.obsmip.sedoo.client.ui.SystemViewImpl;
 import fr.obsmip.sedoo.client.ui.WelcomeView;
@@ -80,7 +79,8 @@ public class ClientFactoryImpl implements ClientFactory {
 	
 	private final MenuView MENU_VIEW = new MenuViewImpl();
 	private static final SystemView SYSTEM_VIEW = new SystemViewImpl();
-	private static final StatusBarView STATUS_BAR_VIEW = new DebugStatusBarViewImpl(EVENT_BUS);
+//	private static final StatusBarView STATUS_BAR_VIEW = new DebugStatusBarViewImpl(EVENT_BUS);
+	private static final StatusBarView STATUS_BAR_VIEW = new StatusBarViewImpl();
 	private static final LoginView LOGIN_VIEW = new LoginViewImpl();
 	
 	static

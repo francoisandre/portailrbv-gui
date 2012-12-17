@@ -133,5 +133,10 @@ public class TemporalExtentTab extends AbstractTab{
 	  void onExplicitEndDateClicked(ClickEvent event) {
 		 endDate.setEnabled(true);
 	  }
+	 
+	 @Override
+		public void display(MetadataDTO metadata) {
+			
+		}
 	
 }

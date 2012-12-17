@@ -1,5 +1,7 @@
+
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:t="urn:import:fr.obsmip.sedoo.client.ui.table"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 		.libelle {
@@ -33,11 +35,11 @@
      <tr>
      <td colspan="2" style="text-align:left">
     
-     <g:Button ui:field="createButton" text="{messageBundle.addMetadataEntry}" />
      </td>
      </tr>
      </table>
       <span class='h2class'><g:Label text="{messageBundle.metadataListingEntryList}" /></span>
+      <t:ExtendedSummaryDTOTable ui:field="table"/>
     </g:HTMLPanel>
     </g:center>
   </g:DockLayoutPanel>

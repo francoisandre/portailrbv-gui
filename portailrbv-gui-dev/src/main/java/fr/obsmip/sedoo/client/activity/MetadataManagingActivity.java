@@ -11,25 +11,30 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.ShortcutFactory;
+import fr.obsmip.sedoo.client.domain.ExtendedSummaryDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
 import fr.obsmip.sedoo.client.message.Message;
-import fr.obsmip.sedoo.client.place.DrainageBasinChoicePlace;
+import fr.obsmip.sedoo.client.place.MetadataDisplayPlace;
+import fr.obsmip.sedoo.client.place.MetadataManagingPlace;
 import fr.obsmip.sedoo.client.place.MetadataEditingPlace;
+import fr.obsmip.sedoo.client.service.MetadataService;
+import fr.obsmip.sedoo.client.service.MetadataServiceAsync;
 import fr.obsmip.sedoo.client.service.ObservatoryService;
 import fr.obsmip.sedoo.client.service.ObservatoryServiceAsync;
 import fr.obsmip.sedoo.client.ui.DrainageBasinChoiceView;
 import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.misc.Shortcut;
 
-public class DrainageBasinChoiceActivity extends RBVAbstractActivity implements DrainageBasinChoiceView.Presenter {
+public class MetadataManagingActivity extends RBVAbstractActivity implements DrainageBasinChoiceView.Presenter {
 	private DrainageBasinChoiceView view;
 	
 	private final ObservatoryServiceAsync observatoryService = GWT.create(ObservatoryService.class);
+	private final MetadataServiceAsync metadataService = GWT.create(MetadataService.class);
 
-	public DrainageBasinChoiceActivity(DrainageBasinChoicePlace place, ClientFactory clientFactory) {
+	public MetadataManagingActivity(MetadataManagingPlace place, ClientFactory clientFactory) {
 		super(clientFactory);
 	}
 
@@ -42,6 +47,7 @@ public class DrainageBasinChoiceActivity extends RBVAbstractActivity implements 
 		broadcastActivityTitle(getMessage().metadataCreatingTitle());
 		List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+		shortcuts.add(ShortcutFactory.getMetadataManagementShortcut());
 		clientFactory.getBreadCrumb().refresh(shortcuts);
 		ActionStartEvent e = new ActionStartEvent(Message.INSTANCE.loading(), ActionEventConstant.OBSERVATORIES_LOADING_EVENT, true);
         clientFactory.getEventBus().fireEvent(e);
@@ -63,8 +69,6 @@ public class DrainageBasinChoiceActivity extends RBVAbstractActivity implements 
 			        clientFactory.getEventBus().fireEvent(e);
 				}
 			});
-		
-		
 	}
 
 	@Override
@@ -98,5 +102,54 @@ public class DrainageBasinChoiceActivity extends RBVAbstractActivity implements 
 				}
 			});		
 	}
+
+	@Override
+	public void getEntries(Long drainageBasinId) {
+		ActionStartEvent e = new ActionStartEvent(Message.INSTANCE.loading(), ActionEventConstant.METADATA_LIST_LOADING_EVENT, true);
+        clientFactory.getEventBus().fireEvent(e);
+        metadataService.getExtendedSummariesByDrainageBasinId(drainageBasinId, new AsyncCallback<List<ExtendedSummaryDTO>>() 
+        {
+        	@Override
+			public void onSuccess(List<ExtendedSummaryDTO> result) {
+				ActionEndEvent e = new ActionEndEvent(ActionEventConstant.METADATA_LIST_LOADING_EVENT);
+				clientFactory.getEventBus().fireEvent(e);
+				view.setEntries(result);
+			}
+
+
+			@Override
+			public void onFailure(Throwable caught) {
+				DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" "+caught.getMessage());
+				ActionEndEvent e = new ActionEndEvent(ActionEventConstant.METADATA_LIST_LOADING_EVENT);
+		        clientFactory.getEventBus().fireEvent(e);
+			}
+		});
+	}
+
+	@Override
+	public void editMetadata(String metadataUuid, Long drainageBasinId) {
+		MetadataEditingPlace place = new MetadataEditingPlace();
+		place.setMode(Constants.MODIFY);
+		place.setMetadataUuid(metadataUuid);
+		place.setDrainageBasinId(drainageBasinId);
+		clientFactory.getPlaceController().goTo(place);
+	}
+
+	@Override
+	public void viewMetadata(String metadataUuid) {
+
+		MetadataDisplayPlace place = new MetadataDisplayPlace();
+		place.setId(metadataUuid);
+		clientFactory.getPlaceController().goTo(place);
+	}
+
+	@Override
+	public void printMetadata(String metadataUuid) {
+		
+	}
+
+	
+	
+	
 
 }

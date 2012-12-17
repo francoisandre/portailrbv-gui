@@ -7,7 +7,7 @@ public class SummaryDTO implements Serializable {
 	private static final int MAX_ABSTRACT_LENGTH = 1000;
 	private String resourceAbstract;
 	private String resourceTitle;
-	private String identifier;
+	private String uuid;
 	
 	
 	public SummaryDTO() {
@@ -37,13 +37,13 @@ public class SummaryDTO implements Serializable {
 	}
 
 
-	public String getIdentifier() {
-		return identifier;
+	public String getUuid() {
+		return uuid;
 	}
 
 
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 }

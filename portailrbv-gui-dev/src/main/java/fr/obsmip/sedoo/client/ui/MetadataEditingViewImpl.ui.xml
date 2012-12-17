@@ -41,8 +41,9 @@ overflow: auto;
     <g:south size='50'>
        <g:HTMLPanel styleName="{style.paragraph} {style.end}">
        <g:HorizontalPanel ui:field="testPanel" visible="false"  >
-				<g:Button ui:field="generateXMLButton" text="Voir le XML" />
-				<g:Button ui:field="notificationMoleButton" text="tester le Notification Mole" />
+       			<g:Button ui:field="saveButton" text="{messageBundle.save}" visible="true" />
+				<g:Button ui:field="generateXMLButton" text="Voir le XML" visible="false" />
+				<g:Button ui:field="notificationMoleButton" text="tester le Notification Mole" visible="false" />
 	</g:HorizontalPanel>
        </g:HTMLPanel>
 				

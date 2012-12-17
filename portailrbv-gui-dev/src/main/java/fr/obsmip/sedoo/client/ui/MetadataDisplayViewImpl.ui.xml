@@ -2,7 +2,7 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui"
 	xmlns:l="urn:import:fr.obsmip.sedoo.client.ui.misc"
-	xmlns:tabs="urn:import:fr.obsmip.sedoo.client.ui.tabs.display">
+	xmlns:tabs="urn:import:fr.obsmip.sedoo.client.ui.tabs.edit">
 	<ui:style>
 		
 		.paragraph {
@@ -37,31 +37,44 @@ overflow: auto;
     type='fr.obsmip.sedoo.client.message.Message' /> 
     
 	 <g:DockLayoutPanel unit='PX' styleName='sectionBorder'>
-	 
-	 <g:north size='38'>
-      <g:HTMLPanel styleName='sectionHeader'>
-      <div > <g:Label text="{messageBundle.metadataEditingTitle}" /></div>
-      </g:HTMLPanel>
-    </g:north>
-    
-   
+<g:south size='5'>
+       <g:HTMLPanel>&nbsp;
+       </g:HTMLPanel>
+				
+    </g:south>	 
 	 <g:center >
 	 
-	 <g:TabLayoutPanel addStyleNames="{style.tabPanelExample1}" ui:field="tabPanel" barUnit="PX" barHeight="40" >
+	<g:TabLayoutPanel addStyleNames="{style.tabPanelExample1}" ui:field="tabPanel" barUnit="PX" barHeight="40" >
 		<g:tab>
-			<g:header>
-				Identification
-			</g:header>
-			<tabs:IdentificationTab ui:field="identificationTab"></tabs:IdentificationTab>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingIdentificationTabHeader}" />
+			</g:customHeader>
+			<tabs:IdentificationTab ui:field="identificationTab" />
 		</g:tab>
-		<!-- 
 		<g:tab>
-			<g:header>
-				Géographical Location
-			</g:header>
-			<tabs:GeographicalLocationTab/>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingGeographicalLocationTabHeader}" />
+			</g:customHeader>
+			<tabs:GeographicalLocationTab  ui:field="geographicalLocationTab"/>
 		</g:tab>
-		 -->
+		<g:tab>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingTemporalExtentHeader}" />
+			</g:customHeader>
+			<tabs:TemporalExtentTab ui:field="temporalExtentTab" />
+		</g:tab>
+		<g:tab>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingConstraintTabHeader}" />
+			</g:customHeader>
+			<tabs:ConstraintTab ui:field="constraintTab" />
+		</g:tab>
+		<g:tab>
+			<g:customHeader >
+				<g:Label text="{messageBundle.metadataEditingMetadataTabHeader}" />
+			</g:customHeader>
+			<tabs:MetadataTab ui:field="metadataTab" />
+		</g:tab>
 	</g:TabLayoutPanel>
 	 
     </g:center>

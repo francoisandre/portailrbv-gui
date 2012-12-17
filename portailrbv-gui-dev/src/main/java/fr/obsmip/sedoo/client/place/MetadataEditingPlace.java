@@ -20,16 +20,16 @@ public class MetadataEditingPlace extends AbstractEditingPlace
 		this.drainageBasinId = drainageBasinId;
 	}
 
-	public String getMetadataId() {
-		return metadataId;
+	public String getMetadataUuid() {
+		return metadataUuid;
 	}
 
-	public void setMetadataId(String metadataId) {
-		this.metadataId = metadataId;
+	public void setMetadataUuid(String metadataUuid) {
+		this.metadataUuid = metadataUuid;
 	}
 
 	private Long drainageBasinId;
-	private String metadataId;
+	private String metadataUuid;
 	
 	
 	public static MetadataEditingPlace instance;
@@ -45,7 +45,7 @@ public class MetadataEditingPlace extends AbstractEditingPlace
 			}
 			else
 			{
-				return place.getMode()+"@"+AbstractDTO.protectNullString(""+place.getDrainageBasinId())+"@"+AbstractDTO.protectNullString(place.getMetadataId());
+				return place.getMode()+"@"+AbstractDTO.protectNullString(""+place.getDrainageBasinId())+"@"+AbstractDTO.protectNullString(""+place.getMetadataUuid());
 			}
 			
 		}
@@ -65,7 +65,7 @@ public class MetadataEditingPlace extends AbstractEditingPlace
 			}
 			if (split.length==3)
 			{
-				instance.setMetadataId(split[2]);
+				instance.setMetadataUuid(split[2]);
 			}
 			return instance;
 		}

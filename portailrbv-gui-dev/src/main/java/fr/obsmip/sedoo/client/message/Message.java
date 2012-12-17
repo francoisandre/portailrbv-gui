@@ -21,8 +21,8 @@ public interface Message extends Messages {
     @Key("metadataEditing.resourceAbstract")
     public String metadataEditingResourceAbstract();
     
-    @Key("metadataEditing.title")
-    public String metadataEditingTitle();
+    @Key("metadataEditing.header")
+    public String metadataEditingHeader();
     
     @Key("metadataCreating.title")
     public String metadataCreatingTitle();
@@ -89,6 +89,15 @@ public interface Message extends Messages {
     
     @Key("metadataEditing.lastModificationDate")
     public String  metadataEditingLastModificationDate();
+    
+    @Key("metadataEditing.state")
+    public String metadataEditingState();
+    
+    @Key("metadataEditing.title")
+    public String metadataEditingTitle();
+    
+    @Key("metadataEditing.abstract")
+    public String metadataEditingAbstract();
     
     @Key("metadataEditing.linkWithEndDate")
     public String  metadataEditingLinkWithEndDate();
@@ -221,6 +230,12 @@ public interface Message extends Messages {
 	
 	@Key("edit")
 	public String edit();
+	
+	@Key("print")
+	public String print();
+	
+	@Key("view")
+	public String view();
 	
 	@Key("confirm")
 	public String confirm();
@@ -377,4 +392,16 @@ public interface Message extends Messages {
 	
 	@Key("metadataListing.entryList")
 	public String metadataListingEntryList();
+
+	@Key("metadataListing.noDrainageBasinSelected")
+	public String metadataListinNoDrainageBasinSelected();
+	
+	@Key("commons.selectItem")
+	public String selectItem();
+
+	@Key("metadataProviderMenu.manageMetadata")
+	public String metadataProviderMenuManageMetadata();
+	
+
+	
 }

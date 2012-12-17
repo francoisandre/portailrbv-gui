@@ -93,7 +93,7 @@ public class MetadataListViewImpl extends AbstractSection implements MetadataLis
 	      sb.appendHtmlConstant("<tr><td>");
 	      sb.appendHtmlConstant(value.getResourceAbstract());
 	      sb.appendHtmlConstant("</td></tr>");
-	      sb.appendHtmlConstant("<tr><td><span id=\""+SEE_METADATA+"-"+value.getIdentifier()+"\" class=\"small-button\">VOIR</span><span class=\"small-button\" id=\""+PDF_METADATA+"-"+value.getIdentifier()+"\">PDF</span><span class=\"small-button\" id=\""+DIPLAY_METADATA_QUICKLOOKS+"-"+value.getIdentifier()+"\">APERCUS</span><span class=\"small-button\" id=\""+DIPLAY_METADATA_LINKS+"-"+value.getIdentifier()+"\">LIENS</span></td></tr>");
+	      sb.appendHtmlConstant("<tr><td><span id=\""+SEE_METADATA+"-"+value.getUuid()+"\" class=\"small-button\">VOIR</span><span class=\"small-button\" id=\""+PDF_METADATA+"-"+value.getUuid()+"\">PDF</span><span class=\"small-button\" id=\""+DIPLAY_METADATA_QUICKLOOKS+"-"+value.getUuid()+"\">APERCUS</span><span class=\"small-button\" id=\""+DIPLAY_METADATA_LINKS+"-"+value.getUuid()+"\">LIENS</span></td></tr>");
 	      sb.appendHtmlConstant("</table>");
 	    }
 	    
@@ -110,11 +110,11 @@ public class MetadataListViewImpl extends AbstractSection implements MetadataLis
 	    		String id = src.getId();
 	    		if (id.startsWith(SEE_METADATA))
 	    		{
-	    			presenter.displayMetadata(value.getIdentifier());
+	    			presenter.displayMetadata(value.getUuid());
 	    		}
 	    		if (id.startsWith(PDF_METADATA))
 	    		{
-	    			presenter.displayMetadataPDF(value.getIdentifier());
+	    			presenter.displayMetadataPDF(value.getUuid());
 	    		}
 	    	}
 	    }
@@ -175,7 +175,7 @@ public class MetadataListViewImpl extends AbstractSection implements MetadataLis
 				{
 				      public Object getKey(SummaryDTO item) {
 				        // Always do a null check.
-				        return (item == null) ? null : item.getIdentifier();
+				        return (item == null) ? null : item.getUuid();
 				      }
 				    };
 		

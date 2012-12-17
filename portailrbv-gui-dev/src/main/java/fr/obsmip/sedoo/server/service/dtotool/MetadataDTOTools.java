@@ -5,30 +5,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.geotoolkit.metadata.iso.extent.DefaultGeographicBoundingBox;
-
 import fr.obsmip.sedoo.client.domain.IdentifiedString;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.core.domain.Metadata;
-import fr.obsmip.sedoo.core.domain.MetadataInitialisationException;
 import fr.obsmip.sedoo.core.domain.Summary;
 
 public class MetadataDTOTools {
 	
 	public static Metadata toMetadata(MetadataDTO metadataDTO) 
 	{
-		Metadata metadata = null;
-		try {
-			metadata = new Metadata();
-		} catch (MetadataInitialisationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Metadata metadata = new Metadata();
 		
 		metadata.setResourceTitle(metadataDTO.getIdentificationPart().getResourceTitle());
 		metadata.setResourceAbstract(metadataDTO.getIdentificationPart().getResourceAbstract());
 		metadata.setResourceURL(toStringList(metadataDTO.getIdentificationPart().getResourceURL()));
+		metadata.setUseConditions(metadataDTO.getConstraintPart().getUseConditions());
 //		metadataDTO.getGeographicalLocationPart().getGeographicalBoundingBox().getEastBoundLongitude();
 //		DefaultGeographicBoundingBox boundingbox = new DefaultGeographicBoundingBox(metadataDTO.getGeographicalBoundingBox().getWestBoundLongitude(), metadataDTO.getGeographicalBoundingBox().getEastBoundLongitude(), metadataDTO.getGeographicalBoundingBox().getSouthBoundLatitude(), metadataDTO.getGeographicalBoundingBox().getNorthBoundLatitude());
 //		metadata.setGeographicBoundingBox(boundingbox);
@@ -53,7 +45,7 @@ public class MetadataDTOTools {
 		SummaryDTO summaryDTO = new SummaryDTO();
 		summaryDTO.setResourceAbstract(summary.getResourceAbstract());
 		summaryDTO.setResourceTitle(summary.getResourceTitle());
-		summaryDTO.setIdentifier(summary.getIdentifier());
+		summaryDTO.setUuid(summary.getUuid());
 		return summaryDTO;
 	}
 
@@ -62,6 +54,7 @@ public class MetadataDTOTools {
 		MetadataDTO metadataDTO = new MetadataDTO();
 		metadataDTO.getIdentificationPart().setResourceAbstract(metadata.getResourceAbstract());
 		metadataDTO.getIdentificationPart().setResourceTitle(metadata.getResourceTitle());
+		metadataDTO.getConstraintPart().setUseConditions(metadata.getUseConditions());
 		return metadataDTO;
 	}
 	

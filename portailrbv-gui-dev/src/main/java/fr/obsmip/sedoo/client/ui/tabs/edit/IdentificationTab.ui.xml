@@ -58,8 +58,8 @@ overflow: auto;
     <col width="20%" />
   <col width="80%" />
     <tbody class="tableBody">
-    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceTitle}" /></td><td><g:TextBox ui:field='resourceTitle' visibleLength="80"/></td></tr>
-    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceAbstract}" /></td><td><g:TextArea ui:field="resourceAbstract" width="80%"  visibleLines="5" /></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceTitle}" /></td><td><g:TextBox ui:field='resourceTitle' visibleLength="80"/><g:Label ui:field='resourceTitleDisplay' /></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceAbstract}" /></td><td><g:TextArea ui:field="resourceAbstract" width="80%"  visibleLines="5" /><g:Label ui:field='resourceAbstractDisplay' /></td></tr>
     	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.resourceContactList}" /></td><td><t:MetadataContactTable ui:field="resourceContactTable" /></td></tr>
     	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceURL}" /></td><td><t:StringTable ui:field="resourceURLTable" addItemText="{messageBundle.metadataEditingURLTableAddItemText}" waterMark="{messageBundle.metadataEditingURLDefaultValue}" askDeletionConfirmation="false" /></td></tr>
     	<tr class='{style.row}'><td class='leftColumn'><g:Label text="{messageBundle.metadataEditingResourceIdentifier}" /></td><td><t:StringTable ui:field="resourceIdentifiantTable" addItemText="{messageBundle.metadataEditingResourceIdentifierAddItemText}" waterMark="{messageBundle.metadataEditingResourceIdentifierWaterMark}" askDeletionConfirmation="false" /></td></tr>

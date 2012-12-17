@@ -16,21 +16,21 @@ import fr.obsmip.sedoo.client.service.MetadataService;
 import fr.obsmip.sedoo.client.service.MetadataServiceAsync;
 import fr.obsmip.sedoo.client.ui.MetadataDisplayView;
 
-public class MetadataDisplayActivity extends AbstractActivity implements MetadataDisplayView.Presenter {
+public class MetadataDisplayActivity extends AbstractActivity  {
 	private ClientFactory clientFactory;
 	
 	MetadataDisplayView metadataDisplayView = null;
 	
 	private final MetadataServiceAsync metadataService = GWT.create(MetadataService.class);
 
-	private String metadataId;
+	private String metadataUiid;
 	
 	public MetadataDisplayActivity(MetadataDisplayPlace place, ClientFactory clientFactory) {
 		
 		this.clientFactory = clientFactory;
 		if (place.getId() != null)
 		{
-			this.metadataId = place.getId();
+			this.metadataUiid = place.getId();
 		}
 	}
 
@@ -38,11 +38,10 @@ public class MetadataDisplayActivity extends AbstractActivity implements Metadat
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		metadataDisplayView = clientFactory.getMetadataDisplayView();
 		containerWidget.setWidget(metadataDisplayView.asWidget());
-		metadataDisplayView.setPresenter(this);
 		ActionStartEvent e = new ActionStartEvent("Chargement de la métadonnée en cours...", ActionEventConstant.METADATA_LOADING_EVENT, true);
         clientFactory.getEventBus().fireEvent(e);
         metadataDisplayView.reset();
-		metadataService.getMetadataById(metadataId, new AsyncCallback<MetadataDTO>() {
+		metadataService.getMetadataByUuid(metadataUiid, new AsyncCallback<MetadataDTO>() {
 
 			@Override
 			public void onSuccess(MetadataDTO metadataDTO) {

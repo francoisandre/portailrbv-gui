@@ -6,13 +6,6 @@ import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 
 public interface MetadataDisplayView extends IsWidget
 {
-	void setPresenter(Presenter presenter);
 	void display(MetadataDTO metadataDTO);
-	
-	 public interface Presenter 
-	 {
-	 }
-
 	void reset();
-
 }

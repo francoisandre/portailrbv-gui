@@ -49,7 +49,8 @@ public class MetadataTab extends AbstractTab {
 		reset();
 		//Default positionning
 		language.setSelectedIndex(0);
-		if (metadata.getMetadataPart().getMetadataLanguage().compareTo(Constants.FRENCH)==0)
+		
+		if ((metadata.getMetadataPart().getMetadataLanguage() != null) && (metadata.getMetadataPart().getMetadataLanguage().compareTo(Constants.FRENCH)==0))
 		{
 			language.setSelectedIndex(1);
 		}
@@ -77,6 +78,11 @@ public class MetadataTab extends AbstractTab {
 	public void setPresenter(Presenter presenter) {
 		this.presenter = presenter;
 		contactTable.setPresenter(getPresenter());
+	}
+	
+	@Override
+	public void display(MetadataDTO metadata) {
+		
 	}
 
 

@@ -5,6 +5,7 @@ import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.place.LoginPlace;
 import fr.obsmip.sedoo.client.place.MetadataEditingPlace;
 import fr.obsmip.sedoo.client.place.MetadataListPlace;
+import fr.obsmip.sedoo.client.place.MetadataManagingPlace;
 import fr.obsmip.sedoo.client.place.MetadataSearchPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryContactEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryEditingPlace;
@@ -31,13 +32,17 @@ public class ShortcutFactory {
 	public static Shortcut getObservatoryManagementShortcut() {
 		return new Shortcut(Message.INSTANCE.observatoryManagementViewHeader(), new ObservatoryManagementPlace());
 	}
+	
+	public static Shortcut getMetadataManagementShortcut() {
+		return new Shortcut(Message.INSTANCE.metadataProviderMenuManageMetadata(), new MetadataManagingPlace());
+	}
 
 	public static Shortcut getMetadataListShortcut() {
 		return new Shortcut(Message.INSTANCE.listingViewTitle(), new MetadataListPlace());
 	}
 	
-	public static Shortcut getMetadataEditingShortcut() {
-		return new Shortcut(Message.INSTANCE.metadataEditingTitle(), new MetadataEditingPlace());
+	public static Shortcut getMetadataEditingShortcut(String drainageBasinName) {
+		return new Shortcut(Message.INSTANCE.metadataEditingHeader()+ " ("+drainageBasinName+")", new MetadataEditingPlace());
 	}
 	
 	public static Shortcut getMetadataSearchShortcut() {

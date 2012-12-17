@@ -10,6 +10,13 @@ public class ExtendedSummaryDTO extends SummaryDTO implements HasId {
 	
 	public ExtendedSummaryDTO() {
 	}
+	
+	public ExtendedSummaryDTO(SummaryDTO summary)
+	{
+		setResourceAbstract(summary.getResourceAbstract());
+		setResourceTitle(summary.getResourceTitle());
+		setUuid(summary.getUuid());
+	}
 		
 	public Long getId() {
 		return id;
@@ -17,6 +24,22 @@ public class ExtendedSummaryDTO extends SummaryDTO implements HasId {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getLastModificationDate() {
+		return LastModificationDate;
+	}
+
+	public void setLastModificationDate(String lastModificationDate) {
+		LastModificationDate = lastModificationDate;
 	}
 
 }

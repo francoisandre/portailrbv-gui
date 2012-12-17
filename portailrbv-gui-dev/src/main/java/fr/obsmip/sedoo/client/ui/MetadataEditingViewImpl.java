@@ -63,6 +63,9 @@ public class MetadataEditingViewImpl extends AbstractDTOEditingView implements M
 	HorizontalPanel testPanel;
 	@UiField 
 	Button generateXMLButton;
+
+	@UiField 
+	Button saveButton;
 	
 	@UiField 
 	Button notificationMoleButton;

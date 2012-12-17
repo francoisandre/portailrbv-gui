@@ -1,9 +1,12 @@
 package fr.obsmip.sedoo.server.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import fr.obsmip.sedoo.client.domain.ExtendedSummaryDTO;
 import fr.obsmip.sedoo.client.domain.SummaryDTO;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.service.MetadataService;
@@ -60,9 +63,29 @@ MetadataService {
 
 
 	@Override
-	public MetadataDTO getMetadataById(String id) throws Exception 
+	public MetadataDTO getMetadataByUuid(String uuid) throws Exception 
 	{
-		return MetadataDTOTools.toMetadatoDTO(dao.getMetadataById(id));
+		return MetadataDTOTools.toMetadatoDTO(dao.getMetadataById(uuid));
+	}
+
+
+	@Override
+	public List<ExtendedSummaryDTO> getExtendedSummariesByDrainageBasinId(Long id) 
+	{
+		List<Summary> summaries = dao.getSummaries();
+		List<SummaryDTO> summaryDTO = MetadataDTOTools.toSummaryDTO(summaries);
+		
+		List<ExtendedSummaryDTO> result = new ArrayList<ExtendedSummaryDTO>();
+		Iterator<SummaryDTO> iterator = summaryDTO.iterator();
+		long i=1L;
+		while (iterator.hasNext()) {
+			ExtendedSummaryDTO aux = new ExtendedSummaryDTO(iterator.next());
+			aux.setId(i);
+			i++;
+			result.add(aux);
+		}
+		
+		return result;
 	}
 	
 }
