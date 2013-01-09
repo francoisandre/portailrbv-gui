@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import fr.obsmip.sedoo.client.domain.AbstractDTO;
+import fr.obsmip.sedoo.client.domain.IdentifiedDescribedString;
 import fr.obsmip.sedoo.client.domain.IdentifiedString;
 import fr.obsmip.sedoo.client.domain.MetadataContactDTO;
 import fr.obsmip.sedoo.client.domain.ValidationAlert;
@@ -15,7 +16,7 @@ public class IdentificationPart extends AbstractDTO{
 	private String resourceTitle;
 	private String resourceAbstract;
 	private List<MetadataContactDTO> resourceContacts = new ArrayList<MetadataContactDTO>();
-	private List<IdentifiedString> resourceURL = new ArrayList<IdentifiedString>();
+	private List<IdentifiedDescribedString> resourceURL = new ArrayList<IdentifiedDescribedString>();
 	private List<IdentifiedString> resourceIdentifiers = new ArrayList<IdentifiedString>();
 	
 	
@@ -28,9 +29,10 @@ public class IdentificationPart extends AbstractDTO{
 			aux.append(contactIterator.next().getHash());
 		}
 		
-		Iterator<IdentifiedString> urlIterator = getResourceURL().iterator();
+		Iterator<IdentifiedDescribedString> urlIterator = getResourceURL().iterator();
 		while (urlIterator.hasNext()) {
-			aux.append(urlIterator.next().getValue()+"|");
+			IdentifiedDescribedString current = urlIterator.next();
+			aux.append(current.getValue()+"|"+current.getDescription()+"|");
 		}
 		return aux.toString();
 	}
@@ -95,11 +97,10 @@ public class IdentificationPart extends AbstractDTO{
 		this.resourceContacts = resourceContacts;
 	}
 	
-	
-	public List<IdentifiedString> getResourceURL() {
+	public List<IdentifiedDescribedString> getResourceURL() {
 		return resourceURL;
 	}
-	public void setResourceURL(List<IdentifiedString> resourceURL) {
+	public void setResourceURL(List<IdentifiedDescribedString> resourceURL) {
 		this.resourceURL = resourceURL;
 	}
 
@@ -111,6 +112,4 @@ public class IdentificationPart extends AbstractDTO{
 		this.resourceIdentifiers = resourceIdentifiers;
 	}
 	
-	
-
 }

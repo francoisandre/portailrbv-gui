@@ -157,6 +157,7 @@ public class MetadataEditingViewImpl extends AbstractDTOEditingView implements M
 		identificationTab.flush(metadataDTO);
 		constraintTab.flush(metadataDTO);
 		temporalExtentTab.flush(metadataDTO);
+		geographicalLocationTab.flush(metadataDTO);
 		return metadataDTO;
 	}
 
@@ -167,6 +168,7 @@ public class MetadataEditingViewImpl extends AbstractDTOEditingView implements M
 		identificationTab.edit(metadata);
 		constraintTab.edit(metadata);
 		temporalExtentTab.edit(metadata);
+		geographicalLocationTab.edit(metadata);
 	}
 
 

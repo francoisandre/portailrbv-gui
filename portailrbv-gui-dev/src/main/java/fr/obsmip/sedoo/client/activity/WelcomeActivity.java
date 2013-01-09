@@ -9,7 +9,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.ShortcutFactory;
-import fr.obsmip.sedoo.client.place.ObservatoryManagementPlace;
+import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.WelcomePlace;
 import fr.obsmip.sedoo.client.ui.WelcomeView;
 import fr.obsmip.sedoo.client.ui.misc.Shortcut;
@@ -27,7 +27,7 @@ public class WelcomeActivity extends RBVAbstractActivity  {
     public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
         WelcomeView welcomeView = clientFactory.getWelcomeView();
         containerWidget.setWidget(welcomeView.asWidget());
-        broadcastActivityTitle(getMessage().welcomeViewHeader());
+        broadcastActivityTitle(Message.INSTANCE.welcomeViewHeader());
         List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		clientFactory.getBreadCrumb().refresh(shortcuts);

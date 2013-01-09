@@ -44,7 +44,7 @@ public class MetadataManagingActivity extends RBVAbstractActivity implements Dra
 		view.setPresenter(this);
 		view.reset();
 		containerWidget.setWidget(view.asWidget());
-		broadcastActivityTitle(getMessage().metadataCreatingTitle());
+		broadcastActivityTitle(Message.INSTANCE.metadataProviderMenuManageMetadata());
 		List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		shortcuts.add(ShortcutFactory.getMetadataManagementShortcut());

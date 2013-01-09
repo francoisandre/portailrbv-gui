@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.ShortcutFactory;
+import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.MetadataSearchPlace;
 import fr.obsmip.sedoo.client.ui.MetadataSearchView;
 import fr.obsmip.sedoo.client.ui.misc.Shortcut;
@@ -26,7 +27,7 @@ public class MetadataSearchActivity extends RBVAbstractActivity  {
     public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
     	MetadataSearchView metadataSearchView = clientFactory.getMetadataSearchView();
         containerWidget.setWidget(metadataSearchView.asWidget());
-        broadcastActivityTitle(getMessage().metadataShearchingTitle());
+        broadcastActivityTitle(Message.INSTANCE.metadataShearchingTitle());
         List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		shortcuts.add(ShortcutFactory.getMetadataSearchShortcut());

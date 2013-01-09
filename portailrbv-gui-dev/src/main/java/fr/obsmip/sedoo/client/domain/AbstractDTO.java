@@ -58,5 +58,16 @@ public abstract class AbstractDTO implements Serializable{
 				}
 			}
 		}
+
+		public static String protectNullObject(Object obj) {
+			if (obj == null)
+			{
+				return "";
+			}
+			else
+			{
+				return obj.toString();
+			}
+		}
 	
 }

@@ -6,13 +6,16 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.CheckBox;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.CellTableResources;
 import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
+import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.misc.DateTools;
+import fr.obsmip.sedoo.client.ui.misc.Tooltip;
 import fr.obsmip.sedoo.client.ui.misc.customdatepicker.RBVDateBox;
 
 public class TemporalExtentTab extends AbstractTab{
@@ -30,6 +33,18 @@ public class TemporalExtentTab extends AbstractTab{
 	@UiField
 	RBVDateBox endDate;
 	
+	@UiField
+	Label startDateDisplay;
+	
+	@UiField
+	Label endDateDisplay;
+	
+	@UiField
+	Tooltip startDateTooltip;
+	
+	@UiField
+	Tooltip endDateTooltip;
+	
 //	@UiField
 	CheckBox isLinked;
 	
@@ -45,6 +60,14 @@ public class TemporalExtentTab extends AbstractTab{
 	public TemporalExtentTab() {
 		initWidget(uiBinder.createAndBindUi(this));
 		CellTableResources.INSTANCE.cellTableStyle().ensureInjected();
+		editWidgets.add(startDate);
+		editWidgets.add(endDate);
+		editWidgets.add(nowEndDate);
+		editWidgets.add(startDateTooltip);
+		editWidgets.add(endDateTooltip	);
+		editWidgets.add(explicitEndDate);
+		displayWidgets.add(startDateDisplay);
+		displayWidgets.add(endDateDisplay);
 		reset();
 	}
 
@@ -54,13 +77,16 @@ public class TemporalExtentTab extends AbstractTab{
 		endDate.setValue(null);
 		explicitEndDate.setValue(true);
 		endDate.setEnabled(true);
+		startDateDisplay.setText("");
+		endDateDisplay.setText("");
 	}
 
 	@Override
 	public void edit(MetadataDTO metadata) 
 	{
 		reset();
-		String aux = metadata.getTemporalExtentPart().getEndDate();
+		enableEditMode();
+		String aux = metadata.getTemporalExtentPart().getStartDate();
 		if (aux != null)
 		{
 			try
@@ -82,7 +108,6 @@ public class TemporalExtentTab extends AbstractTab{
 			}
 			else
 			{
-				
 				try
 				{
 					endDate.setValue(DateTools.getRBVDateFormat().parse(metadata.getTemporalExtentPart().getEndDate()));
@@ -135,8 +160,27 @@ public class TemporalExtentTab extends AbstractTab{
 	  }
 	 
 	 @Override
-		public void display(MetadataDTO metadata) {
-			
-		}
-	
+	 public void display(MetadataDTO metadata) 
+	 {
+		 reset();
+		 enableDisplayMode();
+		 String aux = metadata.getTemporalExtentPart().getStartDate();
+		 if (aux != null)
+		 {
+			 startDateDisplay.setText(metadata.getTemporalExtentPart().getStartDate());	 
+		 }
+		 aux = metadata.getTemporalExtentPart().getEndDate();
+		 if (aux != null)
+		 {
+			 if (aux.compareTo(Constants.NOW)==0)
+			 {
+				 endDateDisplay.setText(Message.INSTANCE.now());
+			 }
+			 else
+			 {
+				 endDateDisplay.setText(metadata.getTemporalExtentPart().getEndDate());
+			 }
+		 }
+	 }
 }
+

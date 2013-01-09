@@ -15,6 +15,7 @@ import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.Constants;
 import fr.obsmip.sedoo.client.ShortcutFactory;
 import fr.obsmip.sedoo.client.domain.DrainageBasinDTO;
+import fr.obsmip.sedoo.client.domain.IdentifiedDescribedString;
 import fr.obsmip.sedoo.client.domain.IdentifiedString;
 import fr.obsmip.sedoo.client.domain.MetadataContactDTO;
 import fr.obsmip.sedoo.client.domain.ObservatoryContactDTO;
@@ -77,6 +78,7 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 				broadcastActivityTitle(Message.INSTANCE.metadataCreatingTitle() +" ("+drainageBasinDTO.getLabel()+")");
 				List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 				shortcuts.add(ShortcutFactory.getWelcomeShortcut());
+				shortcuts.add(ShortcutFactory.getMetadataManagementShortcut());
 				shortcuts.add(ShortcutFactory.getMetadataEditingShortcut(drainageBasinDTO.getLabel()));
 				clientFactory.getBreadCrumb().refresh(shortcuts);
 				
@@ -156,11 +158,11 @@ public class MetadataEditingActivity extends AbstractDTOEditingActivity implemen
 			aux.getMetadataPart().setMetadataLanguage(Constants.ENGLISH);
 		}
 		
-		IdentifiedString url1 = new IdentifiedString();
+		IdentifiedDescribedString url1 = new IdentifiedDescribedString();
 		url1.setId(1L);
 		url1.setValue("http://www.cnrs.fr");
 		
-		IdentifiedString url2 = new IdentifiedString();
+		IdentifiedDescribedString url2 = new IdentifiedDescribedString();
 		url2.setId(2L);
 		url2.setValue("http://www.ird.fr");
 		

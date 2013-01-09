@@ -1,15 +1,10 @@
 package fr.obsmip.sedoo.client.ui.misc;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.StackLayoutPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 public class RBVStackLayoutPanel extends StackLayoutPanel
 {

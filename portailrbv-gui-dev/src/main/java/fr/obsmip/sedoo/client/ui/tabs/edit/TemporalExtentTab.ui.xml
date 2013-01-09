@@ -61,8 +61,8 @@ overflow: auto;
     <col width="20%" />
   <col width="80%" />
     <tbody class="tableBody">
-   		<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingStartDate}" /></span></td><td><l:RBVDateBox ui:field="startDate" /><l2:Tooltip><g:Label text="{messageBundle.iso8601Format}" /></l2:Tooltip></td></tr>
-    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'> <g:Label text="{messageBundle.metadataEditingEndDate}" /></span></td><td><g:RadioButton ui:field='explicitEndDate' name="endDateToggle" /><l:RBVDateBox ui:field="endDate" /><l2:Tooltip><g:Label text="{messageBundle.iso8601Format}" /></l2:Tooltip><br /><g:RadioButton ui:field='nowEndDate' name="endDateToggle" text="{messageBundle.now}" /></td></tr>
+   		<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.metadataEditingStartDate}" /></span></td><td><l:RBVDateBox ui:field="startDate" /><g:Label ui:field="startDateDisplay"/><l2:Tooltip ui:field="startDateTooltip" ><g:Label text="{messageBundle.iso8601Format}" /></l2:Tooltip></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'> <g:Label text="{messageBundle.metadataEditingEndDate}" /></span></td><td><g:RadioButton ui:field='explicitEndDate' name="endDateToggle" /><l:RBVDateBox ui:field="endDate" /><g:Label ui:field="endDateDisplay"/><l2:Tooltip ui:field="endDateTooltip" ><g:Label text="{messageBundle.iso8601Format}" /></l2:Tooltip><br /><g:RadioButton ui:field='nowEndDate' name="endDateToggle" text="{messageBundle.now}" /></td></tr>
     </tbody>
     </table>
     </div>

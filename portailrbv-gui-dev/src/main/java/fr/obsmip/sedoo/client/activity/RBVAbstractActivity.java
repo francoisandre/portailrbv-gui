@@ -9,7 +9,6 @@ import fr.obsmip.sedoo.client.message.Message;
 
 public abstract class RBVAbstractActivity extends AbstractActivity {
 	
-	private Message message =  GWT.create(Message.class);
 	protected ClientFactory clientFactory;
 	
 	public RBVAbstractActivity(ClientFactory clientFactory) {
@@ -21,8 +20,6 @@ public abstract class RBVAbstractActivity extends AbstractActivity {
 		clientFactory.getEventBus().fireEvent(new ActivityChangeEvent(title));
 	}
 	
-	public Message getMessage() {
-		return message;
-	}
+	
 
 }

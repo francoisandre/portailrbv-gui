@@ -36,25 +36,28 @@
 		
 		.shortcuts {
 	}
-		
-		
-		
- 
-	</ui:style>
 	
+	
+	.inlineDisplay {
+		display: inline;
+	}
+</ui:style>
+	
+	<ui:with field='messageBundle'
+    type='fr.obsmip.sedoo.client.message.Message' />
 	
 	<l:RBVStackLayoutPanel  unit='PX' styleName='{style.shortcuts}'>
 	
 	<l:stack>
-      <l:header size='31'><div class='{style.stackHeader} {style.publicHeader}'><span style="font-weight:bold;padding-right:8px;visibility:hidden" id="stackHeader-0">+</span>Data Users</div></l:header>
+      <l:customHeader  size='31'><g:HTMLPanel styleName='{style.stackHeader} {style.publicHeader}'><span style="font-weight:bold;padding-right:8px;visibility:hidden" id="stackHeader-0">+</span><g:Label text="{messageBundle.metadataUserMenu}" styleName="{style.inlineDisplay}"/></g:HTMLPanel></l:customHeader >
       <admin:MetadataUserMenu ui:field='metadataUserMenu'/>
     </l:stack>
     <l:stack>
-      <l:header size='31'><div class='{style.stackHeader} {style.publicHeader}' ><span style="font-weight:bold;padding-right:8px;" id="stackHeader-1">+</span>Data Providers</div></l:header>
+      <l:customHeader size='31'><g:HTMLPanel styleName='{style.stackHeader} {style.publicHeader}' ><span style="font-weight:bold;padding-right:8px;" id="stackHeader-1">+</span><g:Label text="{messageBundle.metadataProviderMenu}" styleName="{style.inlineDisplay}"/></g:HTMLPanel></l:customHeader>
       <admin:MetadataProviderMenu ui:field='metadataProviderMenu'/>
     </l:stack>
     <l:stack>
-      <l:header size='31'><div class='{style.stackHeader} {style.privateHeader}'><span style="font-weight:bold;padding-right:8px;" id="stackHeader-2">+</span>Administration</div></l:header>
+      <l:customHeader size='31'><g:HTMLPanel styleName='{style.stackHeader} {style.privateHeader}'><span style="font-weight:bold;padding-right:8px;" id="stackHeader-2">+</span><g:Label text="{messageBundle.administrationMenu}" styleName="{style.inlineDisplay}"/></g:HTMLPanel></l:customHeader>
       <admin:AdministrationMenu ui:field='administrationMenu'/>
     </l:stack>
     

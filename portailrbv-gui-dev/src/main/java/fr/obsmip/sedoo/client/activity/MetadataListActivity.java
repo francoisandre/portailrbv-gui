@@ -3,7 +3,6 @@ package fr.obsmip.sedoo.client.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.Window;
@@ -42,7 +41,7 @@ public class MetadataListActivity extends RBVAbstractActivity implements Metadat
     	final MetadataListView metadataListView = clientFactory.getMetadataListView();
     	metadataListView.setPresenter(this);
         containerWidget.setWidget(metadataListView.asWidget());
-        broadcastActivityTitle(getMessage().listingViewTitle());
+        broadcastActivityTitle(Message.INSTANCE.listingViewTitle());
         List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		shortcuts.add(ShortcutFactory.getMetadataListShortcut());

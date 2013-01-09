@@ -6,13 +6,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.MetadataManagingPlace;
-import fr.obsmip.sedoo.client.place.MetadataEditingPlace;
-import fr.obsmip.sedoo.client.place.MetadataListPlace;
+import fr.obsmip.sedoo.client.place.ObservatoryManagementPlace;
 import fr.obsmip.sedoo.client.ui.misc.MenuLink;
 
 public class MetadataProviderMenu extends AbstractMenu {
 	
 	private MenuLink metadataManagingLink;
+	private MenuLink observatoryMangagementLink;
 	
 public MetadataProviderMenu() {
 	
@@ -32,10 +32,14 @@ private VerticalPanel getMetadataPanel() {
 	});
 	metadataPanel.add(metadataManagingLink);
 	
-	
-	
-	
-	
+	observatoryMangagementLink = new MenuLink(Message.INSTANCE.observatoryManagementViewHeader());
+	observatoryMangagementLink.addClickHandler(new ClickHandler() {
+	        public void onClick(ClickEvent event) 
+	        {
+	        	getPresenter().goTo(new ObservatoryManagementPlace());
+	        }
+	});
+	metadataPanel.add(observatoryMangagementLink);
 	return metadataPanel;
 }
 

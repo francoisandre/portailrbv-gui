@@ -3,6 +3,7 @@ package fr.obsmip.sedoo.client;
 import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.DrainageBasinEditingPlace;
 import fr.obsmip.sedoo.client.place.LoginPlace;
+import fr.obsmip.sedoo.client.place.MetadataDisplayPlace;
 import fr.obsmip.sedoo.client.place.MetadataEditingPlace;
 import fr.obsmip.sedoo.client.place.MetadataListPlace;
 import fr.obsmip.sedoo.client.place.MetadataManagingPlace;
@@ -43,6 +44,15 @@ public class ShortcutFactory {
 	
 	public static Shortcut getMetadataEditingShortcut(String drainageBasinName) {
 		return new Shortcut(Message.INSTANCE.metadataEditingHeader()+ " ("+drainageBasinName+")", new MetadataEditingPlace());
+	}
+	
+	public static Shortcut getMetadataDisplayingShortcut(String resourceTitle) {
+		String detail ="";
+		if (resourceTitle.trim().length()>0)
+		{
+			detail = " ("+resourceTitle+")";
+		}
+		return new Shortcut(Message.INSTANCE.metadataDisplayingTitle()+ detail, new MetadataDisplayPlace());
 	}
 	
 	public static Shortcut getMetadataSearchShortcut() {

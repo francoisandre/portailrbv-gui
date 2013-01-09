@@ -11,7 +11,9 @@ import com.google.gwt.user.client.ui.Widget;
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.ui.tabs.edit.AbstractTab;
 import fr.obsmip.sedoo.client.ui.tabs.edit.ConstraintTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.GeographicalLocationTab;
 import fr.obsmip.sedoo.client.ui.tabs.edit.IdentificationTab;
+import fr.obsmip.sedoo.client.ui.tabs.edit.TemporalExtentTab;
 
 public class MetadataDisplayViewImpl extends AbstractSection implements MetadataDisplayView {
 
@@ -24,6 +26,12 @@ public class MetadataDisplayViewImpl extends AbstractSection implements Metadata
 	
 	@UiField
 	ConstraintTab constraintTab;
+	
+	@UiField
+	GeographicalLocationTab geographicalLocationTab;
+	
+	@UiField
+	TemporalExtentTab temporalExtentTab;
 	
 	private List<AbstractTab> tabs = new ArrayList<AbstractTab>();
 
@@ -38,6 +46,8 @@ public class MetadataDisplayViewImpl extends AbstractSection implements Metadata
 		applyCommonStyle();
 		tabs.add(identificationTab);
 		tabs.add(constraintTab);
+		tabs.add(geographicalLocationTab);
+		tabs.add(temporalExtentTab);
 	}
 
 	@Override

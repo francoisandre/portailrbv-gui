@@ -41,7 +41,8 @@
     <col width="10%" />
   <col width="80%" />
     <tbody class="tableBody">
-    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.versionViewLabel}" /></span></td><td class='{style.paragraph}' ><span ui:field='version'/></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.systemViewApplicationVersion}" /></span></td><td ><span ui:field='applicationVersion'/></td></tr>
+    	<tr class='{style.row}'><td class='leftColumn'><span class='{style.libelle}'><g:Label text="{messageBundle.systemViewJavaVersion}" /></span></td><td ><span ui:field='javaVersion'/></td></tr>
     </tbody>
     </table>
     </div>

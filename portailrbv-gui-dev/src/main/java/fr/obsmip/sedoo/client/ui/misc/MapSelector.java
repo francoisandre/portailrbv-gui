@@ -36,10 +36,12 @@ import org.gwtopenmaps.openlayers.client.handler.RegularPolygonHandlerOptions;
 import org.gwtopenmaps.openlayers.client.layer.GoogleV3;
 import org.gwtopenmaps.openlayers.client.layer.GoogleV3MapType;
 import org.gwtopenmaps.openlayers.client.layer.GoogleV3Options;
+import org.gwtopenmaps.openlayers.client.layer.OSM;
 import org.gwtopenmaps.openlayers.client.layer.Vector;
 import org.gwtopenmaps.openlayers.client.util.Attributes;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -48,10 +50,11 @@ import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -62,7 +65,7 @@ import fr.obsmip.sedoo.client.domain.GeographicBoundingBoxDTO;
 import fr.obsmip.sedoo.client.domain.SiteDTO;
 import fr.obsmip.sedoo.client.message.Message;
 
-public class MapSelector extends Composite implements ClickHandler, SiteEventListener
+public class MapSelector extends EditDisplayComposite implements ClickHandler, SiteEventListener
 {
 
 	private static MapSelectorUiBinder uiBinder = GWT.create(MapSelectorUiBinder.class);
@@ -81,6 +84,18 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 	
 	@UiField
 	TextBox westBoundLongitude;
+	
+	@UiField
+	Label northBoundLatitudeDisplay;
+	
+	@UiField
+	Label southBoundLatitudeDisplay;
+	
+	@UiField
+	Label eastBoundLongitudeDisplay;
+	
+	@UiField
+	Label westBoundLongitudeDisplay;
 	
 	private  Map map;
 	 
@@ -123,6 +138,18 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 	@UiConstructor
 	public MapSelector(boolean complete) {
 		initWidget(uiBinder.createAndBindUi(this));
+		
+		editWidgets.add(northBoundLatitude);
+		editWidgets.add(southBoundLatitude);
+		editWidgets.add(eastBoundLongitude);
+		editWidgets.add(westBoundLongitude);
+		
+		displayWidgets.add(northBoundLatitudeDisplay);
+		displayWidgets.add(southBoundLatitudeDisplay);
+		displayWidgets.add(eastBoundLongitudeDisplay);
+		displayWidgets.add(westBoundLongitudeDisplay);
+		
+		
 		MapOptions defaultMapOptions = new MapOptions();
 		defaultMapOptions.setDisplayProjection(new Projection("EPSG:4326"));
         defaultMapOptions.setNumZoomLevels(20);
@@ -143,32 +170,10 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
         selectedSiteStyle.setGraphicOffset(-9, -20);
         selectedSiteStyle.setCursor("pointer");
         
-        
-        GoogleV3Options gHybridOptions = new GoogleV3Options();
-        gHybridOptions.setIsBaseLayer(true);
-        gHybridOptions.setType(GoogleV3MapType.G_HYBRID_MAP);
-        GoogleV3 gHybrid = new GoogleV3("Google Hybrid", gHybridOptions);
- 
-        GoogleV3Options gNormalOptions = new GoogleV3Options();
-        gNormalOptions.setIsBaseLayer(true);
-        gNormalOptions.setType(GoogleV3MapType.G_NORMAL_MAP);
-        GoogleV3 gNormal = new GoogleV3("Google Normal", gNormalOptions);
- 
-        GoogleV3Options gSatelliteOptions = new GoogleV3Options();
-        gSatelliteOptions.setIsBaseLayer(true);
-        gSatelliteOptions.setType(GoogleV3MapType.G_SATELLITE_MAP);
-        GoogleV3 gSatellite = new GoogleV3("Google Satellite", gSatelliteOptions);
- 
-        GoogleV3Options gTerrainOptions = new GoogleV3Options();
-        gTerrainOptions.setIsBaseLayer(true);
-        gTerrainOptions.setType(GoogleV3MapType.G_TERRAIN_MAP);
-        GoogleV3 gTerrain = new GoogleV3("Google Terrain", gTerrainOptions);
-         
         map = mapWidget.getMap();
-        map.addLayer(gHybrid);
-        map.addLayer(gNormal);
-        map.addLayer(gSatellite);
-        map.addLayer(gTerrain);
+        
+//        addGoogleLayers(map);
+        addOSMLayers(map);
  
         //Lets add some default controls to the map
         map.addControl(new LayerSwitcher()); //+ sign in the upperright corner to display the layer switcher
@@ -286,6 +291,46 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
         contentPanel.add(toolBar);
         contentPanel.add(mapPanel);
 
+	}
+
+	private void addOSMLayers(Map map) {
+		OSM osm_1 = OSM.Mapnik("Mapnik");
+        OSM osm_2 = OSM.CycleMap("CycleMap");
+        osm_1.setIsBaseLayer(true);
+        osm_2.setIsBaseLayer(true);
+        
+        map.addLayer(osm_1);
+        map.addLayer(osm_2);
+		
+	}
+
+	private void addGoogleLayers(Map map) {
+
+		 GoogleV3Options gHybridOptions = new GoogleV3Options();
+	        gHybridOptions.setIsBaseLayer(true);
+	        gHybridOptions.setType(GoogleV3MapType.G_HYBRID_MAP);
+	        GoogleV3 gHybrid = new GoogleV3("Google Hybrid", gHybridOptions);
+	 
+	        GoogleV3Options gNormalOptions = new GoogleV3Options();
+	        gNormalOptions.setIsBaseLayer(true);
+	        gNormalOptions.setType(GoogleV3MapType.G_NORMAL_MAP);
+	        GoogleV3 gNormal = new GoogleV3("Google Normal", gNormalOptions);
+	 
+	        GoogleV3Options gSatelliteOptions = new GoogleV3Options();
+	        gSatelliteOptions.setIsBaseLayer(true);
+	        gSatelliteOptions.setType(GoogleV3MapType.G_SATELLITE_MAP);
+	        GoogleV3 gSatellite = new GoogleV3("Google Satellite", gSatelliteOptions);
+	 
+	        GoogleV3Options gTerrainOptions = new GoogleV3Options();
+	        gTerrainOptions.setIsBaseLayer(true);
+	        gTerrainOptions.setType(GoogleV3MapType.G_TERRAIN_MAP);
+	        GoogleV3 gTerrain = new GoogleV3("Google Terrain", gTerrainOptions);
+	        
+	        map.addLayer(gHybrid);
+	        map.addLayer(gNormal);
+	        map.addLayer(gSatellite);
+	        map.addLayer(gTerrain);
+		
 	}
 
 	private void init(List<ToggleButton> buttonList) 
@@ -415,22 +460,18 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 
 	public void setGeographicBoundingBoxDTO(GeographicBoundingBoxDTO box)
 	{
-		if (drainageBassinFeature != null)
-		{
-			drainageBassinFeature.destroy();
-			drainageBassinFeature = null;
-		}
+		reset();
 		
 		northBoundLatitude.setText(box.getNorthBoundLatitude());
+		northBoundLatitudeDisplay.setText(box.getNorthBoundLatitude());
 		southBoundLatitude.setText(box.getSouthBoundLatitude());
+		southBoundLatitudeDisplay.setText(box.getSouthBoundLatitude());
 		eastBoundLongitude.setText(box.getEastBoundLongitude());
+		eastBoundLongitudeDisplay.setText(box.getEastBoundLongitude());
 		westBoundLongitude.setText(box.getWestBoundLongitude());
+		westBoundLongitudeDisplay.setText(box.getWestBoundLongitude());
 		
-		center(box);
-		
-//		Point[] points = new Point[4]; 
-//		VectorFeature rect = new VectorFeature(geometry);
-//		vectorLayer.addFeature(rect);
+		center(box, true);
 	}
 	
 	
@@ -442,6 +483,12 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 		eastBoundLongitude.setText("");
 		westBoundLongitude.setText("");
 		
+		//RAZ des zones d'affichage
+		northBoundLatitudeDisplay.setText("");
+		southBoundLatitudeDisplay.setText("");
+		eastBoundLongitudeDisplay.setText("");
+		westBoundLongitudeDisplay.setText("");
+		
 		//Suppression du basin versant
 		drainageBasinLayer.destroyFeatures();
 		
@@ -451,15 +498,17 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 		deactivateAllControls();
 	}
 	
-	public void center(GeographicBoundingBoxDTO box)
+	public void center(GeographicBoundingBoxDTO box, boolean displayDefault)
 	{
 		
 		LonLat rightLowerDisplay;
 	    LonLat leftUpperDisplay; 
 		
+	    boolean correctBox = false;
+	    
 		if (box.validate().isEmpty())
 		{
-			
+			correctBox = true;
 		    LonLat rightLower = box.getRightLowerCorner();
 		    LonLat leftUpper = box.getLeftUpperCorner();
 		    
@@ -477,10 +526,10 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 			drainageBasinLayer.addFeature(drainageBassinFeature);
 		}
 		else
-		{
+		{	
 			//On affiche une carte complète du monde par défaut		    
-		    rightLowerDisplay = new LonLat(-175, -85);
-		    leftUpperDisplay = new LonLat(175, 85);
+		    rightLowerDisplay = new LonLat(-170, -80);
+		    leftUpperDisplay = new LonLat(170, 80);
 		}
 		
 		rightLowerDisplay.transform(DEFAULT_PROJECTION.getProjectionCode(),map.getProjection()); 
@@ -489,7 +538,10 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 	    Bounds displayBounds = new Bounds();		    
 	    displayBounds.extend(rightLowerDisplay);
 	    displayBounds.extend(leftUpperDisplay);
-	    map.zoomToExtent(displayBounds, true);
+	    if ((correctBox == true) || (displayDefault == true))
+	    {
+	    	map.zoomToExtent(displayBounds, true);
+	    }
 	}
 
 	@Override
@@ -598,5 +650,33 @@ public class MapSelector extends Composite implements ClickHandler, SiteEventLis
 			}
 		}
 	}
+
+	public void enableDisplayMode() 
+	{
+		changeButtonVisibility(false);
+		super.enableDisplayMode();
+	}
+	
+	public void enableEditMode() 
+	{
+		changeButtonVisibility(true);
+		super.enableEditMode();
+	}
+	
+	protected void changeButtonVisibility(boolean visible)
+	{
+		Iterator<ToggleButton> iterator = buttonList.iterator();
+		while (iterator.hasNext()) 
+		{
+			ToggleButton toggleButton = (ToggleButton) iterator.next();
+			toggleButton.setVisible(visible);
+		}
+	}
+	
+	@UiHandler(value={"northBoundLatitude", "southBoundLatitude", "eastBoundLongitude", "westBoundLongitude"})
+	void onBoxChanged(ChangeEvent event) {
+		drainageBasinLayer.destroyFeatures();
+		center(getGeographicBoundingBoxDTO(), false);
+	  }
 	
 }

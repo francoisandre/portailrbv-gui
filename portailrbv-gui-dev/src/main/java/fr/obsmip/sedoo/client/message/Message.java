@@ -27,6 +27,9 @@ public interface Message extends Messages {
     @Key("metadataCreating.title")
     public String metadataCreatingTitle();
     
+    @Key("metadataDisplaying.title")
+	public String metadataDisplayingTitle();
+    
     @Key("metadataEditing.resourceURL")
     public String metadataEditingResourceURL();
     
@@ -36,6 +39,15 @@ public interface Message extends Messages {
     @Key("metadataEditing.URLTableAddItemText")
     public String metadataEditingURLTableAddItemText();
     
+    @Key("metadataEditing.URLDescriptionDefaultValue")
+    public String metadataEditingURLDescriptionDefaultValue();
+    
+    @Key("metadataEditing.URLTableURLHeader")
+    public String metadataEditingURLTableURLHeader();
+    
+    @Key("metadataEditing.URLTableDescriptionHeader")
+    public String metadataEditingURLTableDescriptionHeader();
+        
     @Key("metadataEditing.resourceIdentifier")
     public String metadataEditingResourceIdentifier();
     
@@ -108,8 +120,11 @@ public interface Message extends Messages {
     @Key("systemView.header")
     public String systemViewHeader();
     
-    @Key("versionView.label")
-    public String versionViewLabel();
+    @Key("systemView.applicationVersion")
+    public String systemViewApplicationVersion();
+    
+    @Key("systemView.javaVersion")
+    public String systemViewJavaVersion();
     
     @Key("languageSwitching.title")
     public String languageSwitchingTitle();
@@ -402,6 +417,14 @@ public interface Message extends Messages {
 	@Key("metadataProviderMenu.manageMetadata")
 	public String metadataProviderMenuManageMetadata();
 	
+	@Key("metadataUserMenu")
+	public String metadataUserMenu();
+	
+	@Key("metadataProviderMenu")
+	public String metadataProviderMenu();
+	
+	@Key("administrationMenu")
+	public String administrationMenu();
 
 	
 }

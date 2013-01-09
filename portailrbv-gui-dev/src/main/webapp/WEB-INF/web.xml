@@ -38,8 +38,8 @@
   <!-- Servlets -->
   
   <servlet>
-		<servlet-name>versionServiceServlet</servlet-name>
-		<servlet-class>fr.obsmip.sedoo.server.service.VersionServiceImpl</servlet-class>
+		<servlet-name>systemServiceServlet</servlet-name>
+		<servlet-class>fr.obsmip.sedoo.server.service.SystemServiceImpl</servlet-class>
 	</servlet>
 	
 	<servlet>
@@ -74,8 +74,8 @@
   <!-- Servlet Mapping -->
   
   <servlet-mapping>
-		<servlet-name>versionServiceServlet</servlet-name>
-		<url-pattern>/portailrbv/version</url-pattern>
+		<servlet-name>systemServiceServlet</servlet-name>
+		<url-pattern>/portailrbv/system</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

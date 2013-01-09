@@ -30,8 +30,8 @@ public abstract class AbstractTable extends Composite implements ClickHandler{
 
 	protected List<? extends HasId> model;
 	protected FormattedCellTable<HasId> itemTable;
-	VerticalPanel tablePanel;
-	HorizontalPanel toolBarPanel;
+	protected  VerticalPanel tablePanel;
+	protected HorizontalPanel toolBarPanel;
 	private Image addImage;
 	protected Label addItemLabel;
 	private Image deleteImage=new Image(GlobalBundle.INSTANCE.delete());

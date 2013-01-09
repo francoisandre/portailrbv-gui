@@ -12,11 +12,11 @@ import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.service.MetadataService;
 import fr.obsmip.sedoo.core.RBVApplication;
 import fr.obsmip.sedoo.core.dao.MetadataDAO;
-import fr.obsmip.sedoo.core.domain.Metadata;
-import fr.obsmip.sedoo.core.domain.MetadataTools;
-import fr.obsmip.sedoo.core.domain.Summary;
 import fr.obsmip.sedoo.server.dao.MetadataDTODAO;
 import fr.obsmip.sedoo.server.service.dtotool.MetadataDTOTools;
+import fr.sedoo.commons.metadata.utils.domain.Metadata;
+import fr.sedoo.commons.metadata.utils.domain.MetadataTools;
+import fr.sedoo.commons.metadata.utils.domain.Summary;
 
 public class MetadataServiceImpl extends RemoteServiceServlet implements
 MetadataService {

@@ -10,15 +10,17 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
 import fr.obsmip.sedoo.client.ShortcutFactory;
+import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.SystemPlace;
-import fr.obsmip.sedoo.client.service.VersionService;
-import fr.obsmip.sedoo.client.service.VersionServiceAsync;
+import fr.obsmip.sedoo.client.service.SystemService;
+import fr.obsmip.sedoo.client.service.SystemServiceAsync;
 import fr.obsmip.sedoo.client.ui.SystemView;
+import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 import fr.obsmip.sedoo.client.ui.misc.Shortcut;
 
 public class SystemActivity extends RBVAbstractActivity {
 	
-	private final VersionServiceAsync versionService = GWT.create(VersionService.class);
+	private final SystemServiceAsync systemService = GWT.create(SystemService.class);
 
 	public SystemActivity(SystemPlace place, ClientFactory clientFactory) {
 		super(clientFactory);
@@ -27,23 +29,36 @@ public class SystemActivity extends RBVAbstractActivity {
 	@Override
 	public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
 		final SystemView versionView = clientFactory.getSystemView();
-		versionView.setVersion("En cours de recherche...");
+		versionView.setApplicationVersion("En cours de recherche...");
 		containerWidget.setWidget(versionView.asWidget());
-		broadcastActivityTitle(getMessage().systemViewHeader());
+		broadcastActivityTitle(Message.INSTANCE.systemViewHeader());
 		List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		shortcuts.add(ShortcutFactory.getSystemShortcut());
 		clientFactory.getBreadCrumb().refresh(shortcuts);
-		versionService.getVersion(new AsyncCallback<String>() {
+		systemService.getApplicationVersion(new AsyncCallback<String>() {
 
 			@Override
 			public void onSuccess(String version) {
-				versionView.setVersion(version);
+				versionView.setApplicationVersion(version);
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO onFailure à coder ..
+				DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
+			}
+		});
+		
+		systemService.getJavaVersion(new AsyncCallback<String>() {
+
+			@Override
+			public void onSuccess(String javaVersion) {
+				versionView.setJavaVersion(javaVersion);
+			}
+
+			@Override
+			public void onFailure(Throwable caught) {
+				DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
 			}
 		});
 	}

@@ -6,18 +6,19 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.ResizeComposite;
 import com.google.gwt.user.client.ui.Widget;
 
 import fr.obsmip.sedoo.client.GlobalBundle;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
-import fr.obsmip.sedoo.client.service.VersionService;
-import fr.obsmip.sedoo.client.service.VersionServiceAsync;
+import fr.obsmip.sedoo.client.message.Message;
+import fr.obsmip.sedoo.client.service.SystemService;
+import fr.obsmip.sedoo.client.service.SystemServiceAsync;
+import fr.obsmip.sedoo.client.ui.misc.DialogBoxTools;
 
 public class StatusBarViewImpl extends AbstractStyledResizeComposite implements StatusBarView {
 
-	private final VersionServiceAsync versionService = GWT.create(VersionService.class);
+	private final SystemServiceAsync versionService = GWT.create(SystemService.class);
 	
 	private final int NO_EVENT = 0;
 	
@@ -41,16 +42,16 @@ public class StatusBarViewImpl extends AbstractStyledResizeComposite implements 
 		applyCommonStyle();
 		
 		
-		versionService.getVersion(new AsyncCallback<String>() {
+		versionService.getApplicationVersion(new AsyncCallback<String>() {
 
 			@Override
-			public void onSuccess(String version) {
-				setVersion(version);
+			public void onSuccess(String applicationVersion) {
+				setVersion(applicationVersion);
 			}
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO onFailure à coder ..
+				DialogBoxTools.modalAlert(Message.INSTANCE.error(), Message.INSTANCE.anErrorHasHappened()+" : "+caught.getMessage());
 			}});
 	}
 

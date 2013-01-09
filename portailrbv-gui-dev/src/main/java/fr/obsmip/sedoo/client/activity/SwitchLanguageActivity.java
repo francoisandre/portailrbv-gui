@@ -7,6 +7,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 import fr.obsmip.sedoo.client.ClientFactory;
+import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.SwitchLanguagePlace;
 import fr.obsmip.sedoo.client.ui.LanguageSwitchingView;
 
@@ -18,7 +19,7 @@ public class SwitchLanguageActivity extends RBVAbstractActivity {
 	public SwitchLanguageActivity(SwitchLanguagePlace place, ClientFactory clientFactory) {
 		super(clientFactory);
 		setLocale(place.getLocale());
-		broadcastActivityTitle(getMessage().languageSwitchingTitle());
+		broadcastActivityTitle(Message.INSTANCE.languageSwitchingTitle());
 	}
 
 	@Override

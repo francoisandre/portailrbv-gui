@@ -4,6 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Widget;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import fr.obsmip.sedoo.client.domain.metadata.MetadataDTO;
 import fr.obsmip.sedoo.client.ui.misc.MapSelector;
@@ -33,6 +34,8 @@ public class GeographicalLocationTab extends AbstractTab {
 
 	@Override
 	public void edit(MetadataDTO metadata) {
+		enableEditMode();
+		mapSelector.reset();
 		mapSelector.setGeographicBoundingBoxDTO(metadata.getGeographicalLocationPart().getBox());
 	}
 
@@ -45,8 +48,25 @@ public class GeographicalLocationTab extends AbstractTab {
 	@Override
 	public void display(MetadataDTO metadata) {
 		
+		enableDisplayMode();
+		mapSelector.reset();
+		mapSelector.setGeographicBoundingBoxDTO(metadata.getGeographicalLocationPart().getBox());
+		
+	}
+
+	@Override
+	protected void enableEditMode() {
+		super.enableEditMode();
+		mapSelector.enableEditMode();
+	}
+
+	@Override
+	protected void enableDisplayMode() {
+		super.enableDisplayMode();
+		mapSelector.enableDisplayMode();
 	}
 	
 
+	
 
 }

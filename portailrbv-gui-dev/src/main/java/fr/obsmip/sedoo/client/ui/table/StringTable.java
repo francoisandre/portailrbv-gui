@@ -16,7 +16,7 @@ public class StringTable extends AbstractTable {
 	private String addItemText ="";
 	private String watermark="";
 	
-	private Column<HasId, String> valueColumn;
+	protected Column<HasId, String> valueColumn;
 
 	
 	@UiConstructor
@@ -102,7 +102,6 @@ public class StringTable extends AbstractTable {
 	public void reset() 
 	{
 		List<IdentifiedString> aux = new ArrayList<IdentifiedString>();
-		//aux.add(getDefaultIdentifiedString(1L));
 		init(aux);
 	}
 

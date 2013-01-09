@@ -80,6 +80,7 @@ public class DrainageBasinEditingViewImpl extends AbstractDTOEditingView impleme
 		siteTable.init(drainageBasinDTO.getSiteDTOs());
 		label.setText(drainageBasinDTO.getLabel());
 		//TODO Faire les climats et lytho
+		mapSelector.enableEditMode();
 		mapSelector.setGeographicBoundingBoxDTO(drainageBasinDTO.getGeographicBoundingBoxDTO());
 		mapSelector.setSites(drainageBasinDTO.getSiteDTOs());
 	}

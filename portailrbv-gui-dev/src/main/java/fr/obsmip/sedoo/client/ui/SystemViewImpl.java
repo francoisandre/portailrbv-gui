@@ -8,7 +8,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class SystemViewImpl extends AbstractSection implements SystemView {
 
-	@UiField Element version;
+	@UiField Element applicationVersion;
+	@UiField Element javaVersion;
 	
 	private static SystemViewImplUiBinder uiBinder = GWT
 			.create(SystemViewImplUiBinder.class);
@@ -22,8 +23,12 @@ public class SystemViewImpl extends AbstractSection implements SystemView {
 		applyCommonStyle();
 	}
 
-	public void setVersion(String version) {
-		this.version.setInnerText(version);		
+	public void setApplicationVersion(String version) {
+		this.applicationVersion.setInnerText(version);		
+	}
+	
+	public void setJavaVersion(String javaVersion) {
+		this.javaVersion.setInnerText(javaVersion);		
 	}
 
 }

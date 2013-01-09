@@ -14,6 +14,7 @@ import fr.obsmip.sedoo.client.domain.ObservatoryDTO;
 import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
+import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.ObservatoryEditingPlace;
 import fr.obsmip.sedoo.client.place.ObservatoryManagementPlace;
 import fr.obsmip.sedoo.client.service.ObservatoryService;
@@ -41,7 +42,7 @@ public class ObservatoryManagementActivity extends RBVAbstractActivity implement
 		observatoryManagementView = clientFactory.getObservatoryManagementView();
 		observatoryManagementView.setPresenter(this);
 		containerWidget.setWidget(observatoryManagementView.asWidget());
-		broadcastActivityTitle(getMessage().observatoryManagementViewHeader());
+		broadcastActivityTitle(Message.INSTANCE.observatoryManagementViewHeader());
 		List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());

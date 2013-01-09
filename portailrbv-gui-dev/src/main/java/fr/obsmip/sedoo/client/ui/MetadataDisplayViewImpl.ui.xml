@@ -49,7 +49,7 @@ overflow: auto;
 			<g:customHeader >
 				<g:Label text="{messageBundle.metadataEditingIdentificationTabHeader}" />
 			</g:customHeader>
-			<tabs:IdentificationTab ui:field="identificationTab" />
+			<tabs:IdentificationTab ui:field="identificationTab" mode="display" />
 		</g:tab>
 		<g:tab>
 			<g:customHeader >

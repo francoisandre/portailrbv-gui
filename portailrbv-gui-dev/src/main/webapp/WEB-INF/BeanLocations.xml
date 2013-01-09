@@ -17,14 +17,18 @@
 		</property>
 	</bean>
 	
-	<bean id="contactFAN" class="fr.obsmip.sedoo.core.domain.Contact" p:individualName="François ANDRE" p:organisationName="SEDOO (Service de données de l'OMP) - Observatoire Midi-Pyrénées" p:emailAddress="francois.andre@obs-mip.fr" />
-	<bean id="contactLFL" class="fr.obsmip.sedoo.core.domain.Contact" p:individualName="Laurence FLEURY" p:organisationName="SEDOO (Service de données de l'OMP) - Observatoire Midi-Pyrénées" p:emailAddress="Laurence.Fleury@obs-mip.fr" />
+	<bean id="contactFAN" class="fr.sedoo.commons.metadata.utils.domain.Contact" p:individualName="François ANDRE" p:organisationName="SEDOO (Service de données de l'OMP) - Observatoire Midi-Pyrénées" p:emailAddress="francois.andre@obs-mip.fr" />
+	<bean id="contactLFL" class="fr.sedoo.commons.metadata.utils.domain.Contact" p:individualName="Laurence FLEURY" p:organisationName="SEDOO (Service de données de l'OMP) - Observatoire Midi-Pyrénées" p:emailAddress="Laurence.Fleury@obs-mip.fr" />
 
 	<bean id="versionDAO"
 		class="fr.obsmip.sedoo.core.dao.WebConfigVersionDAO" />
-		
+	<!-- 
 	<bean id="metadataDAO"
 		class="fr.obsmip.sedoo.core.dao.GeoNetworkMetadataDAO" />
+	 -->	
+	 
+	 <bean id="metadataDAO"
+		class="fr.obsmip.sedoo.core.dao.FakeMetadataDAO" />
 		
 			
 	<bean id="userDAO"

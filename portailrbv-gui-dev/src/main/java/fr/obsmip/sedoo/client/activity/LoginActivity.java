@@ -3,12 +3,9 @@ package fr.obsmip.sedoo.client.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -20,6 +17,7 @@ import fr.obsmip.sedoo.client.event.ActionEndEvent;
 import fr.obsmip.sedoo.client.event.ActionEventConstant;
 import fr.obsmip.sedoo.client.event.ActionStartEvent;
 import fr.obsmip.sedoo.client.event.UserLoginEvent;
+import fr.obsmip.sedoo.client.message.Message;
 import fr.obsmip.sedoo.client.place.LoginPlace;
 import fr.obsmip.sedoo.client.place.WelcomePlace;
 import fr.obsmip.sedoo.client.service.UserService;
@@ -41,7 +39,7 @@ public class LoginActivity extends RBVAbstractActivity implements LoginView.Pres
 		loginView = clientFactory.getLoginView();
 		loginView.setPresenter(this);
 		containerWidget.setWidget(loginView.asWidget());
-		broadcastActivityTitle(getMessage().loginViewHeader());
+		broadcastActivityTitle(Message.INSTANCE.loginViewHeader());
 		List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 		shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 		shortcuts.add(ShortcutFactory.getLoginShortcut());

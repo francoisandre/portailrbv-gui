@@ -58,14 +58,14 @@ public class ObservatoryEditingActivity extends AbstractDTOEditingActivity imple
 		view = observatoryEditingView;
 		observatoryEditingView.setPresenter(this);
 		containerWidget.setWidget(observatoryEditingView.asWidget());
-		broadcastActivityTitle(getMessage().observatoryEditingViewModificationHeader());
+		broadcastActivityTitle(Message.INSTANCE.observatoryEditingViewModificationHeader());
 		if (mode.compareTo(Constants.MODIFY)==0)
 		{
 			observatoryService.getObservatoryById(observatoryId, new AsyncCallback<ObservatoryDTO>() {
 
 				@Override
 				public void onSuccess(ObservatoryDTO result) {
-					broadcastActivityTitle(getMessage().observatoryEditingViewModificationHeader());
+					broadcastActivityTitle(Message.INSTANCE.observatoryEditingViewModificationHeader());
 					  List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 						shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 						shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
@@ -87,7 +87,7 @@ public class ObservatoryEditingActivity extends AbstractDTOEditingActivity imple
 		}
 		else
 		{
-			broadcastActivityTitle(getMessage().observatoryEditingViewCreationHeader());
+			broadcastActivityTitle(Message.INSTANCE.observatoryEditingViewCreationHeader());
 			List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 			shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 			shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
@@ -158,7 +158,7 @@ public class ObservatoryEditingActivity extends AbstractDTOEditingActivity imple
 					previousHash = observatoryDTO.getHash();
 					ActionEndEvent e = new ActionEndEvent(ActionEventConstant.OBSERVATORY_SAVING_EVENT);
 			        clientFactory.getEventBus().fireEvent(e);
-			        broadcastActivityTitle(getMessage().observatoryEditingViewModificationHeader());
+			        broadcastActivityTitle(Message.INSTANCE.observatoryEditingViewModificationHeader());
 			        List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 			        shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 			        shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());
@@ -188,7 +188,7 @@ public class ObservatoryEditingActivity extends AbstractDTOEditingActivity imple
 					previousHash = observatoryDTO.getHash();
 					ActionEndEvent e = new ActionEndEvent(ActionEventConstant.OBSERVATORY_SAVING_EVENT);
 			        clientFactory.getEventBus().fireEvent(e);
-			        broadcastActivityTitle(getMessage().observatoryEditingViewModificationHeader());
+			        broadcastActivityTitle(Message.INSTANCE.observatoryEditingViewModificationHeader());
 			        List<Shortcut> shortcuts = new ArrayList<Shortcut>();
 			        shortcuts.add(ShortcutFactory.getWelcomeShortcut());
 			        shortcuts.add(ShortcutFactory.getObservatoryManagementShortcut());

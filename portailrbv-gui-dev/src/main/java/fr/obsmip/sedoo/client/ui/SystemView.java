@@ -4,5 +4,6 @@ import com.google.gwt.user.client.ui.IsWidget;
 
 public interface SystemView extends IsWidget {
 
-	void setVersion(String version);
+	void setApplicationVersion(String applicationVersion);
+	void setJavaVersion(String javaVersion);
 }
